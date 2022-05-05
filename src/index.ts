@@ -1,18 +1,17 @@
-import express, { Request, Response } from 'express'
-import morgan from 'morgan'
-import cors from 'cors'
-const app = express()
-const port = 3010
+import 'reflect-metadata'
+import app from './app'
+import { AppDataSource } from './db'
+const port: number = app.get('port')
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Hola mSundo 4!!')
-})
-
-// Middlewares
-app.use(cors())
-app.use(express.json())
-app.use(morgan('dev'))
-
-app.listen(port, () => {
-  console.log(`App listen at port ${port}`)
-})
+const main = async (): Promise<void> => {
+  try {
+    await AppDataSource.initialize()
+    console.log('Database Connect')
+    app.listen(port, () => {
+      console.log(`App listen at port ${port}`)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+void main()
