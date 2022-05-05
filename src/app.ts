@@ -1,6 +1,11 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import routers from './utils/router'
+import {
+  boomErroHandler,
+  errorHandler
+} from './middlewares/errors'
 const app = express()
 const port = 3010
 
@@ -12,8 +17,9 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 // Routers
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Hola mSundo 8!!')
-})
+routers(app)
+// errors
+app.use(boomErroHandler)
+app.use(errorHandler)
 
 export default app
