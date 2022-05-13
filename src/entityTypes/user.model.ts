@@ -1,7 +1,7 @@
-import { IBaseModelUUID } from './global/global.types'
+import { IBaseModel } from './global/global.types'
 import { IAuthModel } from './auth.models'
 import { IUserTypeModel } from './usertype.model'
-export interface IUserModel extends IBaseModelUUID {
+export interface IUserModel extends IBaseModel {
 
   name: string
   lastName: string

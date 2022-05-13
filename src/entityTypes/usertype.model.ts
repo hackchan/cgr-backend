@@ -1,5 +1,5 @@
-import { IBaseModelUUID } from './global/global.types'
+import { IBaseModel } from './global/global.types'
 
-export interface IUserTypeModel extends IBaseModelUUID {
+export interface IUserTypeModel extends IBaseModel{
   name: string
 }

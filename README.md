@@ -56,3 +56,10 @@ module.exports = {
 npm install typescript ts-loader @types/express -D
 ```
 
+# MIGRATIONS
+
+
+```bash
+npm run migration:generate src/migrations/gestion-usuarios
+npm run migration:run
+```

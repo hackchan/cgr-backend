@@ -6,12 +6,12 @@ export default {
     process.env.NODE_ENV === 'development',
   port: process.env.NODE_PORT ?? 3000,
   db: {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
     server: process.env.DB_HOST,
-    dbName: process.env.DB_NAME,
+    dbName: process.env.DB_DATABASE,
     port: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT
+    dialect: process.env.DB_DIALECT ?? 'msql'
   },
   api: {
     key: process.env.API_KEY,

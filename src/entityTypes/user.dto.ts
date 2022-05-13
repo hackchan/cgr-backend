@@ -1,7 +1,15 @@
 import { IUserModel } from './user.model'
 
 export interface CreateUserDTO extends Omit<IUserModel, 'id'|'createdAt'|'updatedAt'> {
-  tipoId: string
+  tipoId: number
+}
+
+export interface UpdateUserDTO extends Partial<CreateUserDTO> {
+
+}
+
+export interface ListUsers extends IUserModel {
+
 }
 
 // export interface UpdateProductDTO extends Partial<CreateProductDTO> {}

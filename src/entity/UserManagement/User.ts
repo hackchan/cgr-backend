@@ -1,11 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
 import { UserType } from './UserType'
 import { Auth } from './Auth'
+import { Model } from './Model'
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class User extends Model {
   @Column({ nullable: false })
   name: string
 
@@ -21,16 +19,11 @@ export class User {
   @Column({ nullable: true })
   image?: string
 
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
-
-  @OneToOne(() => Auth, auth => auth.user, { nullable: true, onDelete: 'SET NULL', onUpdate: 'CASCADE' })
+  @OneToOne(() => Auth, { cascade: true, onDelete: 'CASCADE', nullable: true })
+  @JoinColumn({ name: 'auth_id' })
   auth: Auth
 
-  @ManyToOne(() => UserType, userType => userType.users, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @ManyToOne(() => UserType, userType => userType.users, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true })
   @JoinColumn({ name: 'type_id' })
   tipo: UserType
 }
