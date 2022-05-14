@@ -7,7 +7,6 @@ const userTypeService = new UserTypeService()
 export const createUserType = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.body
-    console.log('user:', user)
     const respose = await userTypeService.create(user)
     success(req, res, respose, 201)
   } catch (error) {
@@ -49,7 +48,7 @@ export const deleteUserType = async (req: Request, res: Response, next: NextFunc
   try {
     const { id } = req.params
     const respose = await userTypeService.delete(parseInt(id, 10))
-    success(req, res, respose, 204)
+    success(req, res, respose, 200)
   } catch (error) {
     next(error)
   }
