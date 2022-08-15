@@ -1,9 +1,9 @@
-import { Entity, Column, OneToMany } from 'typeorm'
-import { User } from './User'
+import { Entity, Column } from 'typeorm'
+
 import { Model } from './Model'
 import { MinLength, IsString } from 'class-validator'
 
-@Entity()
+@Entity('user_type')
 export class UserType extends Model {
   @Column({ unique: true, nullable: false })
   @IsString()
@@ -13,6 +13,6 @@ export class UserType extends Model {
   @Column({ type: 'uuid' })
   uuid: string
 
-  @OneToMany(() => User, user => user.tipo)
-  users: User[]
+  // @OneToMany(() => User)
+  // users: User[]
 }

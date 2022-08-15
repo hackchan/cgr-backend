@@ -3,7 +3,7 @@ import { AppDataSource } from '../db'
 import { Repository } from 'typeorm'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
-import { CreateUserDTO, UpdateUserDTO } from '../entityTypes/user.dto'
+import { CreateUserDTO } from '../entityTypes/user.dto'
 
 // import { validate } from 'class-validator'
 
@@ -110,7 +110,7 @@ class UserService {
     }
   }
 
-  async update (id: number, changes: UpdateUserDTO): Promise<User> {
+  async update (id: number, changes: any): Promise<User> {
     try {
       const user = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)

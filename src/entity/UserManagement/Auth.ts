@@ -2,7 +2,7 @@ import { Entity, Column, OneToOne, BeforeInsert } from 'typeorm'
 import { User } from './User'
 import { Model } from './Model'
 import bcrypt from 'bcrypt'
-@Entity()
+@Entity('auth')
 export class Auth extends Model {
   @Column({ unique: true, nullable: false })
   username: string
@@ -13,6 +13,9 @@ export class Auth extends Model {
   @Column('simple-array', { default: '', nullable: false })
   role: string[]
 
+  @Column({ nullable: true, name: 'recovery_token' })
+  recoveryToken: string
+
   @OneToOne(() => User, user => user.auth, { onDelete: 'CASCADE' })
   user: User
 
@@ -22,6 +25,6 @@ export class Auth extends Model {
   }
 
   toJSON (): void {
-    return { ...this, password: undefined }
+    return { ...this, password: undefined, recoveryToken: undefined }
   }
 }

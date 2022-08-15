@@ -15,6 +15,14 @@ export default {
   },
   api: {
     key: process.env.API_KEY,
-    jwt: process.env.JWT_SECRET
+    jwt: process.env.JWT_SECRET,
+    refresh: process.env.JWT_REFRESH
+  },
+  mail: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT ?? 465,
+    secure: process.env.MAIL_SECURE === 'true'
   }
 }

@@ -38,6 +38,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
   try {
     const { id } = req.params
     const changes = req.body
+    console.log(changes)
     const respose = await userService.update(parseInt(id, 10), changes)
     success(req, res, respose)
   } catch (error) {

@@ -1,5 +1,6 @@
 import { BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, BeforeInsert } from 'typeorm'
 import { v4 as uuid } from 'uuid'
+
 export abstract class Model extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
