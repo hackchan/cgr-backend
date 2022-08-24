@@ -10,7 +10,7 @@ import { UserDTO } from '../entityTypes/user.dto'
 const service = new UserService()
 
 class AuthService {
-  async getUser (usernameORemail: string, password: string): Promise<UserDTO> {
+  async getUser (usernameORemail: string, password: string): Promise<Object> {
     const user = await service.findByUsernameOrEmail(usernameORemail)
     if (user === null) {
       throw boom.unauthorized()

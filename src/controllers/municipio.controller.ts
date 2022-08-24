@@ -7,7 +7,7 @@ const serviceMunicipio = new MunicipioService()
 
 export const getMunicipios = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response = await serviceMunicipio.findAll()
+    const response = await serviceMunicipio.findAll(req.query)
     success(req, res, response)
   } catch (error) {
     next(error)

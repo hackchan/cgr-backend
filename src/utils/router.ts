@@ -7,6 +7,7 @@ import satelitalRoutes from '../routes/satelital.routes'
 import departmentsRoutes from '../routes/department.routes'
 import municipiosRoutes from '../routes/municipio.routes'
 import municipiosTypesRoutes from '../routes/municipio-type.routes'
+import categorias from '../routes/entidad/categoria.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -18,6 +19,7 @@ const routers = (app: any): void => {
   router.use('/department', departmentsRoutes)
   router.use('/municipio', municipiosRoutes)
   router.use('/municipio-types', municipiosTypesRoutes)
+  router.use('/categoria', categorias)
 }
 
 export default routers

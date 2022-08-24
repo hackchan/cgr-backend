@@ -1,11 +1,741 @@
 import { Departamento } from '../entity/Departments/Departamento'
 import { Satelital } from '../entity/Departments/Satelital'
+import { Categoria } from '../entity/Entidad/Categoria'
+import { Sector } from '../entity/Entidad/Sector'
+import { Subsector } from '../entity/Entidad/Subsector'
+import { EntidadControl } from '../entity/Entidad/EntidadControl'
 import { TypeMunicipio } from '../entity/Departments/TypeMunicipio'
 import { Municipio } from '../entity/Departments/Municipio'
+import { UserType } from '../entity/UserManagement/UserType'
+import { User } from '../entity/UserManagement/User'
+import { Auth } from '../entity/UserManagement/Auth'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class seedDeparts1658932933045 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.manager.insert(Categoria, [
+      {
+        id: 1,
+        name: 'PRIMERA CATEGORIA'
+      },
+      {
+        id: 2,
+        name: 'SEGUNDA CATEGORIA'
+      },
+      {
+        id: 3,
+        name: 'TERCERA CATEGORIA'
+      },
+      {
+        id: 4,
+        name: 'CUARTA CATEGORIA'
+      },
+      {
+        id: 6,
+        name: 'SEXTA CATEGORIA'
+      },
+      {
+        id: 7,
+        name: 'ESPECIAL'
+      }
+
+    ])
+
+    await queryRunner.manager.insert(Sector, [
+      {
+        id: 1,
+        name: 'AGROPECUARIO',
+        initial: 'AGRO'
+      },
+      {
+        id: 2,
+        name: 'COMERCIO Y DESARROLLO REGIONAL',
+        initial: 'CODR'
+      },
+      {
+        id: 3,
+        name: 'DEFENSA Y SEGURIDAD',
+        initial: 'DESE'
+      },
+      {
+        id: 4,
+        name: 'INFRAESTRUCTURA',
+        initial: 'INFR'
+      },
+      {
+        id: 5,
+        name: 'EDUCACIÓN, CIENCIA Y TECNOLOGÍA, CULTURA, RECREACIÓN Y DEPORTE',
+        initial: 'ECTC'
+      },
+      {
+        id: 6,
+        name: 'GESTIÓN PÚBLICA E INSTITUCIONES FINANCIERAS',
+        initial: 'GPIF'
+      },
+      {
+        id: 7,
+        name: 'INCLUSIÓN SOCIAL',
+        initial: 'INSO'
+      },
+      {
+        id: 8,
+        name: 'JUSTICIA',
+        initial: 'JUST'
+      },
+      {
+        id: 9,
+        name: 'MEDIO AMBIENTE',
+        initial: 'MEAM'
+      },
+      {
+        id: 10,
+        name: 'MINAS Y ENERGÍA',
+        initial: 'MIEN'
+      },
+      {
+        id: 11,
+        name: 'SALUD',
+        initial: 'SALD'
+      },
+      {
+        id: 12,
+        name: 'TECNOLOGIAS DE LA INFORMACION Y LAS COMUNICACIONES.',
+        initial: 'TICS'
+      },
+      {
+        id: 13,
+        name: 'TRABAJO',
+        initial: 'TRAB'
+      },
+      {
+        id: 14,
+        name: 'VIVIENDA Y SANEAMIENTO BÁSICO',
+        initial: 'VISB'
+      },
+      {
+        id: 15,
+        name: 'TRANSVERSAL',
+        initial: 'TRSV'
+      }
+    ])
+    await queryRunner.manager.insert(Subsector, [
+      {
+        id: 1,
+        name: 'Desarrollo Agroindustrial y Comercialización',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 2,
+        name: 'Fomento y Desarrollo Rural y Agropecuario',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 3,
+        name: 'Investigación, Desarrollo Tecnológico y Transferencia de Tecnología',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 4,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 5,
+        name: 'Regulador de Políticas',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 6,
+        name: 'Sujetos de Control en Liquidación',
+        sector: {
+          id: 1
+        }
+      },
+      {
+        id: 7,
+        name: 'Desarrollo Regional',
+        sector: {
+          id: 2
+        }
+      },
+      {
+        id: 8,
+        name: 'Industria, Comercio',
+        sector: {
+          id: 2
+        }
+      },
+      {
+        id: 9,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 2
+        }
+      },
+      {
+        id: 10,
+        name: 'Sujetos de Control en Liquidación',
+        sector: {
+          id: 2
+        }
+      },
+      {
+        id: 11,
+        name: 'Turismo',
+        sector: {
+          id: 2
+        }
+      },
+      {
+        id: 12,
+        name: 'Regulador Defensa',
+        sector: {
+          id: 3
+        }
+      },
+      {
+        id: 13,
+        name: 'Seguridad',
+        sector: {
+          id: 3
+        }
+      },
+      {
+        id: 14,
+        name: 'Gestión del Riesgo y Adaptación al Cambio Climático',
+        sector: {
+          id: 4
+        }
+      },
+      {
+        id: 15,
+        name: 'Otros sujetos de Control - Identificación y Proceso Electoral',
+        sector: {
+          id: 4
+        }
+      },
+      {
+        id: 16,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 4
+        }
+      },
+      {
+        id: 17,
+        name: 'Transporte',
+        sector: {
+          id: 4
+        }
+      },
+      {
+        id: 18,
+        name: 'Consejos',
+        sector: {
+          id: 5
+        }
+      },
+      {
+        id: 19,
+        name: 'Cultura',
+        sector: {
+          id: 5
+        }
+      },
+      {
+        id: 20,
+        name: 'Educación – Central',
+        sector: {
+          id: 5
+        }
+      },
+      {
+        id: 21,
+        name: 'Educación – Instituciones de Educación Superior  ',
+        sector: {
+          id: 5
+        }
+      },
+      {
+        id: 22,
+        name: 'Sistema Nacional del Deporte ',
+        sector: {
+          id: 5
+        }
+      },
+      {
+        id: 23,
+        name: 'Administración Pública',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 24,
+        name: 'Hacienda',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 25,
+        name: 'Instituciones Financieras',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 26,
+        name: 'Legislativo ',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 27,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 28,
+        name: 'Registro, Identificación y Proceso Electoral',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 29,
+        name: 'Regulación, Supervisión y Control',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 30,
+        name: 'Relaciones Exteriores ',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 31,
+        name: 'Transversal',
+        sector: {
+          id: 6
+        }
+      },
+      {
+        id: 32,
+        name: 'Social',
+        sector: {
+          id: 7
+        }
+      },
+      {
+        id: 33,
+        name: 'Administración de Justicia',
+        sector: {
+          id: 8
+        }
+      },
+      {
+        id: 34,
+        name: 'Órganos de Control',
+        sector: {
+          id: 8
+        }
+      },
+      {
+        id: 35,
+        name: 'Sistema Integral de Verdad, Justicia, Reparación y no Repetición',
+        sector: {
+          id: 8
+        }
+      },
+      {
+        id: 36,
+        name: 'Asociaciones, Corporaciones Civiles',
+        sector: {
+          id: 9
+        }
+      },
+      {
+        id: 37,
+        name: 'Autoridades Ambientales',
+        sector: {
+          id: 9
+        }
+      },
+      {
+        id: 38,
+        name: 'Formulador y Regulador de las Políticas',
+        sector: {
+          id: 9
+        }
+      },
+      {
+        id: 39,
+        name: 'Investigaciones Científicas Ambientales e Información Ambiental',
+        sector: {
+          id: 9
+        }
+      },
+      {
+        id: 40,
+        name: 'Patrimonios Naturales ',
+        sector: {
+          id: 9
+        }
+      },
+      {
+        id: 41,
+        name: 'en Liquidación ',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 42,
+        name: 'Energía',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 43,
+        name: 'Hidrocarburos',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 44,
+        name: 'Minas',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 45,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 46,
+        name: 'Transversal',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 47,
+        name: 'en Liquidación',
+        sector: {
+          id: 10
+        }
+      },
+      {
+        id: 48,
+        name: 'Entidades Adaptadas al Sistema de Seguridad Social en Salud',
+        sector: {
+          id: 11
+        }
+      },
+      {
+        id: 49,
+        name: 'EPS',
+        sector: {
+          id: 11
+        }
+      },
+      {
+        id: 50,
+        name: 'Otras Entidades Supradepartamentales',
+        sector: {
+          id: 11
+        }
+      },
+      {
+        id: 51,
+        name: 'Prestadores de Servicios de Salud ',
+        sector: {
+          id: 11
+        }
+      },
+      {
+        id: 52,
+        name: 'Salud y Proteccción Social - Central',
+        sector: {
+          id: 11
+        }
+      },
+      {
+        id: 53,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 12
+        }
+      },
+      {
+        id: 54,
+        name: 'Telecomunicaciones',
+        sector: {
+          id: 12
+        }
+      },
+      {
+        id: 55,
+        name: 'Administradoras de Riesgos Laborales',
+        sector: {
+          id: 13
+        }
+      },
+      {
+        id: 56,
+        name: 'Cajas de Compensación Familiar',
+        sector: {
+          id: 13
+        }
+      },
+      {
+        id: 57,
+        name: 'Central',
+        sector: {
+          id: 13
+        }
+      },
+      {
+        id: 58,
+        name: 'Pensiones Administradoras de Regímenes de Prima Media, Especiales y Exceptuados',
+        sector: {
+          id: 13
+        }
+      },
+      {
+        id: 59,
+        name: 'Pensiones, Administradoras de Ahorro Individual',
+        sector: {
+          id: 13
+        }
+      },
+      {
+        id: 60,
+        name: 'Patrimonios Autónomos',
+        sector: {
+          id: 14
+        }
+      },
+      {
+        id: 61,
+        name: 'Vivienda',
+        sector: {
+          id: 14
+        }
+      },
+      {
+        id: 62,
+        name: 'Transversal',
+        sector: {
+          id: 15
+        }
+      }
+    ])
+
+    await queryRunner.manager.insert(UserType, [
+      {
+        id: 1,
+        name: 'CGR'
+
+      },
+      {
+        id: 2,
+        name: 'TERRITORIAL'
+
+      },
+      {
+        id: 3,
+        name: 'SECTORIZADA'
+
+      },
+      {
+        id: 4,
+        name: 'OTRO'
+
+      }
+
+    ])
+    await queryRunner.manager.insert(Auth, [
+      {
+        id: 1,
+        username: 'hackchan',
+        password: 'Colombia2020,.*',
+        uuid: '618b2be8-2360-11ed-861d-0242ac120002',
+        role: ['admin']
+
+      },
+      {
+        id: 2,
+        username: 'montano',
+        password: 'montano',
+        uuid: '793a8dec-2360-11ed-861d-0242ac120002',
+        role: ['info']
+
+      }
+
+    ])
+    await queryRunner.manager.insert(User, [
+      {
+        id: 1,
+        name: 'FABIO',
+        lastName: 'ROJAS',
+        phone: '318389530',
+        email: 'fabio.rojas@contraloria.gov.co',
+        uuid: '9da70f0c-2360-11ed-861d-0242ac120002',
+        tipo: {
+          id: 1
+        },
+        auth: {
+          id: 1
+        }
+
+      },
+      {
+        id: 2,
+        name: 'HERNANDO',
+        lastName: 'MONTANO',
+        phone: '3204463154',
+        email: 'hernando.montano@contraloria.gov.co',
+        uuid: 'a9ddcb3a-2360-11ed-861d-0242ac120002',
+        tipo: {
+          id: 1
+        },
+        auth: {
+          id: 2
+        }
+
+      }
+
+    ])
+
+    await queryRunner.manager.insert(EntidadControl, [
+      {
+        id: 1,
+        name: 'Gobernacion de Arauca',
+        nit: 800102838,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 4
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 1
+        }
+
+      },
+      {
+        id: 2,
+        name: 'Gobernacion de Boyaca',
+        nit: 891800498,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 1
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 1
+        }
+
+      },
+      {
+        id: 3,
+        name: 'Gobernacion de Casanare',
+        nit: 892099216,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 3
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 1
+        }
+
+      },
+      {
+        id: 4,
+        name: 'Gobernacion de Norte de Santander',
+        nit: 800103927,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 2
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 2
+        }
+
+      },
+      {
+        id: 5,
+        name: 'Gobernacion de Santander',
+        nit: 890201235,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 1
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 2
+        }
+
+      },
+      {
+        id: 6,
+        name: 'Alcaldia Municipal de Arauca',
+        nit: 800113549,
+        doctec: true,
+        // cgn: null
+        categoria: {
+          id: 4
+        },
+        subsector: {
+          id: 23
+        },
+        user: {
+          id: 1
+        }
+
+      }
+
+    ])
     await queryRunner.manager.insert(TypeMunicipio, [
       {
         id: 1,

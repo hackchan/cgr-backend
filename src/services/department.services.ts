@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../db'
@@ -32,35 +33,46 @@ class UserDepartment {
         where: {},
         order: {}
       }
-      const { take, skip, filters, sorting } = query
-      const filtersColumn = JSON.parse(filters) ?? null
-      const sortingColumn = JSON.parse(sorting) ?? null
-      console.log('filtersColumn:', filtersColumn)
-      const globalFilter = query.globalFilter ?? null
-      let isGlobalFilter = false
+      const { take, skip, globalFilter, filters, sorting } = query
 
-      if (globalFilter !== null) {
-        if (globalFilter === 'undefined') {
-          isGlobalFilter = false
-        } else {
-          isGlobalFilter = globalFilter.length > 0
+      let isGlobalFilter = false
+      if (globalFilter && globalFilter.length > 0) {
+        isGlobalFilter = true
+      }
+
+      let isFilters = false
+      let filtersColumn = null
+      if (filters) {
+        filtersColumn = JSON.parse(filters) ?? null
+        if (filters && filtersColumn.length > 0) {
+          isFilters = true
         }
       }
 
-      if (take !== null && skip !== null && !isGlobalFilter) {
+      let isSorting = false
+      let sortingColumn = null
+      if (sorting) {
+        sortingColumn = JSON.parse(sorting) ?? null
+        if (sorting && sortingColumn.length > 0) {
+          isSorting = true
+        }
+      }
+
+      if (take !== null && skip !== null && !isGlobalFilter && !isFilters && !isSorting) {
         options.take = take
         options.skip = skip
         options.cache = true
       }
       if (isGlobalFilter) {
-        options.where = [{ id: Like(`%${query.globalFilter}%`) },
-          { name: Like(`%${query.globalFilter}%`) },
-          { latitude: Like(`%${query.globalFilter}%`) },
-          { longitude: Like(`%${query.globalFilter}%`) },
-          { satelital: { name: Like(`%${query.globalFilter}%`) } }]
+        options.where = [
+          { id: Like(`%${globalFilter}%`) },
+          { name: Like(`%${globalFilter}%`) },
+          { latitude: Like(`%${globalFilter}%`) },
+          { longitude: Like(`%${globalFilter}%`) },
+          { satelital: { name: Like(`%${globalFilter}%`) } }]
       }
 
-      if (filtersColumn.length > 0) {
+      if (isFilters) {
         const pushWhere: any[] = []
         filtersColumn.forEach((obj: any) => {
           const bus: any = {}
@@ -75,7 +87,7 @@ class UserDepartment {
         options.where = pushWhere
       }
 
-      if (sortingColumn.length > 0) {
+      if (isSorting) {
         const sort: any = {}
         sortingColumn.forEach((obj: any) => {
           if (obj.id !== 'satelital') {
@@ -84,7 +96,7 @@ class UserDepartment {
             sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
           }
         })
-        console.log('sort:', sort)
+
         options.order = sort
       }
 

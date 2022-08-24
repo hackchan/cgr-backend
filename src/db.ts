@@ -7,6 +7,12 @@ import { Satelital } from './entity/Departments/Satelital'
 import { Departamento } from './entity/Departments/Departamento'
 import { Municipio } from './entity/Departments/Municipio'
 import { TypeMunicipio } from './entity/Departments/TypeMunicipio'
+import { Categoria } from './entity/Entidad/Categoria'
+import { Sector } from './entity/Entidad/Sector'
+import { Subsector } from './entity/Entidad/Subsector'
+import { EntidadControl } from './entity/Entidad/EntidadControl'
+import { Email } from './entity/Entidad/Email'
+import { Telefono } from './entity/Entidad/Telefono'
 // import { User } from './entity/User'
 export const AppDataSource = new DataSource({
   type: 'mssql',
@@ -29,7 +35,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType]
+  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],
   // subscribers: ['dist/subscriber/**/*.js']

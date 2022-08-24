@@ -1,17 +1,15 @@
-import { Entity, Column } from 'typeorm'
-
-import { Model } from './Model'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { MinLength, IsString } from 'class-validator'
 
 @Entity('user_type')
-export class UserType extends Model {
+export class UserType {
+  @PrimaryGeneratedColumn()
+  id: number
+
   @Column({ unique: true, nullable: false })
   @IsString()
   @MinLength(3)
   name: string
-
-  @Column({ type: 'uuid' })
-  uuid: string
 
   // @OneToMany(() => User)
   // users: User[]
