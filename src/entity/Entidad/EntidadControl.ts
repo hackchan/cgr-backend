@@ -4,7 +4,7 @@ import { Email } from './Email'
 import { Subsector } from './Subsector'
 import { Telefono } from './Telefono'
 import { Municipio } from '../Departments/Municipio'
-
+import { Obra } from '../Matriz/Obras/Obra'
 @Entity()
 export class EntidadControl {
   @PrimaryGeneratedColumn()
@@ -35,6 +35,9 @@ export class EntidadControl {
 
   @OneToMany(() => Telefono, telefono => telefono.entidad, { cascade: true })
   telefonos: Telefono[]
+
+  @OneToMany(() => Obra, obra => obra.entidad, { cascade: true })
+  obras: Obra[]
 
   @ManyToOne(() => Municipio, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_id' })
