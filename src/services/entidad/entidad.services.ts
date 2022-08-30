@@ -71,7 +71,10 @@ class EntidadDTO {
           { cgn: Like(`%${globalFilter}%`) },
           { categoria: { name: Like(`%${globalFilter}%`) } },
           { subsector: { name: Like(`%${globalFilter}%`) } },
-          { municipio: { name: Like(`%${globalFilter}%`) } }
+          {
+            municipio: [{ name: Like(`%${globalFilter}%`) },
+              { department: { responsable: { name: Like(`%${globalFilter}%`) } } }]
+          }
         ]
       }
 
