@@ -1,7 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { Departamento } from './Departamento'
 import { TypeMunicipio } from './TypeMunicipio'
+import { EntidadControl } from '../Entidad/EntidadControl'
 import { IsLatitude, IsLongitude } from 'class-validator'
+
 @Entity('municipio')
 export class Municipio {
   @PrimaryGeneratedColumn()
@@ -34,4 +36,7 @@ export class Municipio {
   @ManyToOne(() => TypeMunicipio, type => type.municipios, { nullable: true })
   @JoinColumn({ name: 'type_id' })
   tipo: TypeMunicipio
+
+  @OneToMany(() => EntidadControl, (entidad) => entidad.municipio)
+  entidad: EntidadControl[]
 }

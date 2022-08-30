@@ -23,6 +23,14 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
     next(error)
   }
 }
+export const getUsersCGR = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const respose = await userService.findByUserCGR()
+    success(req, res, respose)
+  } catch (error) {
+    next(error)
+  }
+}
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.body

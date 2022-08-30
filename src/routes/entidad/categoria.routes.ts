@@ -6,7 +6,10 @@ const router = Router()
 
 router.get('/', getCategorias as RequestHandler)
 router.get('/:id', validatorHandler(getCategorySchema, 'params'), getCategoria as RequestHandler)
-router.post('/', createCategoria as RequestHandler)
-router.patch('/:id', updateCategoria as RequestHandler)
+router.post('/', validatorHandler(createCategorySchema, 'body'), createCategoria as RequestHandler)
+router.patch('/:id',
+  validatorHandler(getCategorySchema, 'params'),
+  validatorHandler(updateCategorySchema, 'body'),
+  updateCategoria as RequestHandler)
 router.delete('/:id', deleteCategoria as RequestHandler)
 export default router

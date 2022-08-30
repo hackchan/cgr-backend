@@ -78,35 +78,37 @@ class UserMunicipio {
           { name: Like(`%${globalFilter}%`) },
           { latitude: Like(`%${globalFilter}%`) },
           { longitude: Like(`%${globalFilter}%`) },
-          { department: { name: Like(`%${globalFilter}%`) } }]
+          { isCapital: Like(`%${globalFilter}%`) },
+          { department: { name: Like(`%${globalFilter}%`) } },
+          { tipo: { name: Like(`%${globalFilter}%`) } }]
       }
 
       if (isFilters) {
-        const pushWhere: any[] = []
-        filtersColumn.forEach((obj: any) => {
-          const bus: any = {}
-          if (obj.id !== 'department' || obj.id !== 'tipo') {
-            bus[obj.id] = Like(`%${obj.value}%`)
-            pushWhere.push(bus)
-          } else {
-            pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
-          }
-        })
+        // const pushWhere: any[] = []
+        // filtersColumn.forEach((obj: any) => {
+        //   const bus: any = {}
+        //   if (obj.id !== 'department' || obj.id !== 'tipo') {
+        //     bus[obj.id] = Like(`%${obj.value}%`)
+        //     pushWhere.push(bus)
+        //   } else {
+        //     pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+        //   }
+        // })
 
-        options.where = pushWhere
+        // options.where = pushWhere
       }
 
       if (isSorting) {
-        const sort: any = {}
-        sortingColumn.forEach((obj: any) => {
-          if (obj.id !== 'department' || obj.id !== 'tipo') {
-            sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
-          } else {
-            sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
-          }
-        })
+        // const sort: any = {}
+        // sortingColumn.forEach((obj: any) => {
+        //   if (obj.id !== 'department' || obj.id !== 'tipo') {
+        //     sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+        //   } else {
+        //     sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
+        //   }
+        // })
 
-        options.order = sort
+        // options.order = sort
       }
 
       const departList = await this.repositorioMunicipio.find(options)

@@ -1,24 +1,23 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
-import { AppDataSource } from '../db'
+import { AppDataSource } from '../../db'
 import { Repository, Like } from 'typeorm'
-import { Departamento } from '../entity/Departments/Departamento'
-import { CreateUserDTO } from '../entityTypes/user.dto'
+import { EntidadControl } from '../../entity/Entidad/EntidadControl'
 
 // import { validate } from 'class-validator'
 
-class UserDepartment {
-  readonly repositorioDepartment: Repository<Departamento>
+class EntidadDTO {
+  readonly repositorioEntidad: Repository<EntidadControl>
 
   constructor () {
-    this.repositorioDepartment = AppDataSource.getRepository(Departamento)
+    this.repositorioEntidad = AppDataSource.getRepository(EntidadControl)
   }
 
-  async create (data: CreateUserDTO): Promise<Departamento> {
+  async create (data: object): Promise<EntidadControl> {
     try {
-      const newDepart = this.repositorioDepartment.create(data)
-      const result = await this.repositorioDepartment.save(newDepart)
+      const newEntidad = this.repositorioEntidad.create(data)
+      const result = await this.repositorioEntidad.save(newEntidad)
       return result
     } catch (error) {
       console.log(error)
@@ -29,7 +28,7 @@ class UserDepartment {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { satelital: true, responsable: true },
+        relations: { subsector: { sector: true }, categoria: true, municipio: { department: { responsable: true } } },
         where: {},
         order: {}
       }
@@ -66,11 +65,13 @@ class UserDepartment {
       if (isGlobalFilter) {
         options.where = [
           { id: Like(`%${globalFilter}%`) },
+          { nit: Like(`%${globalFilter}%`) },
           { name: Like(`%${globalFilter}%`) },
-          { latitude: Like(`%${globalFilter}%`) },
-          { longitude: Like(`%${globalFilter}%`) },
-          { satelital: { name: Like(`%${globalFilter}%`) } },
-          { responsable: [{ name: Like(`%${globalFilter}%`) }, { lastName: Like(`%${globalFilter}%`) }] }
+          { doctec: Like(`%${globalFilter}%`) },
+          { cgn: Like(`%${globalFilter}%`) },
+          { categoria: { name: Like(`%${globalFilter}%`) } },
+          { subsector: { name: Like(`%${globalFilter}%`) } },
+          { municipio: { name: Like(`%${globalFilter}%`) } }
         ]
       }
 
@@ -78,12 +79,8 @@ class UserDepartment {
       //   const pushWhere: any[] = []
       //   filtersColumn.forEach((obj: any) => {
       //     const bus: any = {}
-      //     if (obj.id !== 'satelital') {
-      //       bus[obj.id] = Like(`%${obj.value}%`)
-      //       pushWhere.push(bus)
-      //     } else {
-      //       pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
-      //     }
+      //     bus[obj.id] = Like(`%${obj.value}%`)
+      //     pushWhere.push(bus)
       //   })
 
       //   options.where = pushWhere
@@ -92,19 +89,15 @@ class UserDepartment {
       // if (isSorting) {
       //   const sort: any = {}
       //   sortingColumn.forEach((obj: any) => {
-      //     if (obj.id !== 'satelital') {
-      //       sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
-      //     } else {
-      //       sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
-      //     }
+      //     sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
       //   })
 
       //   options.order = sort
       // }
 
-      const departList = await this.repositorioDepartment.find(options)
-      const cantidad = await this.repositorioDepartment.count()
-      const response = { cantidad, data: departList }
+      const entidadList = await this.repositorioEntidad.find(options)
+      const cantidad = await this.repositorioEntidad.count()
+      const response = { cantidad, data: entidadList }
       // console.log(response)
       return response
     } catch (error) {
@@ -113,31 +106,29 @@ class UserDepartment {
     }
   }
 
-  async findOne (id: number): Promise<Departamento> {
+  async findOne (id: number): Promise<EntidadControl> {
     try {
-      const department = await this.repositorioDepartment.findOne({
+      const entidad = await this.repositorioEntidad.findOne({
         where:
         { id }
       })
-      if (department == null) {
-        throw boom.notFound('Departamento no encontrado')
+      if (entidad == null) {
+        throw boom.notFound('Entidad no encontrada')
       }
 
-      return department
+      return entidad
     } catch (error) {
       console.log(error)
       throw error
     }
   }
 
-  async update (id: number, changes: any): Promise<Departamento> {
+  async update (id: number, changes: any): Promise<EntidadControl> {
     try {
-      const department = await this.findOne(id)
+      const sector = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
-      console.log('departamento:', department)
-      console.log('changes:', changes)
-      this.repositorioDepartment.merge(department, changes)
-      const result = await this.repositorioDepartment.save(department)
+      this.repositorioEntidad.merge(sector, changes)
+      const result = await this.repositorioEntidad.save(sector)
       return result
     } catch (error) {
       console.log(error)
@@ -145,10 +136,10 @@ class UserDepartment {
     }
   }
 
-  async delete (id: number): Promise<Departamento> {
+  async delete (id: number): Promise<EntidadControl> {
     try {
-      const department = await this.findOne(id)
-      const response = this.repositorioDepartment.remove(department)
+      const entidad = await this.findOne(id)
+      const response = this.repositorioEntidad.remove(entidad)
       return await response
     } catch (error) {
       console.log(error)
@@ -157,4 +148,4 @@ class UserDepartment {
   }
 }
 
-export default UserDepartment
+export default EntidadDTO

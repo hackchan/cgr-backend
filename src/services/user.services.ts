@@ -31,7 +31,7 @@ class UserService {
 
   async findAll (): Promise<User[]> {
     try {
-      const userList = await this.repositorioUser.find({ relations: ['auth'] })
+      const userList = await this.repositorioUser.find({ relations: ['auth', 'tipo'] })
 
       return userList
       // const userList = AppDataSource.manager
@@ -104,6 +104,23 @@ class UserService {
       return user
       // const response = JSON.parse(JSON.stringify(user))
       // return response
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findByUserCGR (): Promise<User[]> {
+    try {
+      const user = await this.repositorioUser.find({
+        relations: ['tipo'],
+        where: [{ tipo: { name: 'CGR' } }]
+      })
+
+      if (user == null) {
+        throw boom.notFound('usuarios de tipo CGR no existen')
+      }
+      return user
     } catch (error) {
       console.log(error)
       throw error

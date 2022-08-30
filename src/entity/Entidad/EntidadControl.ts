@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
-import { User } from '../UserManagement/User'
 import { Categoria } from './Categoria'
 import { Email } from './Email'
 import { Subsector } from './Subsector'
 import { Telefono } from './Telefono'
+import { Municipio } from '../Departments/Municipio'
 
 @Entity()
 export class EntidadControl {
@@ -30,13 +30,13 @@ export class EntidadControl {
   @JoinColumn({ name: 'subsector_id' })
   subsector: Subsector
 
-  @ManyToOne(() => User, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'user_id' })
-  user: User
-
   @OneToMany(() => Email, email => email.entidad, { cascade: true })
   emails: Email[]
 
   @OneToMany(() => Telefono, telefono => telefono.entidad, { cascade: true })
   telefonos: Telefono[]
+
+  @ManyToOne(() => Municipio, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'municipio_id' })
+  municipio: Municipio
 }

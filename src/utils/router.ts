@@ -8,6 +8,9 @@ import departmentsRoutes from '../routes/department.routes'
 import municipiosRoutes from '../routes/municipio.routes'
 import municipiosTypesRoutes from '../routes/municipio-type.routes'
 import categorias from '../routes/entidad/categoria.routes'
+import sector from '../routes/entidad/sector.routes'
+import subsector from '../routes/entidad/subsector.routes'
+import entidad from '../routes/entidad/entidad.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -20,6 +23,9 @@ const routers = (app: any): void => {
   router.use('/municipio', municipiosRoutes)
   router.use('/municipio-types', municipiosTypesRoutes)
   router.use('/categoria', categorias)
+  router.use('/sector', sector)
+  router.use('/subsector', subsector)
+  router.use('/entidad', entidad)
 }
 
 export default routers
