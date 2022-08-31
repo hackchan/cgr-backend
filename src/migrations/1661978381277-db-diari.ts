@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class diariDb1661866043523 implements MigrationInterface {
-    name = 'diariDb1661866043523'
+export class dbDiari1661978381277 implements MigrationInterface {
+    name = 'dbDiari1661978381277'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "user_type" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_f70648ef30041d66995a0394afc" UNIQUE ("name"), CONSTRAINT "PK_1f9c6d05869e094dee8fa7d392a" PRIMARY KEY ("id"))`);
@@ -15,6 +15,10 @@ export class diariDb1661866043523 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "subsector" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "sector_id" int NOT NULL, CONSTRAINT "PK_4794e38ae081bb0fad21493b4ca" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "telefono" ("id" int NOT NULL IDENTITY(1,1), "numero" nvarchar(255) NOT NULL, "contacto" nvarchar(255), "cargo" nvarchar(255), "entidad_id" int NOT NULL, CONSTRAINT "UQ_3c5d11e0890dc44ab81868640eb" UNIQUE ("numero"), CONSTRAINT "PK_58f2dfd7044b4f5e50a1827c756" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "entidad_control" ("id" int NOT NULL IDENTITY(1,1), "nit" int NOT NULL, "name" nvarchar(255) NOT NULL, "doctec" bit, "cgn" nvarchar(255), "categoria_id" int, "subsector_id" int NOT NULL, "municipio_id" int NOT NULL, CONSTRAINT "UQ_5a32fe49fce8b3ddeafe3608698" UNIQUE ("nit"), CONSTRAINT "PK_4ccd2862deb3f64fa3fac923f22" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "estado_obra" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_24af99705aa2c85df51bc93ca76" UNIQUE ("name"), CONSTRAINT "PK_f9f78b6a47ec7626e5bdb088f43" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "sector_obra" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_737ef5229e5153b5cdce670ee5d" UNIQUE ("name"), CONSTRAINT "PK_4f5dd63f78216304fa47a45a2ca" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "origen_recurso" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_e555111d7d289cd352402680188" UNIQUE ("name"), CONSTRAINT "PK_dfa0d6293ceca417fea8b944198" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "matriz_obra" ("id" int NOT NULL IDENTITY(1,1), "id_bpin" nvarchar(255) NOT NULL, "id_contrato" nvarchar(255) NOT NULL, "nombre_proyecto" nvarchar(255) NOT NULL, "objeto_proyecto" nvarchar(255) NOT NULL, "unidad_funcional_acuerdo_obra" nvarchar(255) CONSTRAINT "DF_ae40e1a5e96e7af7f3e13b20dfd" DEFAULT 'N/A', "fecha_suscripcion" datetime NOT NULL, "fecha_inicio" datetime CONSTRAINT "DF_b946cb9f90d01c6b3be1df6d494" DEFAULT '1900-01-01', "fecha_programada_terminacion" datetime CONSTRAINT "DF_82f768b22815a70b65335b7f9cc" DEFAULT '1900-01-01', "fecha_terminacion" datetime CONSTRAINT "DF_4eb90d063b4bb7e2d1a25f087f2" DEFAULT '1900-01-01', "valor_contrato_inicial" decimal(10,2) NOT NULL CONSTRAINT "DF_890f631cea078512ad16ec19d6d" DEFAULT 0, "valor_contrato_final" decimal(10,2) NOT NULL CONSTRAINT "DF_55e5e6990ef4c5c31be640f6f61" DEFAULT 0, "avance_fisico_programado" decimal(10,2) NOT NULL CONSTRAINT "DF_4f21dca1aaa9ca8f63e34988993" DEFAULT 0, "avance_fisico_ejecutado" decimal(10,2) NOT NULL CONSTRAINT "DF_dfab196def4d54c615f445dc813" DEFAULT 0, "avance_financiero_ejecutado" decimal(10,2) NOT NULL CONSTRAINT "DF_248fb388787cd1b6a1b3829d347" DEFAULT 0, "nro_contrato" nvarchar(255) NOT NULL, "cantidad_de_suspensiones" int CONSTRAINT "DF_567ed5bb1ca6942f50118503a8a" DEFAULT 0, "cantidad_de_prorrogas" int CONSTRAINT "DF_2aa7d59114bf266b01dbc92d523" DEFAULT 0, "tiempo_suspensiones" int CONSTRAINT "DF_9f6457af7dbe6673e353e51f07c" DEFAULT 0, "tiempo_prorrogas" int CONSTRAINT "DF_7ced9dca8c409f076e9ff32c2dc" DEFAULT 0, "cantidad_adiciones" int CONSTRAINT "DF_85629c3cc4c3327b07e1780ff33" DEFAULT 0, "valor_total_adiciones" decimal(10,2) CONSTRAINT "DF_c5f609d4138c5c8c1333c6f3661" DEFAULT 0, "valor_comprometido" decimal(10,2) NOT NULL CONSTRAINT "DF_1d27261515359be446cb983bc35" DEFAULT 0, "valor_obligado" decimal(10,2) NOT NULL CONSTRAINT "DF_0bebfcd142617c07998a1a0b734" DEFAULT 0, "valor_pagado" decimal(10,2) NOT NULL CONSTRAINT "DF_4b3b449d72f1496631f63015134" DEFAULT 0, "valor_anticipo" decimal(10,2) CONSTRAINT "DF_e24289369de10ea9037ca2cf086" DEFAULT 0, "razon_social_contratista" nvarchar(255) NOT NULL, "id_contratista" int NOT NULL, "razon_social_nuevo_contratista" nvarchar(255), "id_nuevo_contratista" int, "observaciones" nvarchar(255), "link_secop" nvarchar(255), "nro_contrato_interventoria" nvarchar(255) NOT NULL, "nombre_interventoria" nvarchar(255) NOT NULL, "id_interventoria" int NOT NULL, "dia_corte" int NOT NULL, "mes_corte" int NOT NULL, "anio_corte" int NOT NULL, "sector" int NOT NULL, "origen" int NOT NULL, "estado" int NOT NULL, "entidad_id" int NOT NULL, "municipio_obra" int NOT NULL, CONSTRAINT "UQ_7e922f482443705dc45d9aef5ec" UNIQUE ("id_contrato"), CONSTRAINT "PK_0888f5665edd3c0241fb162c790" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "municipio" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "active" bit NOT NULL, "isCapital" bit NOT NULL, "divipola" nvarchar(255) NOT NULL, "latitude" decimal(9,6) CONSTRAINT "DF_5fcd3528f536a91acc7cc0b8289" DEFAULT 0, "longitude" decimal(9,6) CONSTRAINT "DF_4643a498ab62788bec22bfa1ed5" DEFAULT 0, "depart_id" int NOT NULL, "type_id" int, CONSTRAINT "UQ_0f32a8f3380682d7995ebedf3e3" UNIQUE ("name"), CONSTRAINT "UQ_789948902e2dadd9901e22f4ef6" UNIQUE ("divipola"), CONSTRAINT "PK_74346041a3332b7880d76c610f3" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "departamento" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "latitude" decimal(9,6) CONSTRAINT "DF_a5d912d11cff22d50b8d77322af" DEFAULT 0, "longitude" decimal(9,6) CONSTRAINT "DF_82d991900c7cda1012e5b8977fc" DEFAULT 0, "user_id" int NOT NULL, "satelital_id" int, CONSTRAINT "UQ_de86deb117d26d969bc0e9ba446" UNIQUE ("name"), CONSTRAINT "PK_7fd6f336280fd0c7a9318464723" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "satelital" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_7788538745df0ec1c4b899c6f97" UNIQUE ("name"), CONSTRAINT "PK_e15f3aff24213f204f25ec06ea7" PRIMARY KEY ("id"))`);
@@ -26,6 +30,11 @@ export class diariDb1661866043523 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "entidad_control" ADD CONSTRAINT "FK_71e5248d6fca7531bb79e4e1963" FOREIGN KEY ("categoria_id") REFERENCES "categoria"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "entidad_control" ADD CONSTRAINT "FK_77711160f6be60889be8fde5685" FOREIGN KEY ("subsector_id") REFERENCES "subsector"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "entidad_control" ADD CONSTRAINT "FK_05ca22513e9d938d51b931c38eb" FOREIGN KEY ("municipio_id") REFERENCES "municipio"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" ADD CONSTRAINT "FK_11d8f876229a1dc118ccce979f3" FOREIGN KEY ("sector") REFERENCES "sector_obra"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" ADD CONSTRAINT "FK_f1df0c98a4a1a186a2d0e85b231" FOREIGN KEY ("origen") REFERENCES "origen_recurso"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" ADD CONSTRAINT "FK_5028b7ffb26ce767edfa2dee6d8" FOREIGN KEY ("estado") REFERENCES "estado_obra"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" ADD CONSTRAINT "FK_0e22703338b984321b3df041073" FOREIGN KEY ("entidad_id") REFERENCES "entidad_control"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" ADD CONSTRAINT "FK_2539b79df941e170d36746821c4" FOREIGN KEY ("municipio_obra") REFERENCES "municipio"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "municipio" ADD CONSTRAINT "FK_0eb2c76a4f2ceb67e08934c27d4" FOREIGN KEY ("depart_id") REFERENCES "departamento"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "municipio" ADD CONSTRAINT "FK_e3a3f027cd8f4a172a1ccafa573" FOREIGN KEY ("type_id") REFERENCES "municipio_type"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "departamento" ADD CONSTRAINT "FK_1fab003d05fe578c12c2dd8806b" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -37,6 +46,11 @@ export class diariDb1661866043523 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "departamento" DROP CONSTRAINT "FK_1fab003d05fe578c12c2dd8806b"`);
         await queryRunner.query(`ALTER TABLE "municipio" DROP CONSTRAINT "FK_e3a3f027cd8f4a172a1ccafa573"`);
         await queryRunner.query(`ALTER TABLE "municipio" DROP CONSTRAINT "FK_0eb2c76a4f2ceb67e08934c27d4"`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" DROP CONSTRAINT "FK_2539b79df941e170d36746821c4"`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" DROP CONSTRAINT "FK_0e22703338b984321b3df041073"`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" DROP CONSTRAINT "FK_5028b7ffb26ce767edfa2dee6d8"`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" DROP CONSTRAINT "FK_f1df0c98a4a1a186a2d0e85b231"`);
+        await queryRunner.query(`ALTER TABLE "matriz_obra" DROP CONSTRAINT "FK_11d8f876229a1dc118ccce979f3"`);
         await queryRunner.query(`ALTER TABLE "entidad_control" DROP CONSTRAINT "FK_05ca22513e9d938d51b931c38eb"`);
         await queryRunner.query(`ALTER TABLE "entidad_control" DROP CONSTRAINT "FK_77711160f6be60889be8fde5685"`);
         await queryRunner.query(`ALTER TABLE "entidad_control" DROP CONSTRAINT "FK_71e5248d6fca7531bb79e4e1963"`);
@@ -48,6 +62,10 @@ export class diariDb1661866043523 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "satelital"`);
         await queryRunner.query(`DROP TABLE "departamento"`);
         await queryRunner.query(`DROP TABLE "municipio"`);
+        await queryRunner.query(`DROP TABLE "matriz_obra"`);
+        await queryRunner.query(`DROP TABLE "origen_recurso"`);
+        await queryRunner.query(`DROP TABLE "sector_obra"`);
+        await queryRunner.query(`DROP TABLE "estado_obra"`);
         await queryRunner.query(`DROP TABLE "entidad_control"`);
         await queryRunner.query(`DROP TABLE "telefono"`);
         await queryRunner.query(`DROP TABLE "subsector"`);

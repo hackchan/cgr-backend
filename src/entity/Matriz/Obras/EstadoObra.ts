@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Obra } from './Obra'
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { MatrizObra } from '../Obras/MatrizObra'
 @Entity()
 export class EstadoObra {
   @PrimaryGeneratedColumn()
@@ -8,6 +8,6 @@ export class EstadoObra {
   @Column({ nullable: false, unique: true })
   name: string
 
-  @OneToMany(() => Obra, (obra) => obra.sector)
-  obras: Obra[]
+  @OneToMany(() => MatrizObra, (obra) => obra.estado)
+  obras: MatrizObra[]
 }

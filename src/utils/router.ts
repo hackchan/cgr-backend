@@ -11,6 +11,7 @@ import categorias from '../routes/entidad/categoria.routes'
 import sector from '../routes/entidad/sector.routes'
 import subsector from '../routes/entidad/subsector.routes'
 import entidad from '../routes/entidad/entidad.routes'
+import estadoObra from '../routes/matriz/obras/estadoObra.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -26,6 +27,7 @@ const routers = (app: any): void => {
   router.use('/sector', sector)
   router.use('/subsector', subsector)
   router.use('/entidad', entidad)
+  router.use('/estado-obra', estadoObra)
 }
 
 export default routers

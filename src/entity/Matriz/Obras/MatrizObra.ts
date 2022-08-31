@@ -1,12 +1,13 @@
 import { IsUrl, IsDate, IsInt, Min, Max } from 'class-validator'
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
-import { SectorObra } from './SectorObra'
-import { OrigenObra } from './OrigenRecurso'
-import { EstadoObra } from './EstadoObra'
-import { EntidadControl } from '../../Entidad/EntidadControl'
 import { Municipio } from '../../Departments/Municipio'
+import { EntidadControl } from '../../Entidad/EntidadControl'
+import { EstadoObra } from '../../Matriz/Obras/EstadoObra'
+import { SectorObra } from '../../Matriz/Obras/SectorObra'
+import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
+
 @Entity()
-export class Obra {
+export class MatrizObra {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -148,9 +149,9 @@ export class Obra {
   @JoinColumn({ name: 'sector' })
   sector: SectorObra
 
-  @ManyToOne(() => OrigenObra, (origen) => origen.obras, { nullable: false })
+  @ManyToOne(() => OrigenRecurso, (origen) => origen.obras, { nullable: false })
   @JoinColumn({ name: 'origen' })
-  origen: OrigenObra
+  origen: OrigenRecurso
 
   @ManyToOne(() => EstadoObra, (estado) => estado.obras, { nullable: false })
   @JoinColumn({ name: 'estado' })
@@ -160,7 +161,7 @@ export class Obra {
   @JoinColumn({ name: 'entidad_id' })
   entidad: EntidadControl
 
-  @ManyToOne(() => Municipio, { nullable: false, cascade: true })
+  @ManyToOne(() => Municipio, municipio => municipio.obras, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_obra' })
-  municipio: Municipio
+  municipioObra: Municipio
 }

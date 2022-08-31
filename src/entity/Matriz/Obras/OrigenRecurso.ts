@@ -1,13 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { Obra } from './Obra'
+import { MatrizObra } from '../Obras/MatrizObra'
 @Entity()
-export class OrigenObra {
+export class OrigenRecurso {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({ nullable: false, unique: true })
   name: string
 
-  @OneToMany(() => Obra, (obra) => obra.sector)
-  obras: Obra[]
+  @OneToMany(() => MatrizObra, (obra) => obra.sector)
+  obras: MatrizObra[]
 }

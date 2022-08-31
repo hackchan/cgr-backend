@@ -13,6 +13,10 @@ import { Subsector } from './entity/Entidad/Subsector'
 import { EntidadControl } from './entity/Entidad/EntidadControl'
 import { Email } from './entity/Entidad/Email'
 import { Telefono } from './entity/Entidad/Telefono'
+import { EstadoObra } from './entity/Matriz/Obras/EstadoObra'
+import { OrigenRecurso } from './entity/Matriz/Obras/OrigenRecurso'
+import { SectorObra } from './entity/Matriz/Obras/SectorObra'
+import { MatrizObra } from './entity/Matriz/Obras/MatrizObra'
 // import { User } from './entity/User'
 export const AppDataSource = new DataSource({
   type: 'mssql',
@@ -35,7 +39,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono]
+  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],
   // subscribers: ['dist/subscriber/**/*.js']

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { Obra } from './Obra'
+import { MatrizObra } from './MatrizObra'
+
 @Entity()
 export class SectorObra {
   @PrimaryGeneratedColumn()
@@ -8,6 +9,6 @@ export class SectorObra {
   @Column({ nullable: false, unique: true })
   name: string
 
-  @OneToMany(() => Obra, (obra) => obra.sector)
-  obras: Obra[]
+  @OneToMany(() => MatrizObra, (obra) => obra.sector)
+  obras: MatrizObra[]
 }
