@@ -10,6 +10,9 @@ import { UserType } from '../entity/UserManagement/UserType'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
 import { EstadoObra } from '../entity/Matriz/Obras/EstadoObra'
+import { SectorObra } from '../entity/Matriz/Obras/SectorObra'
+import { OrigenRecurso } from '../entity/Matriz/Obras/OrigenRecurso'
+
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class seedDeparts1658932933045 implements MigrationInterface {
@@ -2854,6 +2857,97 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 9,
         name: 'VENCIDO'
+      }
+
+    ])
+
+    await queryRunner.manager.insert(SectorObra, [
+      {
+        id: 1,
+        name: 'VIVIENDA'
+      },
+
+      {
+        id: 2,
+        name: 'SALUD'
+      },
+
+      {
+        id: 3,
+        name: 'EDUCACION'
+      },
+
+      {
+        id: 4,
+        name: 'TRANSPORTE'
+      },
+
+      {
+        id: 5,
+        name: 'AGUA POTABLE Y SANEAMIENTO BASICO'
+      },
+
+      {
+        id: 6,
+        name: 'CARCELARIO'
+      },
+
+      {
+        id: 7,
+        name: 'DEPORTIVO'
+      },
+
+      {
+        id: 8,
+        name: 'JUSTICIA'
+      },
+
+      {
+        id: 9,
+        name: 'MITIGACION DEL RIESGO'
+      },
+
+      {
+        id: 10,
+        name: 'INCLUSION SOCIAL'
+      },
+
+      {
+        id: 11,
+        name: 'OTRO'
+      }
+
+    ])
+
+    await queryRunner.manager.insert(OrigenRecurso, [
+      {
+        id: 1,
+        name: 'PGN'
+      },
+
+      {
+        id: 2,
+        name: 'SGR'
+      },
+
+      {
+        id: 3,
+        name: 'MIXTOS (PGN Y SGR)'
+      },
+
+      {
+        id: 4,
+        name: 'SGP'
+      },
+
+      {
+        id: 5,
+        name: 'PROPIOS'
+      },
+
+      {
+        id: 6,
+        name: 'OTRO'
       }
 
     ])

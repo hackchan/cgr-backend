@@ -9,6 +9,7 @@ import { Municipio } from '../entity/Departments/Municipio'
 import { UserType } from '../entity/UserManagement/UserType'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
+import { EstadoObra } from '../entity/Matriz/Obras/EstadoObra'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class seedDeparts1658932933045 implements MigrationInterface {
@@ -2805,6 +2806,54 @@ export class seedDeparts1658932933045 implements MigrationInterface {
           id: 15022
         }
 
+      }
+
+    ])
+
+    await queryRunner.manager.insert(EstadoObra, [
+      {
+        id: 1,
+        name: 'POR INICIAR'
+      },
+
+      {
+        id: 2,
+        name: 'EN EJECUCION'
+      },
+
+      {
+        id: 3,
+        name: 'SUSPENDIDO'
+      },
+
+      {
+        id: 4,
+        name: 'LIQUIDADO'
+      },
+
+      {
+        id: 5,
+        name: 'TERMINADO'
+      },
+
+      {
+        id: 6,
+        name: 'EN CESION'
+      },
+
+      {
+        id: 7,
+        name: 'EN REASIGNACION'
+      },
+
+      {
+        id: 8,
+        name: 'EN PROCESO DE INCUMPLIMIENTO'
+      },
+
+      {
+        id: 9,
+        name: 'VENCIDO'
       }
 
     ])

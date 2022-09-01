@@ -3,21 +3,21 @@
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
 import { Repository, Like } from 'typeorm'
-import { EstadoObra } from '../../../entity/Matriz/Obras/EstadoObra'
+import { SectorObra } from '../../../entity/Matriz/Obras/SectorObra'
 
 // import { validate } from 'class-validator'
 
-class EstadoObraDTO {
-  readonly repositorioEstadoObra: Repository<EstadoObra>
+class SectorObraDTO {
+  readonly repositorioSectorObra: Repository<SectorObra>
 
   constructor () {
-    this.repositorioEstadoObra = AppDataSource.getRepository(EstadoObra)
+    this.repositorioSectorObra = AppDataSource.getRepository(SectorObra)
   }
 
-  async create (data: object): Promise<EstadoObra> {
+  async create (data: object): Promise<SectorObra> {
     try {
-      const newEstadoObra = this.repositorioEstadoObra.create(data)
-      const result = await this.repositorioEstadoObra.save(newEstadoObra)
+      const newSector = this.repositorioSectorObra.create(data)
+      const result = await this.repositorioSectorObra.save(newSector)
       return result
     } catch (error) {
       console.log(error)
@@ -90,8 +90,8 @@ class EstadoObraDTO {
         options.order = sort
       }
 
-      const estadoObraList = await this.repositorioEstadoObra.find(options)
-      const cantidad = await this.repositorioEstadoObra.count()
+      const estadoObraList = await this.repositorioSectorObra.find(options)
+      const cantidad = await this.repositorioSectorObra.count()
       const response = { cantidad, data: estadoObraList }
       // console.log(response)
       return response
@@ -101,14 +101,14 @@ class EstadoObraDTO {
     }
   }
 
-  async findOne (id: number): Promise<EstadoObra> {
+  async findOne (id: number): Promise<SectorObra> {
     try {
-      const sector = await this.repositorioEstadoObra.findOne({
+      const sector = await this.repositorioSectorObra.findOne({
         where:
         { id }
       })
       if (sector == null) {
-        throw boom.notFound('Estado Obra no encontrado')
+        throw boom.notFound('Sector Obra no encontrado')
       }
 
       return sector
@@ -118,12 +118,12 @@ class EstadoObraDTO {
     }
   }
 
-  async update (id: number, changes: any): Promise<EstadoObra> {
+  async update (id: number, changes: any): Promise<SectorObra> {
     try {
       const sector = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
-      this.repositorioEstadoObra.merge(sector, changes)
-      const result = await this.repositorioEstadoObra.save(sector)
+      this.repositorioSectorObra.merge(sector, changes)
+      const result = await this.repositorioSectorObra.save(sector)
       return result
     } catch (error) {
       console.log(error)
@@ -131,10 +131,10 @@ class EstadoObraDTO {
     }
   }
 
-  async delete (id: number): Promise<EstadoObra> {
+  async delete (id: number): Promise<SectorObra> {
     try {
       const sector = await this.findOne(id)
-      const response = this.repositorioEstadoObra.remove(sector)
+      const response = this.repositorioSectorObra.remove(sector)
       return await response
     } catch (error) {
       console.log(error)
@@ -143,4 +143,4 @@ class EstadoObraDTO {
   }
 }
 
-export default EstadoObraDTO
+export default SectorObraDTO

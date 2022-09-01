@@ -3,21 +3,21 @@
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
 import { Repository, Like } from 'typeorm'
-import { EstadoObra } from '../../../entity/Matriz/Obras/EstadoObra'
+import { OrigenRecurso } from '../../../entity/Matriz/Obras/OrigenRecurso'
 
 // import { validate } from 'class-validator'
 
-class EstadoObraDTO {
-  readonly repositorioEstadoObra: Repository<EstadoObra>
+class OrigenRecursoDTO {
+  readonly repositorioOrigenRecurso: Repository<OrigenRecurso>
 
   constructor () {
-    this.repositorioEstadoObra = AppDataSource.getRepository(EstadoObra)
+    this.repositorioOrigenRecurso = AppDataSource.getRepository(OrigenRecurso)
   }
 
-  async create (data: object): Promise<EstadoObra> {
+  async create (data: object): Promise<OrigenRecurso> {
     try {
-      const newEstadoObra = this.repositorioEstadoObra.create(data)
-      const result = await this.repositorioEstadoObra.save(newEstadoObra)
+      const newOrigenRecurso = this.repositorioOrigenRecurso.create(data)
+      const result = await this.repositorioOrigenRecurso.save(newOrigenRecurso)
       return result
     } catch (error) {
       console.log(error)
@@ -90,8 +90,8 @@ class EstadoObraDTO {
         options.order = sort
       }
 
-      const estadoObraList = await this.repositorioEstadoObra.find(options)
-      const cantidad = await this.repositorioEstadoObra.count()
+      const estadoObraList = await this.repositorioOrigenRecurso.find(options)
+      const cantidad = await this.repositorioOrigenRecurso.count()
       const response = { cantidad, data: estadoObraList }
       // console.log(response)
       return response
@@ -101,14 +101,14 @@ class EstadoObraDTO {
     }
   }
 
-  async findOne (id: number): Promise<EstadoObra> {
+  async findOne (id: number): Promise<OrigenRecurso> {
     try {
-      const sector = await this.repositorioEstadoObra.findOne({
+      const sector = await this.repositorioOrigenRecurso.findOne({
         where:
         { id }
       })
       if (sector == null) {
-        throw boom.notFound('Estado Obra no encontrado')
+        throw boom.notFound('Origen de Recurso no encontrado')
       }
 
       return sector
@@ -118,12 +118,12 @@ class EstadoObraDTO {
     }
   }
 
-  async update (id: number, changes: any): Promise<EstadoObra> {
+  async update (id: number, changes: any): Promise<OrigenRecurso> {
     try {
-      const sector = await this.findOne(id)
+      const origen = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
-      this.repositorioEstadoObra.merge(sector, changes)
-      const result = await this.repositorioEstadoObra.save(sector)
+      this.repositorioOrigenRecurso.merge(origen, changes)
+      const result = await this.repositorioOrigenRecurso.save(origen)
       return result
     } catch (error) {
       console.log(error)
@@ -131,10 +131,10 @@ class EstadoObraDTO {
     }
   }
 
-  async delete (id: number): Promise<EstadoObra> {
+  async delete (id: number): Promise<OrigenRecurso> {
     try {
       const sector = await this.findOne(id)
-      const response = this.repositorioEstadoObra.remove(sector)
+      const response = this.repositorioOrigenRecurso.remove(sector)
       return await response
     } catch (error) {
       console.log(error)
@@ -143,4 +143,4 @@ class EstadoObraDTO {
   }
 }
 
-export default EstadoObraDTO
+export default OrigenRecursoDTO
