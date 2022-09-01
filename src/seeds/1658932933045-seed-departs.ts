@@ -2937,16 +2937,41 @@ export class seedDeparts1658932933045 implements MigrationInterface {
 
       {
         id: 4,
-        name: 'SGP'
+        name: 'MIXTOS (PGN Y SGP)'
       },
 
       {
         id: 5,
-        name: 'PROPIOS'
+        name: 'MIXTOS (SGP Y SGR)'
       },
 
       {
         id: 6,
+        name: 'MIXTO (PGN Y PROPIO)'
+      },
+
+      {
+        id: 7,
+        name: 'MIXTO (SGR Y PROPIO)'
+      },
+
+      {
+        id: 8,
+        name: 'MIXTO (SGP Y PROPIO)'
+      },
+
+      {
+        id: 9,
+        name: 'SGP'
+      },
+
+      {
+        id: 10,
+        name: 'PROPIOS'
+      },
+
+      {
+        id: 11,
         name: 'OTRO'
       }
 
