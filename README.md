@@ -61,6 +61,6 @@ npm install typescript ts-loader @types/express -D
 
 ```bash
 npm run migration:generate -- gestion-usuarios
-npm run migration:generate src/migrations/gestion-usuarios
+npm run migration:generate src/migrations/db-diari
 npm run migration:run
 ```

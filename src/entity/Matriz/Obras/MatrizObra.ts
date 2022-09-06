@@ -23,35 +23,49 @@ export class MatrizObra {
   @Column({ name: 'objeto_proyecto', nullable: false })
   objetoProyecto: string
 
-  @Column({ name: 'unidad_funcional_acuerdo_obra', nullable: true, default: 'N/A' })
+  @Column({ name: 'unidad_funcional_acuerdo_obra', nullable: false, default: 'N/A' })
   unidadFuncional: string
 
   @Column({ name: 'fecha_suscripcion', nullable: false })
   @IsDate()
   fechaSuscripcion: Date
 
-  @Column({ name: 'fecha_inicio', nullable: true, default: '1900-01-01' })
+  @Column({ name: 'fecha_inicio', nullable: false, default: '1900-01-01' })
   fechaInicio: Date
 
-  @Column({ name: 'fecha_programada_terminacion', nullable: true, default: '1900-01-01' })
+  @Column({ name: 'fecha_programada_terminacion', nullable: false, default: '1900-01-01' })
   fechaProgramadaTermina: Date
 
-  @Column({ name: 'fecha_terminacion', nullable: true, default: '1900-01-01' })
+  @Column({ name: 'fecha_terminacion', nullable: false, default: '1900-01-01' })
   fechaTermina: Date
 
-  @Column({ name: 'valor_contrato_inicial', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({
+    name: 'valor_contrato_inicial',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorContratoInicial: number
 
-  @Column({ name: 'valor_contrato_final', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({
+    name: 'valor_contrato_final',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorContratoFinal: number
 
-  @Column({ name: 'avance_fisico_programado', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({ name: 'avance_fisico_programado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
   avanceFisicoProgramado: number
 
-  @Column({ name: 'avance_fisico_ejecutado', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({ name: 'avance_fisico_ejecutado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
   avanceFisicoEjecutado: number
 
-  @Column({ name: 'avance_financiero_ejecutado', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({ name: 'avance_financiero_ejecutado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
   avanceFinancieroEjecutado: number
 
   @Column({ name: 'nro_contrato', nullable: false })
@@ -60,40 +74,75 @@ export class MatrizObra {
   @IsInt()
   @Min(0)
   @Max(100)
-  @Column({ name: 'cantidad_de_suspensiones', nullable: true, default: 0 })
+  @Column({ name: 'cantidad_de_suspensiones', nullable: false, default: 0 })
   cantidadSuspenciones: number
 
   @IsInt()
   @Min(0)
   @Max(100)
-  @Column({ name: 'cantidad_de_prorrogas', nullable: true, default: 0 })
+  @Column({ name: 'cantidad_de_prorrogas', nullable: false, default: 0 })
   cantidadProrrogas: number
 
-  @Column({ name: 'tiempo_suspensiones', nullable: true, default: 0 })
+  @Column({ name: 'tiempo_suspensiones', nullable: false, default: 0 })
   tiempoSuspenciones: number
 
-  @Column({ name: 'tiempo_prorrogas', nullable: true, default: 0 })
+  @Column({ name: 'tiempo_prorrogas', nullable: false, default: 0 })
   tiempoProrrogas: number
 
   @IsInt()
   @Min(0)
   @Max(100)
-  @Column({ name: 'cantidad_adiciones', nullable: true, default: 0 })
+  @Column({ name: 'cantidad_adiciones', nullable: false, default: 0 })
   cantidadAdiciones: number
 
-  @Column({ name: 'valor_total_adiciones', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: true })
+  @Column({
+    name: 'valor_total_adiciones',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorTotalAdiciones: number
 
-  @Column({ name: 'valor_comprometido', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({
+    name: 'valor_comprometido',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorComprometido: number
 
-  @Column({ name: 'valor_obligado', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({
+    name: 'valor_obligado',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorObligado: number
 
-  @Column({ name: 'valor_pagado', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: false })
+  @Column({
+    name: 'valor_pagado',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
   valorPagado: number
 
-  @Column({ name: 'valor_anticipo', type: 'decimal', precision: 10, scale: 2, default: 0, nullable: true })
+  @Column({
+    name: 'valor_anticipo',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: true
+  })
   valorAnticipo: number
 
   @Column({ name: 'razon_social_contratista', nullable: false })
@@ -110,10 +159,10 @@ export class MatrizObra {
   @Column({ name: 'id_nuevo_contratista', nullable: true })
   idNuevoContratista: number
 
-  @Column({ name: 'observaciones', nullable: true })
+  @Column({ name: 'observaciones', nullable: false, default: 'N/A' })
   observaciones: string
 
-  @Column({ name: 'link_secop', nullable: true })
+  @Column({ name: 'link_secop', nullable: false, default: 'N/A' })
   @IsUrl()
   linkSecop: string
 
