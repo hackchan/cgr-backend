@@ -28,7 +28,7 @@ class MatrizObraDTO {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-
+        relations: { sector: true, origen: true, estado: true, entidad: true, municipioObra: true },
         where: {},
         order: {}
       }

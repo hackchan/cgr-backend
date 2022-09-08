@@ -109,17 +109,17 @@ const valorContratoFinal = Joi.number().precision(2).min(0).max(99999999999999.9
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a{{#limit}}'
 })
-const avanceFisicoProgramado = Joi.number().precision(2).min(0).max(20).options({ convert: false }).messages({
+const avanceFisicoProgramado = Joi.number().precision(2).min(0).max(1).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
-const avanceFisicoEjecutado = Joi.number().precision(2).min(0).max(20).options({ convert: false }).messages({
+const avanceFisicoEjecutado = Joi.number().precision(2).min(0).max(1).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
-const avanceFinancieroEjecutado = Joi.number().precision(2).min(0).max(20).options({ convert: false }).messages({
+const avanceFinancieroEjecutado = Joi.number().precision(2).min(0).max(1).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
