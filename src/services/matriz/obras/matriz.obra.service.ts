@@ -3,6 +3,7 @@
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
 import { Repository, Like } from 'typeorm'
+import { format, parseISO } from 'date-fns'
 import { MatrizObra } from '../../../entity/Matriz/Obras/MatrizObra'
 
 // import { validate } from 'class-validator'
@@ -63,14 +64,59 @@ class MatrizObraDTO {
         options.cache = true
       }
       if (isGlobalFilter) {
-        options.where = [
-          { id: Like(`%${globalFilter}%`) },
-          { name: Like(`%${globalFilter}%`) },
-          { initial: Like(`%${globalFilter}%`) }
-        ]
+        // options.where = [{ fechaSuscripcion: `${globalFilter}` }]
+        //options.where = [
+          // { id: Like(`%${globalFilter}%`) },
+          // { idBpin: Like(`%${globalFilter}%`) },
+          // { idContrato: Like(`%${globalFilter}%`) },
+          // { nombreProyecto: Like(`%${globalFilter}%`) },
+          // { objetoProyecto: Like(`%${globalFilter}%`) },
+          // { unidadFuncional: Like(`%${globalFilter}%`) },
+          // { fechaSuscripcion: Like(`%${globalFilter}%`) },
+          // { fechaInicio: `%${format(typeof globalFilter === 'string' ? parseISO('2019-02-11T14:00:00')(globalFilter).toUTCString() : globalFilter, 'yyyy-MM-dd')}%` },
+          // { fechaProgramadaTermina: Like(`%${globalFilter}%`) },
+          // { fechaTermina: Like(`%${globalFilter}%`) },
+          // { valorContratoInicial: Like(`%${globalFilter}%`) },
+          // { valorContratoFinal: Like(`%${globalFilter}%`) },
+          // { avanceFisicoProgramado: Like(`%${globalFilter}%`) },
+          // { avanceFisicoEjecutado: Like(`%${globalFilter}%`) },
+          // { avanceFinancieroEjecutado: Like(`%${globalFilter}%`) },
+          // { nroContrato: Like(`%${globalFilter}%`) },
+          // { cantidadSuspenciones: Like(`%${globalFilter}%`) },
+          // { cantidadProrrogas: Like(`%${globalFilter}%`) },
+          // { tiempoSuspenciones: Like(`%${globalFilter}%`) },
+          // { tiempoProrrogas: Like(`%${globalFilter}%`) },
+          // { cantidadAdiciones: Like(`%${globalFilter}%`) },
+          // { valorTotalAdiciones: Like(`%${globalFilter}%`) },
+          // { valorComprometido: Like(`%${globalFilter}%`) },
+          // { valorObligado: Like(`%${globalFilter}%`) },
+          // { valorPagado: Like(`%${globalFilter}%`) },
+          // { valorAnticipo: Like(`%${globalFilter}%`) },
+          // { razonSocialContratista: Like(`%${globalFilter}%`) },
+          // { idContratista: Like(`%${globalFilter}%`) },
+          // { razonSocialNuevoContratista: Like(`%${globalFilter}%`) },
+          // { idNuevoContratista: Like(`%${globalFilter}%`) },
+          // { observaciones: Like(`%${globalFilter}%`) },
+          // { linkSecop: Like(`%${globalFilter}%`) },
+
+          // { nroContratoInterventoria: Like(`%${globalFilter}%`) },
+          // { nombreInterventoria: Like(`%${globalFilter}%`) },
+          // { idInterventoria: Like(`%${globalFilter}%`) },
+          // { diaCorte: Like(`%${globalFilter}%`) },
+          // { mesCorte: Like(`%${globalFilter}%`) },
+          // { anioCorte: Like(`%${globalFilter}%`) },
+
+          // { sector: { name: Like(`%${globalFilter}%`) } },
+          // { origen: { name: Like(`%${globalFilter}%`) } },
+          // { estado: { name: Like(`%${globalFilter}%`) } },
+          // { entidad: { name: Like(`%${globalFilter}%`) } },
+          // { municipioObra: { name: Like(`%${globalFilter}%`) } }
+
+        //]
       }
 
       if (isFilters) {
+        console.log('filtersColumn:', filtersColumn)
         const pushWhere: any[] = []
         filtersColumn.forEach((obj: any) => {
           const bus: any = {}
@@ -81,15 +127,15 @@ class MatrizObraDTO {
         options.where = pushWhere
       }
 
-      if (isSorting) {
-        const sort: any = {}
-        sortingColumn.forEach((obj: any) => {
-          sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
-        })
+      // if (isSorting) {
+      //   const sort: any = {}
+      //   sortingColumn.forEach((obj: any) => {
+      //     sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+      //   })
 
-        options.order = sort
-      }
-
+      //   options.order = sort
+      // }
+      console.log('Options-->', options)
       const obrasList = await this.repositorioMatrizObra.find(options)
       const cantidad = await this.repositorioMatrizObra.count()
       const response = { cantidad, data: obrasList }
