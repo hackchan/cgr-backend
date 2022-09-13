@@ -26,17 +26,20 @@ export class MatrizObra {
   @Column({ name: 'unidad_funcional_acuerdo_obra', nullable: false, default: 'N/A' })
   unidadFuncional: string
 
-  @Column({ name: 'fecha_suscripcion', nullable: false })
+  @Column({ name: 'fecha_suscripcion', type: 'date', nullable: false })
   @IsDate()
   fechaSuscripcion: Date
 
-  @Column({ name: 'fecha_inicio', nullable: false, default: '1900-01-01' })
+  @Column({ name: 'fecha_inicio', type: 'date', nullable: false, default: '1900-01-01' })
+  @IsDate()
   fechaInicio: Date
 
-  @Column({ name: 'fecha_programada_terminacion', nullable: false, default: '1900-01-01' })
+  @Column({ name: 'fecha_programada_terminacion', type: 'date', nullable: false, default: '1900-01-01' })
+  @IsDate()
   fechaProgramadaTermina: Date
 
-  @Column({ name: 'fecha_terminacion', nullable: false, default: '1900-01-01' })
+  @Column({ name: 'fecha_terminacion', type: 'date', nullable: false, default: '1900-01-01' })
+  @IsDate()
   fechaTermina: Date
 
   @Column({

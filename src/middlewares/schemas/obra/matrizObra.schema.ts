@@ -85,7 +85,7 @@ const unidadFuncional = Joi.string().min(1).max(255).messages({
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
 
-const fechaSuscripcion = Joi.date().format('YYYY-MM-DD').raw().messages({
+const fechaSuscripcion = Joi.date().format('YYYY-MM-DD').messages({
   'date.format': '{{#label}} debe ser un fecha valida con formato YYYY-MM-DD'
 
 })
