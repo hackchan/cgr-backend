@@ -99,12 +99,12 @@ const fechaTermina = Joi.date().format('YYYY-MM-DD').raw().allow(null).messages(
   'date.format': '{{#label}} debe ser un fecha valida con formato YYYY-MM-DD'
 })
 
-const valorContratoInicial = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorContratoInicial = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
-const valorContratoFinal = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorContratoFinal = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a{{#limit}}'
