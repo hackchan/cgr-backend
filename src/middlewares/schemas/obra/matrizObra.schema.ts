@@ -165,9 +165,8 @@ const cantidadAdiciones = Joi.number().integer().min(0).max(100).messages({
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorTotalAdiciones = Joi.number().integer().min(0).max(100).messages({
+const valorTotalAdiciones = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
-  'number.integer': '{{#label}} debe ser un entero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
