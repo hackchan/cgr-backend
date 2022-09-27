@@ -14,6 +14,26 @@ export const getMunicipios = async (req: Request, res: Response, next: NextFunct
   }
 }
 
+export const getMunicipiosByDepartment = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { department } = req.params
+    const response = await serviceMunicipio.findByDepartment(parseInt(department, 10))
+    success(req, res, response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getDepartmentByMunicipioId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { municipio } = req.params
+    const response = await serviceMunicipio.findDepartmentByMunicipioId(parseInt(municipio, 10))
+    success(req, res, response)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const getMunicipio = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params

@@ -83,20 +83,20 @@ class UserMunicipio {
           { tipo: { name: Like(`%${globalFilter}%`) } }]
       }
 
-      if (isFilters) {
-        // const pushWhere: any[] = []
-        // filtersColumn.forEach((obj: any) => {
-        //   const bus: any = {}
-        //   if (obj.id !== 'department' || obj.id !== 'tipo') {
-        //     bus[obj.id] = Like(`%${obj.value}%`)
-        //     pushWhere.push(bus)
-        //   } else {
-        //     pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
-        //   }
-        // })
+      // if (isFilters) {
+      //   const pushWhere: any[] = []
+      //   filtersColumn.forEach((obj: any) => {
+      //     const bus: any = {}
+      //     if (obj.id !== 'department' || obj.id !== 'tipo') {
+      //       bus[obj.id] = Like(`%${obj.value}%`)
+      //       pushWhere.push(bus)
+      //     } else {
+      //       pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+      //     }
+      //   })
 
-        // options.where = pushWhere
-      }
+      //   options.where = pushWhere
+      // }
 
       if (isSorting) {
         // const sort: any = {}
@@ -114,6 +114,47 @@ class UserMunicipio {
       const departList = await this.repositorioMunicipio.find(options)
       const cantidad = await this.repositorioMunicipio.count()
       const response = { cantidad, data: departList }
+      // console.log(response)
+      return response
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findByDepartment (data: any): Promise<any> {
+    try {
+      const options: any = {
+        relations: { department: true },
+        where: { department: { id: `${data}` } },
+        order: {}
+      }
+
+      const departList = await this.repositorioMunicipio.find(options)
+      const cantidad = await this.repositorioMunicipio.count()
+      const response = { cantidad, data: departList }
+      // console.log(response)
+      return response
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findDepartmentByMunicipioId (data: any): Promise<any> {
+    try {
+      const options: any = {
+        relations: { department: true },
+        where: { id: `${data}` },
+        order: {}
+      }
+
+      const departList = await this.repositorioMunicipio.findOne(options)
+
+      const response = departList?.department
+      if (response == null) {
+        throw boom.notFound('Municipio no encontrado')
+      }
       // console.log(response)
       return response
     } catch (error) {
