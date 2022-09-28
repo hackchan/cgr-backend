@@ -374,7 +374,12 @@ export const updateMatrizObraSchema = Joi.object({
   idInterventoria: idInterventoria,
   diaCorte: diaCorte,
   mesCorte: mesCorte,
-  anioCorte: anioCorte
+  anioCorte: anioCorte,
+  sector: sector,
+  origen: origen,
+  estado: estado,
+  entidad: entidad,
+  municipioObra: municipioObra
 })
 
 export const getMatrizObraSchema = Joi.object({
