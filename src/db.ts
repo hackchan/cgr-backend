@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm'
 import config from './config'
 import { Auth } from './entity/UserManagement/Auth'
+import { Role } from './entity/UserManagement/Role'
 import { User } from './entity/UserManagement/User'
 import { UserType } from './entity/UserManagement/UserType'
 import { Satelital } from './entity/Departments/Satelital'
@@ -39,7 +40,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra]
+  entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],
   // subscribers: ['dist/subscriber/**/*.js']

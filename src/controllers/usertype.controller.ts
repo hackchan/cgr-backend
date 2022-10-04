@@ -16,7 +16,7 @@ export const createUserType = async (req: Request, res: Response, next: NextFunc
 
 export const getUserTypes = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const respose = await userTypeService.findAll()
+    const respose = await userTypeService.findAll(req.body)
     success(req, res, respose)
   } catch (error) {
     next(error)

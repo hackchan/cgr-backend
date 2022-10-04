@@ -7,11 +7,35 @@ import { TypeMunicipio } from '../entity/Departments/TypeMunicipio'
 import { UserType } from '../entity/UserManagement/UserType'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
+import { Role } from '../entity/UserManagement/Role'
 
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class seedDeparts1658932933045 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.manager.insert(Role, [
+      {
+        id: 1,
+        name: 'informacion'
+      },
+      {
+        id: 2,
+        name: 'entidad'
+      },
+      {
+        id: 3,
+        name: 'analisis'
+      },
+      {
+        id: 4,
+        name: 'reaccion'
+      },
+      {
+        id: 5,
+        name: 'cgr'
+      }
+
+    ])
     await queryRunner.manager.insert(Categoria, [
       {
         id: 1,
@@ -28,6 +52,10 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 4,
         name: 'CUARTA CATEGORIA'
+      },
+      {
+        id: 5,
+        name: 'QUINTA CATEGORIA'
       },
       {
         id: 6,
