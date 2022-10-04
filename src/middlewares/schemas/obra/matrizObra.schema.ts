@@ -5,7 +5,8 @@ import JoiDate from '@joi/date'
 const Joi = JoiBase.extend(JoiDate)
 
 const id = Joi.number()
-const idBpin = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
+
+const idBpin = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).options({ convert: true }).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -47,7 +48,7 @@ const idBpin = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0
 //   'string.uriRelativeOnly': '{{#label}} debe ser un uri relativo válido',
 //   'string.uppercase': '{{#label}} solo debe contener caracteres en mayúscula'
 // })
-const idContrato = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
+const idContrato = Joi.alternatives(Joi.number(), Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/)).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -204,8 +205,8 @@ const razonSocialContratista = Joi.string().regex(/^[a-zA-Z0-9 ]{3,100}$/).messa
   'string.max': 'La longitud de {{#label}} debe ser menor o igual a {{#limit}} caracteres de longitud',
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
-const idContratista = Joi.number().integer().options({ convert: false })
-const razonSocialNuevoContratista = Joi.string().regex(/^[a-zA-Z0-9 ]{3,100}$/).messages({
+const idContratista = Joi.string().options({ convert: true })
+const razonSocialNuevoContratista = Joi.string().regex(/^[a-zA-Z0-9/ ]{3,100}$/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -214,7 +215,7 @@ const razonSocialNuevoContratista = Joi.string().regex(/^[a-zA-Z0-9 ]{3,100}$/).
   'string.max': 'La longitud de {{#label}} debe ser menor o igual a {{#limit}} caracteres de longitud',
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
-const idNuevoContratista = Joi.number().integer().options({ convert: false })
+const idNuevoContratista = Joi.string().options({ convert: true })
 const observaciones = Joi.string().min(1).max(255)
 const linkSecop = Joi.string().uri()
 const nroContratoInterventoria = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
@@ -235,7 +236,7 @@ const nombreInterventoria = Joi.string().regex(/^[a-zA-Z0-9 ]{3,100}$/).messages
   'string.max': 'La longitud de {{#label}} debe ser menor o igual a {{#limit}} caracteres de longitud',
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
-const idInterventoria = Joi.number().integer().options({ convert: false }).messages({
+const idInterventoria = Joi.string().options({ convert: true }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.integer': '{{#label}} debe ser un entero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',

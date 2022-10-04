@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../db'
-import { Repository } from 'typeorm'
+import { Repository, Like } from 'typeorm'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
 import { CreateUserDTO } from '../entityTypes/user.dto'
@@ -29,33 +31,94 @@ class UserService {
     }
   }
 
-  async findAll (): Promise<User[]> {
+  async findAll (query: any): Promise<any> {
     try {
-      const userList = await this.repositorioUser.find({ relations: ['auth', 'tipo'] })
+      const options: any = {
+        relations: { auth: true, tipo: true },
+        where: {},
+        order: {}
+      }
+      const { take, skip, globalFilter, filters, sorting } = query
 
-      return userList
-      // const userList = AppDataSource.manager
+      let isGlobalFilter = false
+      if (globalFilter && globalFilter.length > 0) {
+        isGlobalFilter = true
+      }
 
-      //   .createQueryBuilder(User, 'user')
-      //   .select([
-      //     'user',
-      //     'Auth.id',
-      //     'Auth.uuid',
-      //     'Auth.createdAt',
-      //     'Auth.updatedAt',
-      //     'Auth.username',
-      //     'Auth.password',
-      //     'Auth.role'
+      let isFilters = false
+      let filtersColumn = null
+      if (filters) {
+        filtersColumn = JSON.parse(filters) ?? null
+        if (filters && filtersColumn.length > 0) {
+          isFilters = true
+        }
+      }
 
-      //   ])
-      //   .leftJoin('user.auth', 'Auth')
+      let isSorting = false
+      let sortingColumn = null
+      if (sorting) {
+        sortingColumn = JSON.parse(sorting) ?? null
+        if (sorting && sortingColumn.length > 0) {
+          isSorting = true
+        }
+      }
 
-      // return await userList.getMany()
+      if (take !== null && skip !== null && !isGlobalFilter && !isFilters && !isSorting) {
+        options.take = take
+        options.skip = skip
+        options.cache = true
+      }
+      if (isGlobalFilter) {
+        options.where = [
+          { id: Like(`%${globalFilter}%`) },
+          { name: Like(`%${globalFilter}%`) },
+          { lastName: Like(`%${globalFilter}%`) },
+          { phone: Like(`%${globalFilter}%`) },
+          { email: Like(`%${globalFilter}%`) },
+          { image: Like(`%${globalFilter}%`) },
+          { auth: [{ username: Like(`%${globalFilter}%`) }, { role: Like(`%${globalFilter}%`) }] },
+          { tipo: { name: Like(`%${globalFilter}%`) } }
+        ]
+      }
+
+      const obrasList = await this.repositorioUser.find(options)
+      const cantidad = await this.repositorioUser.count()
+      const response = { cantidad, data: obrasList }
+      // console.log(response)
+      return response
     } catch (error) {
       console.log(error)
       throw error
     }
   }
+
+  // async findAll (): Promise<User[]> {
+  //   try {
+  //     const userList = await this.repositorioUser.find({ relations: ['auth', 'tipo'] })
+
+  //     return userList
+  //     // const userList = AppDataSource.manager
+
+  //     //   .createQueryBuilder(User, 'user')
+  //     //   .select([
+  //     //     'user',
+  //     //     'Auth.id',
+  //     //     'Auth.uuid',
+  //     //     'Auth.createdAt',
+  //     //     'Auth.updatedAt',
+  //     //     'Auth.username',
+  //     //     'Auth.password',
+  //     //     'Auth.role'
+
+  //     //   ])
+  //     //   .leftJoin('user.auth', 'Auth')
+
+  //     // return await userList.getMany()
+  //   } catch (error) {
+  //     console.log(error)
+  //     throw error
+  //   }
+  // }
 
   async findOne (id: number): Promise<User> {
     try {

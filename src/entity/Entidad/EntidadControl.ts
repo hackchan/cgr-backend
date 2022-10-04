@@ -11,7 +11,7 @@ export class EntidadControl {
   id: number
 
   @Column({ nullable: false, unique: true })
-  nit: number
+  nit: string
 
   @Column({ nullable: false })
   name: string

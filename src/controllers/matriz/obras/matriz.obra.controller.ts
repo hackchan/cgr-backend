@@ -27,8 +27,17 @@ export const getObra = async (req: Request, res: Response, next: NextFunction) =
 export const createObra = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const obra = req.body
-    console.log('Obra:', obra)
     const response = await serviceObra.create(obra)
+    success(req, res, response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const createUpdateObra = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const obra = req.body
+    const response = await serviceObra.createUpdate(obra)
     success(req, res, response)
   } catch (error) {
     next(error)

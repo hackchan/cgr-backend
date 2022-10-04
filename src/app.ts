@@ -14,8 +14,9 @@ const port = 3010
 app.set('port', port)
 // Middlewares
 app.use(cors())
-app.use(express.json())
 app.use(morgan('dev'))
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ limit: '10mb', extended: true, parameterLimit: 50000 }))
 
 // Routers
 routers(app)

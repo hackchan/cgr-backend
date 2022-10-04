@@ -18,8 +18,22 @@ class MatrizObraDTO {
 
   async create (data: object): Promise<MatrizObra> {
     try {
-      const newObra = this.repositorioMatrizObra.create(data)
-      const result = await this.repositorioMatrizObra.save(newObra)
+      // const newObra = this.repositorioMatrizObra.create(data)
+      const result = await this.repositorioMatrizObra.save(data, { chunk: 10 })
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async createUpdate (data: []): Promise<any> {
+    try {
+      // const newObra = this.repositorioMatrizObra.create(data)
+      const result = await this.repositorioMatrizObra.upsert(data, {
+        skipUpdateIfNoValuesChanged: true, // If true, postgres will skip the update if no values would be changed (reduces writes)
+        conflictPaths: ['id', 'idContrato'] // column(s) name that you would like to ON CONFLICT
+      })
       return result
     } catch (error) {
       console.log(error)

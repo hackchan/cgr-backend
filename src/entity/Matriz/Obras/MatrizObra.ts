@@ -1,5 +1,6 @@
 import { IsUrl, IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Transform } from 'class-transformer'
 import { Municipio } from '../../Departments/Municipio'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 import { EstadoObra } from '../../Matriz/Obras/EstadoObra'
@@ -12,18 +13,25 @@ export class MatrizObra {
   id: number
 
   @Column({ name: 'id_bpin', nullable: false })
+  @Transform(value => value.toString, {
+    toPlainOnly: true
+  })
   idBpin: string
 
   @Column({ name: 'id_contrato', nullable: false, unique: true })
+  @Transform(({ value }) => (value).toString())
   idContrato: string
 
   @Column({ name: 'nombre_proyecto', nullable: false })
+  @Transform(({ value }) => value.toUpperCase())
   nombreProyecto: string
 
   @Column({ name: 'objeto_proyecto', nullable: false })
+  @Transform(({ value }) => value.toUpperCase())
   objetoProyecto: string
 
   @Column({ name: 'unidad_funcional_acuerdo_obra', nullable: false, default: 'N/A' })
+  @Transform(({ value }) => value.toUpperCase())
   unidadFuncional: string
 
   @Column({ name: 'fecha_suscripcion', type: 'date', nullable: false })
@@ -72,6 +80,7 @@ export class MatrizObra {
   avanceFinancieroEjecutado: number
 
   @Column({ name: 'nro_contrato', nullable: false })
+  @Transform(({ value }) => (value).toString())
   nroContrato: string
 
   @IsInt()
@@ -149,20 +158,23 @@ export class MatrizObra {
   valorAnticipo: number
 
   @Column({ name: 'razon_social_contratista', nullable: false })
+  @Transform(({ value }) => value.toUpperCase())
   razonSocialContratista: string
 
-  @IsInt()
   @Column({ name: 'id_contratista', nullable: false })
-  idContratista: number
+  @Transform(({ value }) => (value).toString())
+  idContratista: string
 
   @Column({ name: 'razon_social_nuevo_contratista', nullable: true })
+  @Transform(({ value }) => value.toUpperCase())
   razonSocialNuevoContratista: string
 
-  @IsInt()
   @Column({ name: 'id_nuevo_contratista', nullable: true })
-  idNuevoContratista: number
+  @Transform(({ value }) => (value).toString())
+  idNuevoContratista: string
 
   @Column({ name: 'observaciones', nullable: false, default: 'N/A' })
+  @Transform(({ value }) => (value).toString())
   observaciones: string
 
   @Column({ name: 'link_secop', nullable: false, default: 'N/A' })
@@ -170,14 +182,16 @@ export class MatrizObra {
   linkSecop: string
 
   @Column({ name: 'nro_contrato_interventoria', nullable: false })
+  @Transform(({ value }) => (value).toString())
   nroContratoInterventoria: string
 
   @Column({ name: 'nombre_interventoria', nullable: false })
+  @Transform(({ value }) => value.toUpperCase())
   nombreInterventoria: string
 
-  @IsInt()
   @Column({ name: 'id_interventoria', nullable: false })
-  idInterventoria: number
+  @Transform(({ value }) => (value).toString())
+  idInterventoria: string
 
   @IsInt()
   @Min(1)
@@ -216,4 +230,10 @@ export class MatrizObra {
   @ManyToOne(() => Municipio, municipio => municipio.obras, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_obra' })
   municipioObra: Municipio
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
 }

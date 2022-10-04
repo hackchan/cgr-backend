@@ -3,7 +3,7 @@ import { createUser, getUser, getUsers, updateUser, deleteUser, getUsersCGR } fr
 import { checkApiKey } from '../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', checkApiKey as RequestHandler, getUsers as RequestHandler)
+router.get('/', getUsers as RequestHandler)
 router.get('/cgr', getUsersCGR as RequestHandler)
 router.get('/:id', getUser as RequestHandler)
 router.post('/', createUser as RequestHandler)

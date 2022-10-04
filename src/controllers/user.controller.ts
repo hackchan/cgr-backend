@@ -17,7 +17,7 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
 
 export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const respose = await userService.findAll()
+    const respose = await userService.findAll(req.query)
     success(req, res, respose)
   } catch (error) {
     next(error)

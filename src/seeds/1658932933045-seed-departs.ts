@@ -2761,7 +2761,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 1,
         name: 'Gobernacion de Arauca',
-        nit: 800102838,
+        nit: '800102838',
         doctec: true,
         // cgn: null
         categoria: {
@@ -2778,7 +2778,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 2,
         name: 'Gobernacion de Boyaca',
-        nit: 891800498,
+        nit: '891800498',
         doctec: true,
         // cgn: null
         categoria: {
@@ -2796,7 +2796,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 6,
         name: 'Alcaldia Municipal de Almeida',
-        nit: 891801281,
+        nit: '891801281',
         doctec: true,
         // cgn: null
         categoria: {
