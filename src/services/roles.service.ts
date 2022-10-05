@@ -1,23 +1,21 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
-import { AppDataSource } from '../../../db'
 import { Repository, Like } from 'typeorm'
-import { SectorObra } from '../../../entity/Matriz/Obras/SectorObra'
+import { AppDataSource } from '../db'
+import { Role } from '../entity/UserManagement/Role'
+import { CreateUserTypeDTO } from '../entityTypes/usertype.dto'
 
-// import { validate } from 'class-validator'
-
-class SectorObraDTO {
-  readonly repositorioSectorObra: Repository<SectorObra>
-
+class Roles {
+  readonly repositorio: Repository<Role>
   constructor () {
-    this.repositorioSectorObra = AppDataSource.getRepository(SectorObra)
+    this.repositorio = AppDataSource.getRepository(Role)
   }
 
-  async create (data: object): Promise<SectorObra> {
+  async create (data: CreateUserTypeDTO): Promise<Role> {
     try {
-      const newSector = this.repositorioSectorObra.create(data)
-      const result = await this.repositorioSectorObra.save(newSector)
+      const newRole = this.repositorio.create(data)
+      const result = await this.repositorio.save(newRole)
       return result
     } catch (error) {
       console.log(error)
@@ -89,8 +87,8 @@ class SectorObraDTO {
         options.order = sort
       }
 
-      const estadoObraList = await this.repositorioSectorObra.find(options)
-      const cantidad = await this.repositorioSectorObra.count()
+      const estadoObraList = await this.repositorio.find(options)
+      const cantidad = await this.repositorio.count()
       const response = { cantidad, data: estadoObraList }
       // console.log(response)
       return response
@@ -100,29 +98,27 @@ class SectorObraDTO {
     }
   }
 
-  async findOne (id: number): Promise<SectorObra> {
+  async findOne (id: number): Promise<Role> {
     try {
-      const sector = await this.repositorioSectorObra.findOne({
+      const role = await this.repositorio.findOne({
         where:
         { id }
       })
-      if (sector == null) {
-        throw boom.notFound('Sector Obra no encontrado')
+      if (role == null) {
+        throw boom.notFound('Role no encontrado')
       }
-
-      return sector
+      return role
     } catch (error) {
       console.log(error)
       throw error
     }
   }
 
-  async update (id: number, changes: any): Promise<SectorObra> {
+  async update (id: number, changes: object): Promise<Role> {
     try {
-      const sector = await this.findOne(id)
-      // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
-      this.repositorioSectorObra.merge(sector, changes)
-      const result = await this.repositorioSectorObra.save(sector)
+      const role = await this.findOne(id)
+      this.repositorio.merge(role, changes)
+      const result = await this.repositorio.save(role)
       return result
     } catch (error) {
       console.log(error)
@@ -130,11 +126,11 @@ class SectorObraDTO {
     }
   }
 
-  async delete (id: number): Promise<SectorObra> {
+  async delete (id: number): Promise<Role> {
     try {
-      const sector = await this.findOne(id)
-      const response = this.repositorioSectorObra.remove(sector)
-      return await response
+      const role = await this.findOne(id)
+      const result = await this.repositorio.remove(role)
+      return result
     } catch (error) {
       console.log(error)
       throw error
@@ -142,4 +138,4 @@ class SectorObraDTO {
   }
 }
 
-export default SectorObraDTO
+export default Roles
