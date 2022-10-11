@@ -76,39 +76,45 @@ class UserMunicipio {
       if (isGlobalFilter) {
         options.where = [{ id: Like(`%${globalFilter}%`) },
           { name: Like(`%${globalFilter}%`) },
+          { divipola: Like(`%${globalFilter}%`) },
           { latitude: Like(`%${globalFilter}%`) },
           { longitude: Like(`%${globalFilter}%`) },
-          { isCapital: Like(`%${globalFilter}%`) },
           { department: { name: Like(`%${globalFilter}%`) } },
           { tipo: { name: Like(`%${globalFilter}%`) } }]
       }
 
-      // if (isFilters) {
-      //   const pushWhere: any[] = []
-      //   filtersColumn.forEach((obj: any) => {
-      //     const bus: any = {}
-      //     if (obj.id !== 'department' || obj.id !== 'tipo') {
-      //       bus[obj.id] = Like(`%${obj.value}%`)
-      //       pushWhere.push(bus)
-      //     } else {
-      //       pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
-      //     }
-      //   })
+      if (isFilters) {
+        const pushWhere: any[] = []
+        filtersColumn.forEach((obj: any) => {
+          console.log('obj:', obj)
+          const bus: any = {}
+          if (obj.id === 'department' || obj.id === 'tipo') {
+            pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+          } else {
+            if (obj.id === 'active' || obj.id === 'isCapital') {
+              bus[obj.id] = `${obj.value === 'SI' ? 1 : 0}`
+              pushWhere.push(bus)
+            } else {
+              bus[obj.id] = Like(`%${obj.value}%`)
+              pushWhere.push(bus)
+            }
+          }
+        })
 
-      //   options.where = pushWhere
-      // }
+        options.where = pushWhere
+      }
 
       if (isSorting) {
-        // const sort: any = {}
-        // sortingColumn.forEach((obj: any) => {
-        //   if (obj.id !== 'department' || obj.id !== 'tipo') {
-        //     sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
-        //   } else {
-        //     sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
-        //   }
-        // })
+        const sort: any = {}
+        sortingColumn.forEach((obj: any) => {
+          if (obj.id === 'department' || obj.id === 'tipo') {
+            sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
+          } else {
+            sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+          }
+        })
 
-        // options.order = sort
+        options.order = sort
       }
 
       const departList = await this.repositorioMunicipio.find(options)

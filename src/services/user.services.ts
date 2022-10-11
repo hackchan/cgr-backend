@@ -203,14 +203,14 @@ class UserService {
     }
   }
 
-  async delete (id: number): Promise<void> {
+  async delete (id: number): Promise<User> {
     try {
-      // const user = await this.findOne(id)
+      const user = await this.findOne(id)
       // const response = this.repositorioAuth.remove(user)
       // return await response
       // const response = await this.repositorioAuth.delete({ id: user.auth.id })
-      // const remove = user.remove()
-      // return await remove
+      const remove = await user.remove()
+      return remove
     } catch (error) {
       console.log(error)
       throw error
