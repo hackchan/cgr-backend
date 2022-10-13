@@ -126,7 +126,7 @@ const avanceFinancieroEjecutado = Joi.number().precision(2).min(0).max(1).option
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const nroContrato = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
+const nroContrato = Joi.string().min(2).max(30).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -218,7 +218,7 @@ const razonSocialNuevoContratista = Joi.string().regex(/^[a-zA-Z0-9/ ]{3,100}$/)
 const idNuevoContratista = Joi.string().options({ convert: true })
 const observaciones = Joi.string().min(1).max(255)
 const linkSecop = Joi.string().uri()
-const nroContratoInterventoria = Joi.string().min(2).max(20).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
+const nroContratoInterventoria = Joi.string().min(2).max(30).regex(/(^[0-9a-zA-Z]*[0-9a-zA-Z-_]*[0-9a-zA-Z]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
