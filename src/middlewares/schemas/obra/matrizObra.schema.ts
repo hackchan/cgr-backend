@@ -58,7 +58,7 @@ const idContrato = Joi.alternatives(Joi.number(), Joi.string().min(2).max(20).re
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
 
-const nombreProyecto = Joi.string().trim().lowercase().min(3).max(64).messages({
+const nombreProyecto = Joi.string().trim().min(3).max(64).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -166,31 +166,31 @@ const cantidadAdiciones = Joi.number().integer().min(0).max(100).messages({
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorTotalAdiciones = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorTotalAdiciones = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorComprometido = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorComprometido = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorObligado = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorObligado = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorPagado = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorPagado = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
-const valorAnticipo = Joi.number().precision(2).min(0).max(99999999999999.99).options({ convert: false }).messages({
+const valorAnticipo = Joi.number().precision(2).min(0).max(9999999999999.99).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
@@ -292,15 +292,15 @@ const municipioObra = Joi.number().integer().min(1).options({ convert: false }).
 })
 
 export const createMatrizObraSchema = Joi.array().items(Joi.object({
-  idBpin: idBpin,
+  idBpin,
   idContrato: idContrato.required(),
   nombreProyecto: nombreProyecto.required(),
   objetoProyecto: objetoProyecto.required(),
-  unidadFuncional: unidadFuncional,
+  unidadFuncional,
   fechaSuscripcion: fechaSuscripcion.required(),
-  fechaInicio: fechaInicio,
-  fechaProgramadaTermina: fechaProgramadaTermina,
-  fechaTermina: fechaTermina,
+  fechaInicio,
+  fechaProgramadaTermina,
+  fechaTermina,
   valorContratoInicial: valorContratoInicial.required(),
   valorContratoFinal: valorContratoFinal.required(),
   avanceFisicoProgramado: avanceFisicoProgramado.required(),
@@ -320,10 +320,10 @@ export const createMatrizObraSchema = Joi.array().items(Joi.object({
   valorAnticipo: valorAnticipo.required(),
   razonSocialContratista: razonSocialContratista.required(),
   idContratista: idContratista.required(),
-  razonSocialNuevoContratista: razonSocialNuevoContratista,
-  idNuevoContratista: idNuevoContratista,
-  observaciones: observaciones,
-  linkSecop: linkSecop,
+  razonSocialNuevoContratista,
+  idNuevoContratista,
+  observaciones,
+  linkSecop,
   nroContratoInterventoria: nroContratoInterventoria.required(),
   nombreInterventoria: nombreInterventoria.required(),
   idInterventoria: idInterventoria.required(),
@@ -339,48 +339,48 @@ export const createMatrizObraSchema = Joi.array().items(Joi.object({
 }))
 
 export const updateMatrizObraSchema = Joi.object({
-  idBpin: idBpin,
-  idContrato: idContrato,
-  nombreProyecto: nombreProyecto,
-  objetoProyecto: objetoProyecto,
-  unidadFuncional: unidadFuncional,
-  fechaSuscripcion: fechaSuscripcion,
-  fechaInicio: fechaInicio,
-  fechaProgramadaTermina: fechaProgramadaTermina,
-  fechaTermina: fechaTermina,
-  valorContratoInicial: valorContratoInicial,
-  valorContratoFinal: valorContratoFinal,
-  avanceFisicoProgramado: avanceFisicoProgramado,
-  avanceFisicoEjecutado: avanceFisicoEjecutado,
-  avanceFinancieroEjecutado: avanceFinancieroEjecutado,
-  nroContrato: nroContrato,
-  cantidadSuspenciones: cantidadSuspenciones,
-  cantidadProrrogas: cantidadProrrogas,
-  tiempoSuspenciones: tiempoSuspenciones,
-  tiempoProrrogas: tiempoProrrogas,
-  cantidadAdiciones: cantidadAdiciones,
-  valorTotalAdiciones: valorTotalAdiciones,
-  valorComprometido: valorComprometido,
-  valorObligado: valorObligado,
-  valorPagado: valorPagado,
-  valorAnticipo: valorAnticipo,
-  razonSocialContratista: razonSocialContratista,
-  idContratista: idContratista,
-  razonSocialNuevoContratista: razonSocialNuevoContratista,
-  idNuevoContratista: idNuevoContratista,
-  observaciones: observaciones,
-  linkSecop: linkSecop,
-  nroContratoInterventoria: nroContratoInterventoria,
-  nombreInterventoria: nombreInterventoria,
-  idInterventoria: idInterventoria,
-  diaCorte: diaCorte,
-  mesCorte: mesCorte,
-  anioCorte: anioCorte,
-  sector: sector,
-  origen: origen,
-  estado: estado,
-  entidad: entidad,
-  municipioObra: municipioObra
+  idBpin,
+  idContrato,
+  nombreProyecto,
+  objetoProyecto,
+  unidadFuncional,
+  fechaSuscripcion,
+  fechaInicio,
+  fechaProgramadaTermina,
+  fechaTermina,
+  valorContratoInicial,
+  valorContratoFinal,
+  avanceFisicoProgramado,
+  avanceFisicoEjecutado,
+  avanceFinancieroEjecutado,
+  nroContrato,
+  cantidadSuspenciones,
+  cantidadProrrogas,
+  tiempoSuspenciones,
+  tiempoProrrogas,
+  cantidadAdiciones,
+  valorTotalAdiciones,
+  valorComprometido,
+  valorObligado,
+  valorPagado,
+  valorAnticipo,
+  razonSocialContratista,
+  idContratista,
+  razonSocialNuevoContratista,
+  idNuevoContratista,
+  observaciones,
+  linkSecop,
+  nroContratoInterventoria,
+  nombreInterventoria,
+  idInterventoria,
+  diaCorte,
+  mesCorte,
+  anioCorte,
+  sector,
+  origen,
+  estado,
+  entidad,
+  municipioObra
 })
 
 export const getMatrizObraSchema = Joi.object({

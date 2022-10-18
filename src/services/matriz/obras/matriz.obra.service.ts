@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
-import { Repository, Like } from 'typeorm'
+import { Repository, Like, Equal } from 'typeorm'
 import { DateUtils } from 'typeorm/util/DateUtils'
 import { MatrizObra } from '../../../entity/Matriz/Obras/MatrizObra'
 import { format, parse } from 'date-fns'
@@ -16,16 +16,75 @@ class MatrizObraDTO {
     this.repositorioMatrizObra = AppDataSource.getRepository(MatrizObra)
   }
 
-  async create (data: object): Promise<MatrizObra> {
+  getArrayAsChunks = (array: any, chunkSize: any): any[] => {
+    const result = []
+    const data = array.slice(0)
+    while (data[0]) {
+      result.push(data.splice(0, chunkSize))
+    }
+    return result
+  }
+
+  // async create (data: MatrizObra[]): Promise<MatrizObra> {
+  //   try {
+  //     for (let contrato of data) {
+  //         const obra = await this.repositorioMatrizObra.findOne({where:{ idContrato:contrato.idContrato }
+  //         if(obra === null){
+
+  //         }
+  //     })
+  //     }
+
+  //   }
+  // }
+
+  async create (data: any[]): Promise<any> {
     try {
-      // const newObra = this.repositorioMatrizObra.create(data)
-      const result = await this.repositorioMatrizObra.save(data, { chunk: 10 })
-      return result
+      const chunksArray = this.getArrayAsChunks(data, 10)
+      for (const obraChunk of chunksArray) {
+        for (const obra of obraChunk) {
+          const obraItem = await this.repositorioMatrizObra.findOne({ where: { idContrato: obra.idContrato, entidad: { id: obra.entidad } } })
+          if (obraItem == null) {
+            const newObra = this.repositorioMatrizObra.create(obra)
+            await this.repositorioMatrizObra.save(newObra)
+          } else {
+            this.repositorioMatrizObra.merge(obraItem, obra)
+            await this.repositorioMatrizObra.save(obraItem)
+          }
+        }
+      }
+      return 'archivo procesado con exito'
     } catch (error) {
       console.log(error)
       throw error
     }
   }
+
+  // async create (data: object): Promise<MatrizObra> {
+  //   try {
+  //     const result = await this.repositorioMatrizObra.save(data, { chunk: 10, transaction: false })
+  //     return result
+  //   } catch (error) {
+  //     console.log(error)
+  //     throw error
+  //   }
+  // }
+
+  // async create (data: []): Promise<any> {
+  //   try {
+  //     const chunksArray = this.getArrayAsChunks(data, 10)
+
+  //     chunksArray.map(async oneChunk => {
+  //       await this.repositorioMatrizObra
+  //         .createQueryBuilder()
+  //         .add(data)
+  //     })
+  //     return 'Se inserto correctamente'
+  //   } catch (error) {
+  //     console.log(error)
+  //     throw error
+  //   }
+  // }
 
   async createUpdate (data: []): Promise<any> {
     try {
@@ -129,10 +188,43 @@ class MatrizObraDTO {
 
         ]
       }
+      if (isFilters) {
+        const pushWhere: any[] = []
+        filtersColumn.forEach((obj: any) => {
+          console.log('obj:', obj)
+          const bus: any = {}
+          if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
+            pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+          } else {
+            if (obj.id === 'fechaSuscripcion' || obj.id === 'fechaInicio' || obj.id === 'fechaProgramadaTermina' || obj.id === 'fechaTermina') {
+              bus[obj.id] = Equal(obj.value)
+              pushWhere.push(bus)
+            } else {
+              bus[obj.id] = Like(`%${obj.value}%`)
+              pushWhere.push(bus)
+            }
+          }
+        })
 
-      const obrasList = await this.repositorioMatrizObra.find(options)
-      const cantidad = await this.repositorioMatrizObra.count()
-      const response = { cantidad, data: obrasList }
+        options.where = pushWhere
+      }
+
+      if (isSorting) {
+        const sort: any = {}
+        sortingColumn.forEach((obj: any) => {
+          if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
+            sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
+          } else {
+            sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+          }
+        })
+
+        options.order = sort
+      }
+
+      const obrasList = await this.repositorioMatrizObra.findAndCount(options)
+      // const cantidad = await this.repositorioMatrizObra.count()
+      const response = { cantidad: obrasList[1], data: obrasList[0] }
       // console.log(response)
       return response
     } catch (error) {

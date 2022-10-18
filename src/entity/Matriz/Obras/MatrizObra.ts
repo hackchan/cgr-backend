@@ -1,5 +1,5 @@
 import { IsUrl, IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { Municipio } from '../../Departments/Municipio'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -8,47 +8,48 @@ import { SectorObra } from '../../Matriz/Obras/SectorObra'
 import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
 
 @Entity()
+@Unique('matrizObra_unique', ['idContrato', 'entidad'])
 export class MatrizObra {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ name: 'id_bpin', nullable: false })
   @Transform(value => value.toString, {
     toPlainOnly: true
   })
-  idBpin: string
+    idBpin: string
 
-  @Column({ name: 'id_contrato', nullable: false, unique: true })
+  @Column({ name: 'id_contrato', nullable: false })
   @Transform(({ value }) => (value).toString())
-  idContrato: string
+    idContrato: string
 
   @Column({ name: 'nombre_proyecto', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
-  nombreProyecto: string
+    nombreProyecto: string
 
   @Column({ name: 'objeto_proyecto', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
-  objetoProyecto: string
+    objetoProyecto: string
 
   @Column({ name: 'unidad_funcional_acuerdo_obra', nullable: false, default: 'N/A' })
   @Transform(({ value }) => value.toUpperCase())
-  unidadFuncional: string
+    unidadFuncional: string
 
   @Column({ name: 'fecha_suscripcion', type: 'date', nullable: false })
   @IsDate()
-  fechaSuscripcion: Date
+    fechaSuscripcion: Date
 
   @Column({ name: 'fecha_inicio', type: 'date', nullable: false, default: '1900-01-01' })
   @IsDate()
-  fechaInicio: Date
+    fechaInicio: Date
 
   @Column({ name: 'fecha_programada_terminacion', type: 'date', nullable: false, default: '1900-01-01' })
   @IsDate()
-  fechaProgramadaTermina: Date
+    fechaProgramadaTermina: Date
 
   @Column({ name: 'fecha_terminacion', type: 'date', nullable: false, default: '1900-01-01' })
   @IsDate()
-  fechaTermina: Date
+    fechaTermina: Date
 
   @Column({
     name: 'valor_contrato_inicial',
@@ -58,7 +59,7 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorContratoInicial: number
+    valorContratoInicial: number
 
   @Column({
     name: 'valor_contrato_final',
@@ -68,44 +69,44 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorContratoFinal: number
+    valorContratoFinal: number
 
   @Column({ name: 'avance_fisico_programado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
-  avanceFisicoProgramado: number
+    avanceFisicoProgramado: number
 
   @Column({ name: 'avance_fisico_ejecutado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
-  avanceFisicoEjecutado: number
+    avanceFisicoEjecutado: number
 
   @Column({ name: 'avance_financiero_ejecutado', type: 'decimal', precision: 4, scale: 2, default: 0, nullable: false })
-  avanceFinancieroEjecutado: number
+    avanceFinancieroEjecutado: number
 
   @Column({ name: 'nro_contrato', nullable: false })
   @Transform(({ value }) => (value).toString())
-  nroContrato: string
+    nroContrato: string
 
   @IsInt()
   @Min(0)
   @Max(100)
   @Column({ name: 'cantidad_de_suspensiones', nullable: false, default: 0 })
-  cantidadSuspenciones: number
+    cantidadSuspenciones: number
 
   @IsInt()
   @Min(0)
   @Max(100)
   @Column({ name: 'cantidad_de_prorrogas', nullable: false, default: 0 })
-  cantidadProrrogas: number
+    cantidadProrrogas: number
 
   @Column({ name: 'tiempo_suspensiones', nullable: false, default: 0 })
-  tiempoSuspenciones: number
+    tiempoSuspenciones: number
 
   @Column({ name: 'tiempo_prorrogas', nullable: false, default: 0 })
-  tiempoProrrogas: number
+    tiempoProrrogas: number
 
   @IsInt()
   @Min(0)
   @Max(100)
   @Column({ name: 'cantidad_adiciones', nullable: false, default: 0 })
-  cantidadAdiciones: number
+    cantidadAdiciones: number
 
   @Column({
     name: 'valor_total_adiciones',
@@ -115,7 +116,7 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorTotalAdiciones: number
+    valorTotalAdiciones: number
 
   @Column({
     name: 'valor_comprometido',
@@ -125,7 +126,7 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorComprometido: number
+    valorComprometido: number
 
   @Column({
     name: 'valor_obligado',
@@ -135,7 +136,7 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorObligado: number
+    valorObligado: number
 
   @Column({
     name: 'valor_pagado',
@@ -145,7 +146,7 @@ export class MatrizObra {
     default: 0,
     nullable: false
   })
-  valorPagado: number
+    valorPagado: number
 
   @Column({
     name: 'valor_anticipo',
@@ -155,85 +156,85 @@ export class MatrizObra {
     default: 0,
     nullable: true
   })
-  valorAnticipo: number
+    valorAnticipo: number
 
   @Column({ name: 'razon_social_contratista', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
-  razonSocialContratista: string
+    razonSocialContratista: string
 
   @Column({ name: 'id_contratista', nullable: false })
   @Transform(({ value }) => (value).toString())
-  idContratista: string
+    idContratista: string
 
   @Column({ name: 'razon_social_nuevo_contratista', nullable: true })
   @Transform(({ value }) => value.toUpperCase())
-  razonSocialNuevoContratista: string
+    razonSocialNuevoContratista: string
 
   @Column({ name: 'id_nuevo_contratista', nullable: true })
   @Transform(({ value }) => (value).toString())
-  idNuevoContratista: string
+    idNuevoContratista: string
 
   @Column({ name: 'observaciones', nullable: false, default: 'N/A' })
   @Transform(({ value }) => (value).toString())
-  observaciones: string
+    observaciones: string
 
   @Column({ name: 'link_secop', nullable: false, default: 'N/A' })
   @IsUrl()
-  linkSecop: string
+    linkSecop: string
 
   @Column({ name: 'nro_contrato_interventoria', nullable: false })
   @Transform(({ value }) => (value).toString())
-  nroContratoInterventoria: string
+    nroContratoInterventoria: string
 
   @Column({ name: 'nombre_interventoria', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
-  nombreInterventoria: string
+    nombreInterventoria: string
 
   @Column({ name: 'id_interventoria', nullable: false })
   @Transform(({ value }) => (value).toString())
-  idInterventoria: string
+    idInterventoria: string
 
   @IsInt()
   @Min(1)
   @Max(31)
   @Column({ name: 'dia_corte', nullable: false })
-  diaCorte: number
+    diaCorte: number
 
   @IsInt()
   @Min(1)
   @Max(12)
   @Column({ name: 'mes_corte', nullable: false })
-  mesCorte: number
+    mesCorte: number
 
   @IsInt()
   @Min(1900)
   @Min(2999)
   @Column({ name: 'anio_corte', nullable: false })
-  anioCorte: number
+    anioCorte: number
 
   @ManyToOne(() => SectorObra, (sector) => sector.obras, { nullable: false })
   @JoinColumn({ name: 'sector' })
-  sector: SectorObra
+    sector: SectorObra
 
   @ManyToOne(() => OrigenRecurso, (origen) => origen.obras, { nullable: false })
   @JoinColumn({ name: 'origen' })
-  origen: OrigenRecurso
+    origen: OrigenRecurso
 
   @ManyToOne(() => EstadoObra, (estado) => estado.obras, { nullable: false })
   @JoinColumn({ name: 'estado' })
-  estado: EstadoObra
+    estado: EstadoObra
 
   @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
-  entidad: EntidadControl
+    entidad: EntidadControl
 
   @ManyToOne(() => Municipio, municipio => municipio.obras, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_obra' })
-  municipioObra: Municipio
+    municipioObra: Municipio
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 }

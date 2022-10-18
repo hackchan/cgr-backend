@@ -8,38 +8,38 @@ import { MatrizObra } from '../Matriz/Obras/MatrizObra'
 @Entity()
 export class EntidadControl {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  nit: string
+    nit: string
 
   @Column({ nullable: false })
-  name: string
+    name: string
 
   @Column({ nullable: true })
-  doctec: boolean=false
+    doctec: boolean = false
 
   @Column({ nullable: true })
-  cgn: string
+    cgn: string
 
   @ManyToOne(() => Categoria, (categoria) => categoria.entidades, { nullable: true })
   @JoinColumn({ name: 'categoria_id' })
-  categoria: Categoria
+    categoria: Categoria
 
   @ManyToOne(() => Subsector, (subsector) => subsector.entidades, { nullable: false })
   @JoinColumn({ name: 'subsector_id' })
-  subsector: Subsector
+    subsector: Subsector
 
   @OneToMany(() => Email, email => email.entidad, { cascade: true })
-  emails: Email[]
+    emails: Email[]
 
   @OneToMany(() => Telefono, telefono => telefono.entidad, { cascade: true })
-  telefonos: Telefono[]
+    telefonos: Telefono[]
 
   @ManyToOne(() => Municipio, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_id' })
-  municipio: Municipio
+    municipio: Municipio
 
   @OneToMany(() => MatrizObra, obra => obra.entidad)
-  obras: MatrizObra[]
+    obras: MatrizObra[]
 }
