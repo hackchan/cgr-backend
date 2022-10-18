@@ -38,37 +38,54 @@ class MatrizObraDTO {
   //   }
   // }
 
-  async create (data: any[]): Promise<any> {
-    try {
-      const chunksArray = this.getArrayAsChunks(data, 10)
-      for (const obraChunk of chunksArray) {
-        for (const obra of obraChunk) {
-          const obraItem = await this.repositorioMatrizObra.findOne({ where: { idContrato: obra.idContrato, entidad: { id: obra.entidad } } })
-          if (obraItem == null) {
-            const newObra = this.repositorioMatrizObra.create(obra)
-            await this.repositorioMatrizObra.save(newObra)
-          } else {
-            this.repositorioMatrizObra.merge(obraItem, obra)
-            await this.repositorioMatrizObra.save(obraItem)
-          }
-        }
-      }
-      return 'archivo procesado con exito'
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
-  }
-
-  // async create (data: object): Promise<MatrizObra> {
+  // async create (data: any[]): Promise<any> {
   //   try {
-  //     const result = await this.repositorioMatrizObra.save(data, { chunk: 10, transaction: false })
-  //     return result
+  //     const chunksArray = this.getArrayAsChunks(data, 10)
+  //     for (const obraChunk of chunksArray) {
+  //       for (const obra of obraChunk) {
+  //         const obraItem = await this.repositorioMatrizObra.findOne({ where: { idContrato: obra.idContrato, entidad: { id: obra.entidad } } })
+  //         if (obraItem == null) {
+  //           const newObra = this.repositorioMatrizObra.create(obra)
+  //           await this.repositorioMatrizObra.save(newObra)
+  //         } else {
+  //           this.repositorioMatrizObra.merge(obraItem, obra)
+  //           await this.repositorioMatrizObra.save(obraItem)
+  //         }
+  //       }
+  //     }
+  //     return 'archivo procesado con exito'
   //   } catch (error) {
   //     console.log(error)
   //     throw error
   //   }
   // }
+
+  async create (data: any): Promise<any> {
+    try {
+      const result = await this.repositorioMatrizObra.save(data, { chunk: 10, transaction: false })
+      return result
+    } catch (error) {
+      try {
+        const chunksArray = this.getArrayAsChunks(data, 10)
+        for (const obraChunk of chunksArray) {
+          for (const obra of obraChunk) {
+            const obraItem = await this.repositorioMatrizObra.findOne({ where: { idContrato: obra.idContrato, entidad: { id: obra.entidad } } })
+            if (obraItem == null) {
+              const newObra = this.repositorioMatrizObra.create(obra)
+              await this.repositorioMatrizObra.save(newObra)
+            } else {
+              this.repositorioMatrizObra.merge(obraItem, obra)
+              await this.repositorioMatrizObra.save(obraItem)
+            }
+          }
+        }
+        return 'archivo procesado con exito'
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
+    }
+  }
 
   // async create (data: []): Promise<any> {
   //   try {
