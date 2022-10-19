@@ -206,39 +206,39 @@ class MatrizObraDTO {
 
         ]
       }
-      // if (isFilters) {
-      //   const pushWhere: any[] = []
-      //   filtersColumn.forEach((obj: any) => {
-      //     console.log('obj:', obj)
-      //     const bus: any = {}
-      //     if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
-      //       pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
-      //     } else {
-      //       if (obj.id === 'fechaSuscripcion' || obj.id === 'fechaInicio' || obj.id === 'fechaProgramadaTermina' || obj.id === 'fechaTermina') {
-      //         bus[obj.id] = Equal(obj.value)
-      //         pushWhere.push(bus)
-      //       } else {
-      //         bus[obj.id] = Like(`%${obj.value}%`)
-      //         pushWhere.push(bus)
-      //       }
-      //     }
-      //   })
-      //   console.log('filter:', pushWhere)
-      //   options.where = pushWhere
-      // }
+      if (isFilters) {
+        const pushWhere: any[] = []
+        filtersColumn.forEach((obj: any) => {
+          console.log('obj:', obj)
+          const bus: any = {}
+          if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
+            pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+          } else {
+            if (obj.id === 'fechaSuscripcion' || obj.id === 'fechaInicio' || obj.id === 'fechaProgramadaTermina' || obj.id === 'fechaTermina') {
+              bus[obj.id] = Equal(obj.value)
+              pushWhere.push(bus)
+            } else {
+              bus[obj.id] = `${obj.value}`
+              pushWhere.push(bus)
+            }
+          }
+        })
+        console.log('filter:', pushWhere)
+        options.where = pushWhere
+      }
 
-      // if (isSorting) {
-      //   const sort: any = {}
-      //   sortingColumn.forEach((obj: any) => {
-      //     if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
-      //       sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
-      //     } else {
-      //       sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
-      //     }
-      //   })
+      if (isSorting) {
+        const sort: any = {}
+        sortingColumn.forEach((obj: any) => {
+          if (obj.id === 'sector' || obj.id === 'origen' || obj.id === 'estado' || obj.id === 'entidad' || obj.id === 'municipioObra') {
+            sort[obj.id] = { name: obj.desc === true ? 'DESC' : 'ASC' }
+          } else {
+            sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+          }
+        })
 
-      //   options.order = sort
-      // }
+        options.order = sort
+      }
 
       const obrasList = await this.repositorioMatrizObra.findAndCount(options)
       // const cantidad = await this.repositorioMatrizObra.count()
