@@ -4,11 +4,11 @@ import { Municipio } from './Municipio'
 @Entity('municipio_type')
 export class TypeMunicipio {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ unique: true, nullable: false })
-  name: string
+    name: string
 
   @OneToMany(() => Municipio, (municipio) => municipio.tipo)
-  municipios: Municipio[]
+    municipios: Municipio[]
 }

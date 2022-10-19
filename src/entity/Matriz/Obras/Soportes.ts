@@ -1,20 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { IsUrl } from 'class-validator'
 import { MatrizObra } from './MatrizObra'
-
+import { TipoSoporte } from './TipoSoporte'
 @Entity()
 export class Soportes {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false })
-  name: string
+    name: string
 
   @IsUrl()
-  ruta: string
+    ruta: string
 
-  @ManyToOne(() => SectorObra, (sector) => sector.obras, { nullable: false })
-  @JoinColumn({ name: 'sector' })
-    tipoSoporte: SectorObra
+  @ManyToOne(() => MatrizObra, obra => obra.soportes, { nullable: false })
+  @JoinColumn({ name: 'obra_id' })
+    obra: MatrizObra
 
+  @ManyToOne(() => TipoSoporte, tipo => tipo.soportes, { nullable: false })
+  @JoinColumn({ name: 'tipo_soporte_id' })
+    tipoSoporte: TipoSoporte
 }

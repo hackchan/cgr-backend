@@ -3,11 +3,11 @@ import { EntidadControl } from './EntidadControl'
 @Entity()
 export class Categoria {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  name: string
+    name: string
 
   @OneToMany(() => EntidadControl, (entidad) => entidad.categoria)
-  entidades: EntidadControl[]
+    entidades: EntidadControl[]
 }

@@ -4,11 +4,11 @@ import { MatrizObra } from './MatrizObra'
 @Entity()
 export class SectorObra {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  name: string
+    name: string
 
   @OneToMany(() => MatrizObra, (obra) => obra.sector)
-  obras: MatrizObra[]
+    obras: MatrizObra[]
 }

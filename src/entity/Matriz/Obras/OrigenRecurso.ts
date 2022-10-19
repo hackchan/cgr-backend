@@ -3,11 +3,11 @@ import { MatrizObra } from '../Obras/MatrizObra'
 @Entity()
 export class OrigenRecurso {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  name: string
+    name: string
 
   @OneToMany(() => MatrizObra, (obra) => obra.sector)
-  obras: MatrizObra[]
+    obras: MatrizObra[]
 }

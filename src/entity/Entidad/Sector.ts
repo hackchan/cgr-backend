@@ -3,14 +3,14 @@ import { Subsector } from './Subsector'
 @Entity()
 export class Sector {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  name: string
+    name: string
 
   @Column({ nullable: false, unique: true })
-  initial: string
+    initial: string
 
   @OneToMany(() => Subsector, (subsector) => subsector.sector)
-  subsector: Subsector[]
+    subsector: Subsector[]
 }

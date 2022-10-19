@@ -3,18 +3,18 @@ import { EntidadControl } from './EntidadControl'
 @Entity()
 export class Telefono {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  numero: string
+    numero: string
 
   @Column({ nullable: true })
-  contacto: string
+    contacto: string
 
   @Column({ nullable: true })
-  cargo: string
+    cargo: string
 
   @ManyToOne(() => EntidadControl, entidad => entidad.telefonos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
-  entidad: EntidadControl
+    entidad: EntidadControl
 }

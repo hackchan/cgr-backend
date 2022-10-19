@@ -1,12 +1,13 @@
 import { IsUrl, IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { Municipio } from '../../Departments/Municipio'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 import { EstadoObra } from '../../Matriz/Obras/EstadoObra'
 import { SectorObra } from '../../Matriz/Obras/SectorObra'
 import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
-
+import { User } from '../../UserManagement/User'
+import { Soportes } from '../../Matriz/Obras/Soportes'
 @Entity()
 @Unique('matrizObra_unique', ['idContrato', 'entidad'])
 export class MatrizObra {
@@ -212,6 +213,13 @@ export class MatrizObra {
   @Column({ name: 'anio_corte', nullable: false })
     anioCorte: number
 
+  @Column({ nullable: true })
+    alerta: boolean = false
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'user_alerta' })
+    userAlert: User
+
   @ManyToOne(() => SectorObra, (sector) => sector.obras, { nullable: false })
   @JoinColumn({ name: 'sector' })
     sector: SectorObra
@@ -231,6 +239,13 @@ export class MatrizObra {
   @ManyToOne(() => Municipio, municipio => municipio.obras, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_obra' })
     municipioObra: Municipio
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'user_operation' })
+    userOper: User
+
+  @OneToMany(() => Soportes, (soporte) => soporte.obra)
+    soportes: Soportes[]
 
   @CreateDateColumn()
     createdAt: Date

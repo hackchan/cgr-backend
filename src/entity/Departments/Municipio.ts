@@ -7,39 +7,39 @@ import { EntidadControl } from '../Entidad/EntidadControl'
 @Entity('municipio')
 export class Municipio {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false })
-  name: string
+    name: string
 
   @Column({ nullable: false })
-  active: boolean = false
+    active: boolean = false
 
   @Column({ nullable: false })
-  isCapital: boolean = false
+    isCapital: boolean = false
 
   @Column({ nullable: false, unique: true })
-  divipola: string
+    divipola: string
 
   @Column({ nullable: true, type: 'decimal', precision: 9, scale: 6, default: 0 })
   @IsLatitude()
-  latitude: number
+    latitude: number
 
   @Column({ nullable: true, type: 'decimal', precision: 9, scale: 6, default: 0 })
   @IsLongitude()
-  longitude: number
+    longitude: number
 
   @ManyToOne(() => Departamento, depart => depart.municipios, { nullable: false })
   @JoinColumn({ name: 'depart_id' })
-  department: Departamento
+    department: Departamento
 
   @ManyToOne(() => TypeMunicipio, type => type.municipios, { nullable: true })
   @JoinColumn({ name: 'type_id' })
-  tipo: TypeMunicipio
+    tipo: TypeMunicipio
 
   @OneToMany(() => MatrizObra, mobra => mobra.municipioObra)
-  obras: MatrizObra[]
+    obras: MatrizObra[]
 
   @OneToMany(() => EntidadControl, entidad => entidad.municipio)
-  entidades: EntidadControl[]
+    entidades: EntidadControl[]
 }

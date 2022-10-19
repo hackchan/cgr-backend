@@ -1,14 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { MatrizObra } from './MatrizObra'
+import { Soportes } from './Soportes'
 
 @Entity()
 export class TipoSoporte {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
-  name: string
+    name: string
 
-  @OneToMany(() => MatrizObra, (obra) => obra.sector)
-  obras: MatrizObra[]
+  @OneToMany(() => Soportes, (soporte) => soporte.tipoSoporte)
+    soportes: Soportes[]
 }

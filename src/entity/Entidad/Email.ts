@@ -4,13 +4,16 @@ import { EntidadControl } from './EntidadControl'
 @Entity()
 export class Email {
   @PrimaryGeneratedColumn()
-  id: number
+    id: number
 
   @Column({ nullable: false, unique: true })
   @IsEmail()
-  email: string
+    email: string
+
+  @Column({ nullable: false })
+    register: boolean = false
 
   @ManyToOne(() => EntidadControl, entidad => entidad.emails, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
-  entidad: EntidadControl
+    entidad: EntidadControl
 }

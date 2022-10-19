@@ -5,25 +5,25 @@ import { Model } from './Model'
 @Entity('user')
 export class User extends Model {
   @Column({ nullable: false })
-  name: string
+    name: string
 
   @Column({ name: 'last_name', nullable: false })
-  lastName: string
+    lastName: string
 
   @Column({ nullable: false, unique: true })
-  phone: string
+    phone: string
 
   @Column({ nullable: false, unique: true })
-  email: string
+    email: string
 
   @Column({ nullable: true })
-  image?: string
+    image?: string
 
   @OneToOne(() => Auth, { cascade: true, onDelete: 'CASCADE', nullable: true })
   @JoinColumn({ name: 'auth_id' })
-  auth: Auth
+    auth: Auth
 
   @ManyToOne(() => UserType, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true })
   @JoinColumn({ name: 'type_id' })
-  tipo: UserType
+    tipo: UserType
 }

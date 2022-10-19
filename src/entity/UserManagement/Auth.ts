@@ -5,19 +5,19 @@ import bcrypt from 'bcrypt'
 @Entity('auth')
 export class Auth extends Model {
   @Column({ unique: true, nullable: false })
-  username: string
+    username: string
 
   @Column({ nullable: false })
-  password: string
+    password: string
 
   @Column('simple-array', { default: '', nullable: false })
-  role: string[]
+    role: string[]
 
   @Column({ nullable: true, name: 'recovery_token' })
-  recoveryToken: string
+    recoveryToken: string
 
   @OneToOne(() => User, user => user.auth, { onDelete: 'CASCADE' })
-  user: User
+    user: User
 
   @BeforeInsert()
   async hashPassword (): Promise<void> {
