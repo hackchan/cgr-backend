@@ -24,5 +24,13 @@ export default {
     host: process.env.MAIL_HOST,
     port: process.env.MAIL_PORT ?? 465,
     secure: process.env.MAIL_SECURE === 'true'
+  },
+  azure: {
+    getStorageAccoutName: () => {
+      const matches = /AccountName=(.*?);/.exec(process.env.AZURE_STORAGE_CONNECTION_STRING ?? '')
+      return matches?.[1]
+    },
+    conn: process.env.AZURE_STORAGE_CONNECTION_STRING ?? ''
+
   }
 }

@@ -16,6 +16,7 @@ import origenRecurso from '../routes/matriz/obras/origen.recurso.routes'
 import sectorObra from '../routes/matriz/obras/sector.obra.routes'
 import Obra from '../routes/matriz/obras/matriz.obra.route'
 import Roles from '../routes/roles.routes'
+import Azure from '../routes/azure/azure.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -36,6 +37,7 @@ const routers = (app: any): void => {
   router.use('/sector-obra', sectorObra)
   router.use('/obra', Obra)
   router.use('/role', Roles)
+  router.use('/azure', Azure)
 }
 
 export default routers
