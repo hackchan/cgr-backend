@@ -35,7 +35,7 @@ class AzureStorage {
       // await this.createContainer('')
       const stream = Readable.from(file.buffer)
       const blobName = this.getBlobName(file.originalname)
-      const blobService = new BlockBlobClient(config.azure.conn, this.containerName, blobName)
+      const blobService = new BlockBlobClient(config.azure.conn, this.containerName, 'TUNJA' + '/' + blobName)
       const streamLength = file.buffer.length
       const response = await blobService.uploadStream(stream, streamLength)
       console.log(response)
