@@ -30,12 +30,12 @@ class AzureStorage {
     }
   }
 
-  async uploadBlobs (file: any): Promise<any> {
+  async uploadBlobs (file: any, ruta: any): Promise<any> {
     try {
       // await this.createContainer('')
       const stream = Readable.from(file.buffer)
       const blobName = this.getBlobName(file.originalname)
-      const blobService = new BlockBlobClient(config.azure.conn, this.containerName, 'TUNJA' + '/' + blobName)
+      const blobService = new BlockBlobClient(config.azure.conn, this.containerName, 'TUNJA/OBRAS_INFRAESTRUCTURA/SOPORTE_DOCUMENTO/10_1' + '/' + blobName)
       const streamLength = file.buffer.length
       const response = await blobService.uploadStream(stream, streamLength)
       console.log(response)
