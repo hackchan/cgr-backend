@@ -30,7 +30,7 @@ class AzureStorage {
     }
   }
 
-  async uploadBlobs (file: any, ruta: any): Promise<any> {
+  async uploadBlobs (file: any): Promise<any> {
     try {
       // await this.createContainer('')
       const stream = Readable.from(file.buffer)
