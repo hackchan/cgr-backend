@@ -1,7 +1,9 @@
 import { Router, RequestHandler } from 'express'
+import multer from 'multer'
 import { setUploadFiles } from '../../controllers/azure/azure.controller'
 const router = Router()
-
-router.get('/', setUploadFiles as RequestHandler)
+const inMemoryStorage = multer.memoryStorage()
+const uploadStrategy = multer({ storage: inMemoryStorage }).single('file')
+router.get('/', uploadStrategy, setUploadFiles as RequestHandler)
 
 export default router
