@@ -52,6 +52,7 @@ const phone = Joi.string().min(10).max(10).regex(/^(300|301|302|304|305|324|302|
 const email = Joi.string().email()
 const image = Joi.string().uri()
 const tipo = Joi.number().min(1)
+const entidadId = Joi.number().min(1)
 
 export const createUserSchema = Joi.object({
   name: name.required(),
@@ -60,6 +61,7 @@ export const createUserSchema = Joi.object({
   email: email.required(),
   image: image,
   tipo: tipo.required(),
+  entidadId: tipo.required(),
   auth: auth.required()
 })
 
@@ -69,7 +71,8 @@ export const updateUserSchema = Joi.object({
   phone: phone,
   email: email,
   image: image,
-  tipo: tipo
+  tipo: tipo,
+  entidadId: entidadId
 })
 
 export const getUserSchema = Joi.object({

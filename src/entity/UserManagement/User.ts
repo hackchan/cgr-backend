@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
 import { UserType } from './UserType'
 import { Auth } from './Auth'
 import { Model } from './Model'
@@ -28,7 +28,7 @@ export class User extends Model {
   @JoinColumn({ name: 'type_id' })
     tipo: UserType
 
-  @ManyToOne(() => EntidadControl, { nullable: true, onDelete: 'SET NULL', onUpdate: 'SET NULL', cascade: true })
-  @JoinColumn({ name: 'entidad_id' })
-    entidadId: EntidadControl
+  @ManyToMany(() => EntidadControl)
+  @JoinTable()
+    entidades: EntidadControl[]
 }
