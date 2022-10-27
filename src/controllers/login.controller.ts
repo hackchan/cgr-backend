@@ -37,6 +37,17 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
   }
 }
 
+export const validateEmailEntidad = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = req.body
+    const message = await serviceAuth.validateEmail(email)
+    success(req, res, message)
+    // const respose = await userService.findOne(parseInt(id, 10))
+  } catch (error) {
+    next(error)
+  }
+}
+
 // export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
 //   try {
 //     const { refreshToken } = req.headers.refresh

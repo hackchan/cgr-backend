@@ -144,6 +144,8 @@ class UserService {
         relations: ['auth'],
         where: [{ email: nicknameOrEmail }, { auth: { username: nicknameOrEmail } }]
       })
+
+      console.log('the users:', user?.active)
       // const user = await AppDataSource.manager
 
       //   .createQueryBuilder(User, 'user')
@@ -164,9 +166,28 @@ class UserService {
       if (user == null) {
         throw boom.notFound('usuario o clave incorrecta')
       }
+      if (!user.active) {
+        throw boom.notFound('usuario esta inactivo')
+      }
+
       return user
       // const response = JSON.parse(JSON.stringify(user))
       // return response
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async isEmailExist (email: string): Promise<User | null> {
+    try {
+      const user = await this.repositorioUser.findOne(
+        {
+          relations: ['auth'],
+          where: [{ email }]
+        })
+
+      return user
     } catch (error) {
       console.log(error)
       throw error

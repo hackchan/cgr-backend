@@ -10,6 +10,9 @@ export class Auth extends Model {
   @Column({ nullable: false })
     password: string
 
+  @Column({ nullable: true })
+    apikey: string
+
   @Column('simple-array', { default: '', nullable: false })
     role: string[]
 

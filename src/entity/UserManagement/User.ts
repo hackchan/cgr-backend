@@ -1,8 +1,10 @@
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm'
 import { UserType } from './UserType'
 import { Auth } from './Auth'
 import { Model } from './Model'
-import { EntidadControl } from '../Entidad/EntidadControl'
+import { RoleUser } from '../UserManagement/RoleUser'
+import { UserEntidad } from '../UserManagement/UserEntidad'
+
 @Entity('user')
 export class User extends Model {
   @Column({ nullable: false })
@@ -20,6 +22,9 @@ export class User extends Model {
   @Column({ nullable: true })
     image?: string
 
+  @Column({ nullable: false, default: false })
+    active: boolean
+
   @OneToOne(() => Auth, { cascade: true, onDelete: 'CASCADE', nullable: true })
   @JoinColumn({ name: 'auth_id' })
     auth: Auth
@@ -28,7 +33,9 @@ export class User extends Model {
   @JoinColumn({ name: 'type_id' })
     tipo: UserType
 
-  @ManyToMany(() => EntidadControl)
-  @JoinTable()
-    entidades: EntidadControl[]
+  @OneToMany(() => RoleUser, rolUser => rolUser.user)
+    roles: RoleUser[]
+
+  @OneToMany(() => UserEntidad, userEntidad => userEntidad.user)
+    entidades: UserEntidad[]
 }

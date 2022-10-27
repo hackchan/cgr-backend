@@ -2,13 +2,14 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import config from '../config'
 import UserService from './user.services'
+import EmailService from './entidad/email'
 import boom from '@hapi/boom'
 import { PayloadDTO } from '../entityTypes/payload.dto'
 import nodemailer from 'nodemailer'
 import { UserDTO } from '../entityTypes/user.dto'
 
 const service = new UserService()
-
+const emailService = new EmailService()
 class AuthService {
   async getUser (usernameORemail: string, password: string): Promise<Object> {
     const user = await service.findByUsernameOrEmail(usernameORemail)
@@ -51,7 +52,25 @@ class AuthService {
       const rta = await this.sendMail(mail)
       return rta
     } catch (error) {
-      throw boom.unauthorized()
+      console.log(error)
+      throw error
+    }
+  }
+
+  async validateEmail (email: string): Promise<object> {
+    try {
+      const user = await service.isEmailExist(email)
+      if (user !== null) {
+        throw boom.notFound('El email ya se ecuentra registrado en el sistema')
+      }
+      const emailValidate = await emailService.findEmail(email)
+      if (emailValidate === null) {
+        boom.notFound(`El email ${email} no esta habilitado para registrarse en el sistema`)
+      }
+      return emailValidate
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   }
 

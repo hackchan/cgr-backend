@@ -13,7 +13,7 @@ const auth = Joi.object().keys({
     'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
     'string.base': '{{#label}} debe ser un cadena',
     'string.empty': '{{#label}} No se permite estar vacía',
-    'string.pattern.base': '{{#label}} no coincide con el patrón requerido',
+    'string.pattern.base': '{{#label}} no coincide con el patrón requerido Eje. debe contener mayúscula, minúscula, numeros y un caracter especial',
     'string.trim': '{{#label}} no debe tener espacios en blanco iniciales o finales',
     'string.max': 'La longitud de {{#label}} debe ser menor o igual a {{#limit}} caracteres de longitud',
     'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
@@ -59,20 +59,20 @@ export const createUserSchema = Joi.object({
   lastName: lastName.required(),
   phone: phone.required(),
   email: email.required(),
-  image: image,
+  image,
   tipo: tipo.required(),
-  entidadId: tipo.required(),
+  entidadId,
   auth: auth.required()
 })
 
 export const updateUserSchema = Joi.object({
-  name: name,
-  lastName: lastName,
-  phone: phone,
-  email: email,
-  image: image,
-  tipo: tipo,
-  entidadId: entidadId
+  name,
+  lastName,
+  phone,
+  email,
+  image,
+  tipo,
+  entidadId
 })
 
 export const getUserSchema = Joi.object({

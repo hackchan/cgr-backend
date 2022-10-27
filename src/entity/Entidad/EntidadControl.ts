@@ -5,6 +5,7 @@ import { Subsector } from './Subsector'
 import { Telefono } from './Telefono'
 import { Municipio } from '../Departments/Municipio'
 import { MatrizObra } from '../Matriz/Obras/MatrizObra'
+import { UserEntidad } from '../UserManagement/UserEntidad'
 @Entity()
 export class EntidadControl {
   @PrimaryGeneratedColumn()
@@ -21,6 +22,9 @@ export class EntidadControl {
 
   @Column({ nullable: true })
     cgn: string
+
+  @Column({ nullable: true, default: false })
+    active: boolean
 
   @ManyToOne(() => Categoria, (categoria) => categoria.entidades, { nullable: true })
   @JoinColumn({ name: 'categoria_id' })
@@ -42,4 +46,7 @@ export class EntidadControl {
 
   @OneToMany(() => MatrizObra, obra => obra.entidad)
     obras: MatrizObra[]
+
+  @OneToMany(() => UserEntidad, userEntidad => userEntidad.entidad)
+    entidades: UserEntidad[]
 }
