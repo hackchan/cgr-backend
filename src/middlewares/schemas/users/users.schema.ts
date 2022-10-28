@@ -17,10 +17,20 @@ const auth = Joi.object().keys({
     'string.trim': '{{#label}} no debe tener espacios en blanco iniciales o finales',
     'string.max': 'La longitud de {{#label}} debe ser menor o igual a {{#limit}} caracteres de longitud',
     'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
-  }),
-  role: Joi.array().items(Joi.string())
+  })
+  // role: Joi.array().items(Joi.string())
 })
 
+// const roles = Joi.array().items({
+//   id: Joi.number().min(1)
+// })
+
+// const entidades = Joi.array().items({
+//   id: Joi.number().min(1)
+// })
+
+const roles = Joi.number()
+const entidades = Joi.number()
 const id = Joi.number()
 const name = Joi.string().min(4).max(64).regex(/(^[a-zA-ZñÑ]+[a-zA-ZñÑ ]{4,64}$)/).options({ convert: true }).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
@@ -52,7 +62,7 @@ const phone = Joi.string().min(10).max(10).regex(/^(300|301|302|304|305|324|302|
 const email = Joi.string().email()
 const image = Joi.string().uri()
 const tipo = Joi.number().min(1)
-const entidadId = Joi.number().min(1)
+// const entidadId = Joi.number().min(1)
 
 export const createUserSchema = Joi.object({
   name: name.required(),
@@ -61,7 +71,8 @@ export const createUserSchema = Joi.object({
   email: email.required(),
   image,
   tipo: tipo.required(),
-  entidadId,
+  roles: roles.required(),
+  entidades: entidades.required(),
   auth: auth.required()
 })
 
@@ -72,7 +83,7 @@ export const updateUserSchema = Joi.object({
   email,
   image,
   tipo,
-  entidadId
+  roles
 })
 
 export const getUserSchema = Joi.object({

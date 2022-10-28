@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../db'
-import { Repository, Like } from 'typeorm'
+import { Repository, Like, In } from 'typeorm'
 import { EntidadControl } from '../../entity/Entidad/EntidadControl'
 
 // import { validate } from 'class-validator'
@@ -102,6 +102,20 @@ class EntidadDTO {
       const cantidad = await this.repositorioEntidad.count()
       const response = { cantidad, data: entidadList }
       // console.log(response)
+      return response
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findFilter (query: any): Promise<any> {
+    try {
+      const options = {
+        where: { id: In(query) }
+      }
+
+      const response = await this.repositorioEntidad.find(options)
       return response
     } catch (error) {
       console.log(error)
