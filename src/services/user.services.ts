@@ -32,6 +32,7 @@ class UserService {
       const newUser = this.repositorioUser.create(data)
       const result = await this.repositorioUser.save(newUser)
       const listaEntidades = await serviceEntidad.findFilter([1])
+      await this.repositorioUserEntidad.save(listaEntidades)
       console.log('Lista Entidades:', listaEntidades)
       // const userCreate = JSON.parse(JSON.stringify(result))
       // console.log('result id:', userCreate.id)
