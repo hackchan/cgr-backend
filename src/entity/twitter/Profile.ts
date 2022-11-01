@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm'
 import { Member } from './Member'
-
 @Entity()
 export class Profile {
   @PrimaryGeneratedColumn()
@@ -11,4 +10,10 @@ export class Profile {
 
   @Column()
     following: number
+
+  @OneToOne(() => Member, member => member.profile, {
+    onDelete: 'CASCADE',
+    orphanedRowAction: 'delete'
+  })
+    member: Member
 }

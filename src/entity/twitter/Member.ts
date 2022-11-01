@@ -11,7 +11,13 @@ export class Member {
   @Column()
     lastName: string
 
-  @OneToOne(() => Profile, { cascade: true })
-  @JoinColumn()
-    Profile: Profile
+  @OneToOne(() => Profile, profile => profile.member, {
+    cascade: ['remove', 'insert'],
+    nullable: false
+    // eager: true,
+    // onDelete: 'CASCADE'
+
+  })
+  @JoinColumn({ name: 'profile_id' })
+    profile: Profile
 }

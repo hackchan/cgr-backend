@@ -35,7 +35,7 @@ export const AppDataSource = new DataSource({
   dropSchema: false,
   synchronize: false,
   options: { encrypt: false },
-  logging: false,
+  logging: true,
   extra: {
     ssl: {
       rejectUnauthorized: false
