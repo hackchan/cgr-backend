@@ -6,39 +6,26 @@ import { Repository, Like } from 'typeorm'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
 import { UserEntidad } from '../entity/UserManagement/UserEntidad'
-import { RoleUser } from '../entity/UserManagement/RoleUser'
-import { CreateUserDTO } from '../entityTypes/user.dto'
-import ServiceEntidad from './entidad/entidad.services'
+
 // import { validate } from 'class-validator'
-const serviceEntidad = new ServiceEntidad()
+
 class UserService {
   readonly repositorioUser: Repository<User>
   readonly repositorioAuth: Repository<Auth>
   readonly repositorioUserEntidad: Repository<UserEntidad>
-  readonly repositorioRoleUser: Repository<RoleUser>
   constructor () {
     this.repositorioUser = AppDataSource.getRepository(User)
     this.repositorioAuth = AppDataSource.getRepository(Auth)
     this.repositorioUserEntidad = AppDataSource.getRepository(UserEntidad)
-    this.repositorioRoleUser = AppDataSource.getRepository(RoleUser)
   }
 
   async create (data: any): Promise<any> {
     try {
-      // const hash = await bcrypt.hash(data.auth.password, 10)
-      // const auth = { ...data.auth, password: hash }
-      // const newUser = this.repositorioUser.create({ ...data, auth })
-      console.log('La data a gurdar:', data)
+      if (!data.auth) {
+        throw boom.notFound('No específico los datos de autenticación del usuario.')
+      }
       const newUser = this.repositorioUser.create(data)
       const result = await this.repositorioUser.save(newUser)
-      const listaEntidades = await serviceEntidad.findFilter([1])
-      await this.repositorioUserEntidad.save(listaEntidades)
-      console.log('Lista Entidades:', listaEntidades)
-      // const userCreate = JSON.parse(JSON.stringify(result))
-      // console.log('result id:', userCreate.id)
-      // const newUserEntidad = new UserEntidad()
-      // newUserEntidad.user = userCreate
-      // newUserEntidad.entidad = {id: }
       return result
     } catch (error) {
       console.log(error)
@@ -49,7 +36,7 @@ class UserService {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { auth: true, tipo: true },
+        relations: { auth: true, tipo: true, roles: true },
         where: {},
         order: {}
       }

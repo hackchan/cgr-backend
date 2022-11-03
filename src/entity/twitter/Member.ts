@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm'
 import { Profile } from '../twitter/Profile'
+import { Tweet } from '../twitter/Tweet'
 @Entity()
 export class Member {
   @PrimaryGeneratedColumn()
@@ -12,12 +13,14 @@ export class Member {
     lastName: string
 
   @OneToOne(() => Profile, profile => profile.member, {
-    cascade: ['remove', 'insert'],
+    cascade: true,
     nullable: false
-    // eager: true,
-    // onDelete: 'CASCADE'
 
   })
+
   @JoinColumn({ name: 'profile_id' })
     profile: Profile
+
+  @OneToMany(() => Tweet, tweets => tweets.member, { cascade: true })
+    tweets: Tweet[]
 }

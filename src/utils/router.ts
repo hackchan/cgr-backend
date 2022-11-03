@@ -18,6 +18,7 @@ import Obra from '../routes/matriz/obras/matriz.obra.route'
 import Roles from '../routes/roles.routes'
 import Azure from '../routes/azure/azure.routes'
 import Twitter from '../routes/twitter/twitter.routes'
+import Tweets from '../routes/twitter/tweet.routers'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -40,6 +41,7 @@ const routers = (app: any): void => {
   router.use('/role', Roles)
   router.use('/azure', Azure)
   router.use('/twitter', Twitter)
+  router.use('/tweets', Tweets)
 }
 
 export default routers

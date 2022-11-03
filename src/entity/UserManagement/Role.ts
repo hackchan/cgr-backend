@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { RoleUser } from '../UserManagement/RoleUser'
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { User } from './User'
 @Entity()
 export class Role {
   @PrimaryGeneratedColumn()
@@ -8,6 +8,6 @@ export class Role {
   @Column({ nullable: false, unique: true })
     name: string
 
-  @OneToMany(() => RoleUser, rolUser => rolUser.user)
-    roles: RoleUser[]
+  @ManyToMany(() => User, {})
+    users: User[]
 }

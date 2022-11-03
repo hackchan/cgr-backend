@@ -4,15 +4,15 @@ import boom from '@hapi/boom'
 import { AppDataSource } from '../../db'
 import { Repository } from 'typeorm'
 import { Member } from '../../entity/twitter/Member'
-import { Profile } from '../../entity/twitter/Profile'
+import ProfileService from './profile.service'
+
+const profileService = new ProfileService()
 
 class MemberService {
   readonly repositorioMember: Repository<Member>
-  readonly repositorioProfile: Repository<Profile>
 
   constructor () {
     this.repositorioMember = AppDataSource.getRepository(Member)
-    this.repositorioProfile = AppDataSource.getRepository(Profile)
   }
 
   async createOnetoOne (data: any): Promise<any> {
@@ -23,6 +23,18 @@ class MemberService {
       const newMenmber = this.repositorioMember.create(data)
       const result = await this.repositorioMember.save(newMenmber)
       return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findAll (query: any): Promise<any> {
+    try {
+      const response = await this.repositorioMember.find()
+
+      // console.log(response)
+      return response
     } catch (error) {
       console.log(error)
       throw error
@@ -48,28 +60,24 @@ class MemberService {
     }
   }
 
-  async findOnetoOneProfile (id: number): Promise<any> {
+  async delete (id: number): Promise<any> {
     try {
-      const profile = await this.repositorioProfile.findOne({
-        where:
-        { id }
-      })
-      if (profile == null) {
-        throw boom.notFound('Profile no encontrado')
-      }
-
-      return profile
+      const member = await this.findOnetoOne(id)
+      const response = await this.repositorioMember.remove(member)
+      await profileService.delete(id)
+      return response
     } catch (error) {
       console.log(error)
       throw error
     }
   }
 
-  async delete (id: number): Promise<any> {
+  async update (id: number, changes: object): Promise<any> {
     try {
       const member = await this.findOnetoOne(id)
-      const response = await this.repositorioMember.remove(member)
-      return response
+      this.repositorioMember.merge(member, changes)
+      const result = await this.repositorioMember.save(member)
+      return result
     } catch (error) {
       console.log(error)
       throw error

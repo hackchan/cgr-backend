@@ -1,9 +1,8 @@
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
 import { UserType } from './UserType'
 import { Auth } from './Auth'
 import { Model } from './Model'
-import { RoleUser } from '../UserManagement/RoleUser'
-import { UserEntidad } from '../UserManagement/UserEntidad'
+import { Role } from './Role'
 
 @Entity('user')
 export class User extends Model {
@@ -25,17 +24,15 @@ export class User extends Model {
   @Column({ nullable: false, default: false })
     active: boolean
 
-  @OneToOne(() => Auth, { cascade: true, onDelete: 'CASCADE', nullable: true })
+  @OneToOne(() => Auth, { nullable: false, cascade: true })
   @JoinColumn({ name: 'auth_id' })
     auth: Auth
 
-  @ManyToOne(() => UserType, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true })
+  @ManyToOne(() => UserType, usertype => usertype.users, { nullable: false, cascade: true })
   @JoinColumn({ name: 'type_id' })
     tipo: UserType
 
-  @OneToMany(() => RoleUser, rolUser => rolUser.user)
-    roles: RoleUser[]
-
-  @OneToMany(() => UserEntidad, userEntidad => userEntidad.user)
-    entidades: UserEntidad[]
+  @ManyToMany(() => Role, { cascade: true, nullable: false })
+  @JoinTable()
+    roles: Role[]
 }

@@ -13,13 +13,10 @@ export class Auth extends Model {
   @Column({ nullable: true })
     apikey: string
 
-  @Column('simple-array', { default: '', nullable: false })
-    role: string[]
-
   @Column({ nullable: true, name: 'recovery_token' })
     recoveryToken: string
 
-  @OneToOne(() => User, user => user.auth, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, user => user.auth)
     user: User
 
   @BeforeInsert()

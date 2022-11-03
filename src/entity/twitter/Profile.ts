@@ -11,9 +11,6 @@ export class Profile {
   @Column()
     following: number
 
-  @OneToOne(() => Member, member => member.profile, {
-    onDelete: 'CASCADE',
-    orphanedRowAction: 'delete'
-  })
+  @OneToOne(() => Member, member => member.profile)
     member: Member
 }
