@@ -3,6 +3,7 @@ import { UserType } from './UserType'
 import { Auth } from './Auth'
 import { Model } from './Model'
 import { Role } from './Role'
+import { EntidadControl } from '../Entidad/EntidadControl'
 
 @Entity('user')
 export class User extends Model {
@@ -35,4 +36,8 @@ export class User extends Model {
   @ManyToMany(() => Role, { cascade: true, nullable: false })
   @JoinTable()
     roles: Role[]
+
+  @ManyToMany(() => EntidadControl, entidad => entidad.users, { cascade: true, nullable: false })
+  @JoinTable()
+    entidades: EntidadControl[]
 }

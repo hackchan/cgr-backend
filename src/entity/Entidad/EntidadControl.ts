@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany, ManyToMany } from 'typeorm'
 import { Categoria } from './Categoria'
 import { Email } from './Email'
 import { Subsector } from './Subsector'
 import { Telefono } from './Telefono'
 import { Municipio } from '../Departments/Municipio'
 import { MatrizObra } from '../Matriz/Obras/MatrizObra'
-import { UserEntidad } from '../UserManagement/UserEntidad'
+import { User } from '../UserManagement/User'
 @Entity()
 export class EntidadControl {
   @PrimaryGeneratedColumn()
@@ -47,6 +47,6 @@ export class EntidadControl {
   @OneToMany(() => MatrizObra, obra => obra.entidad)
     obras: MatrizObra[]
 
-  @OneToMany(() => UserEntidad, userEntidad => userEntidad.entidad)
-    entidades: UserEntidad[]
+  @ManyToMany(() => User, user => user.entidades)
+    users: User[]
 }

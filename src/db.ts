@@ -47,7 +47,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Auth, User, UserType, Role]
+  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, TipoSoporte, Soportes]
   // entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role, RoleUser, TipoSoporte, Soportes, UserEntidad]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],
