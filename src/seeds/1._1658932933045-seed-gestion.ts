@@ -889,8 +889,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'ANTIOQUIA',
         latitude: 6.702032125,
         longitude: -75.50455704,
-        satelital: { id: 5 },
-        responsable: { id: 8 }
+        satelital: { id: 5 }
       },
 
       {
@@ -898,8 +897,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'ATLANTICO',
         latitude: 10.67700953,
         longitude: -74.96521949,
-        satelital: { id: 3 },
-        responsable: { id: 3 }
+        satelital: { id: 3 }
       },
 
       {
@@ -907,8 +905,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'BOLIVAR',
         latitude: 8.079796863,
         longitude: -74.23514814,
-        satelital: { id: 3 },
-        responsable: { id: 3 }
+        satelital: { id: 3 }
       },
 
       {
@@ -916,8 +913,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'BOYACA',
         latitude: 5.891672889,
         longitude: -72.62788054,
-        satelital: { id: 1 },
-        responsable: { id: 1 }
+        satelital: { id: 1 }
       },
 
       {
@@ -925,8 +921,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CALDAS',
         latitude: 5.280139978,
         longitude: -75.27498304,
-        satelital: { id: 4 },
-        responsable: { id: 7 }
+        satelital: { id: 4 }
       },
 
       {
@@ -934,8 +929,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CAQUETA',
         latitude: 0.798556195,
         longitude: -73.95946756,
-        satelital: { id: 2 },
-        responsable: { id: 5 }
+        satelital: { id: 2 }
       },
 
       {
@@ -943,8 +937,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CAUCA',
         latitude: 2.396833887,
         longitude: -76.82423283,
-        satelital: { id: 2 },
-        responsable: { id: 5 }
+        satelital: { id: 2 }
       },
 
       {
@@ -952,8 +945,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CESAR',
         latitude: 9.53665993,
         longitude: -73.51783154,
-        satelital: { id: 3 },
-        responsable: { id: 3 }
+        satelital: { id: 3 }
       },
 
       {
@@ -961,8 +953,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CORDOBA',
         latitude: 8.358549754,
         longitude: -75.79200872,
-        satelital: { id: 3 },
-        responsable: { id: 4 }
+        satelital: { id: 3 }
       },
 
       {
@@ -970,8 +961,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CUNDINAMARCA',
         latitude: 4.771120716,
         longitude: -74.43111092,
-        satelital: { id: 6 },
-        responsable: { id: 9 }
+        satelital: { id: 6 }
       },
 
       {
@@ -979,8 +969,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CHOCO',
         latitude: 5.397581542,
         longitude: -76.942811,
-        satelital: { id: 5 },
-        responsable: { id: 8 }
+        satelital: { id: 5 }
       },
 
       {
@@ -988,8 +977,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'HUILA',
         latitude: 2.570143029,
         longitude: -75.58434836,
-        satelital: { id: 4 },
-        responsable: { id: 7 }
+        satelital: { id: 4 }
       },
 
       {
@@ -997,8 +985,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'LA GUAJIRA',
         latitude: 11.47687008,
         longitude: -72.42951072,
-        satelital: { id: 3 },
-        responsable: { id: 4 }
+        satelital: { id: 3 }
       },
 
       {
@@ -1006,8 +993,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'MAGDALENA',
         latitude: 10.24738355,
         longitude: -74.26175733,
-        satelital: { id: 3 },
-        responsable: { id: 4 }
+        satelital: { id: 3 }
       },
 
       {
@@ -1015,8 +1001,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'META',
         latitude: 3.345562732,
         longitude: -72.95645988,
-        satelital: { id: 6 },
-        responsable: { id: 9 }
+        satelital: { id: 6 }
       },
 
       {
@@ -1024,8 +1009,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'NARINO',
         latitude: 1.571094987,
         longitude: -77.87020496,
-        satelital: { id: 2 },
-        responsable: { id: 5 }
+        satelital: { id: 2 }
       },
 
       {
@@ -1033,8 +1017,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'NORTE DE SANTANDER',
         latitude: 8.09513751,
         longitude: -72.88188297,
-        satelital: { id: 1 },
-        responsable: { id: 2 }
+        satelital: { id: 1 }
       },
 
       {
@@ -1042,8 +1025,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'QUINDIO',
         latitude: 4.455241567,
         longitude: -75.68962853,
-        satelital: { id: 4 },
-        responsable: { id: 7 }
+        satelital: { id: 4 }
       },
 
       {
@@ -1051,8 +1033,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'RISARALDA',
         latitude: 5.240757239,
         longitude: -76.00244469,
-        satelital: { id: 4 },
-        responsable: { id: 7 }
+        satelital: { id: 4 }
       },
 
       {
@@ -1060,8 +1041,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'SANTANDER',
         latitude: 6.693633184,
         longitude: -73.48600894,
-        satelital: { id: 1 },
-        responsable: { id: 2 }
+        satelital: { id: 1 }
       },
 
       {
@@ -1069,8 +1049,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'SUCRE',
         latitude: 9.064941448,
         longitude: -75.10981755,
-        satelital: { id: 3 },
-        responsable: { id: 4 }
+        satelital: { id: 3 }
       },
 
       {
@@ -1078,8 +1057,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'TOLIMA',
         latitude: 4.03477252,
         longitude: -75.2558271,
-        satelital: { id: 4 },
-        responsable: { id: 7 }
+        satelital: { id: 4 }
       },
 
       {
@@ -1087,8 +1065,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'VALLE DEL CAUCA',
         latitude: 3.569858693,
         longitude: -76.62850427,
-        satelital: { id: 2 },
-        responsable: { id: 5 }
+        satelital: { id: 2 }
       },
 
       {
@@ -1096,8 +1073,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'ARAUCA',
         latitude: 6.569577215,
         longitude: -70.96732394,
-        satelital: { id: 1 },
-        responsable: { id: 1 }
+        satelital: { id: 1 }
       },
 
       {
@@ -1105,8 +1081,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'CASANARE',
         latitude: 5.404064237,
         longitude: -71.60188073,
-        satelital: { id: 1 },
-        responsable: { id: 1 }
+        satelital: { id: 1 }
       },
 
       {
@@ -1114,8 +1089,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'PUTUMAYO',
         latitude: 0.3673031,
         longitude: -75.51406183,
-        satelital: { id: 2 },
-        responsable: { id: 5 }
+        satelital: { id: 2 }
       },
 
       {
@@ -1123,8 +1097,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA',
         latitude: 12.54311512,
         longitude: -81.71762382,
-        satelital: { id: 3 },
-        responsable: { id: 3 }
+        satelital: { id: 3 }
       },
 
       {
@@ -1132,8 +1105,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'AMAZONAS',
         latitude: -1.54622768,
         longitude: -71.50212858,
-        satelital: { id: 6 },
-        responsable: { id: 9 }
+        satelital: { id: 6 }
       },
 
       {
@@ -1141,8 +1113,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'GUAINIA',
         latitude: 2.727842865,
         longitude: -68.81661272,
-        satelital: { id: 6 },
-        responsable: { id: 10 }
+        satelital: { id: 6 }
       },
 
       {
@@ -1150,8 +1121,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'GUAVIARE',
         latitude: 1.924531973,
         longitude: -72.12859569,
-        satelital: { id: 6 },
-        responsable: { id: 10 }
+        satelital: { id: 6 }
       },
 
       {
@@ -1159,8 +1129,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'VAUPES',
         latitude: 0.64624561,
         longitude: -70.56140566,
-        satelital: { id: 6 },
-        responsable: { id: 10 }
+        satelital: { id: 6 }
       },
 
       {
@@ -1168,8 +1137,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
         name: 'VICHADA',
         latitude: 4.713557125,
         longitude: -69.41400011,
-        satelital: { id: 6 },
-        responsable: { id: 10 }
+        satelital: { id: 6 }
       }
 
     ])

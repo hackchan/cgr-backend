@@ -29,7 +29,7 @@ class UserDepartment {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { satelital: true, responsable: true },
+        relations: { satelital: true },
         where: {},
         order: {}
       }
@@ -69,8 +69,7 @@ class UserDepartment {
           { name: Like(`%${globalFilter}%`) },
           { latitude: Like(`%${globalFilter}%`) },
           { longitude: Like(`%${globalFilter}%`) },
-          { satelital: { name: Like(`%${globalFilter}%`) } },
-          { responsable: [{ name: Like(`%${globalFilter}%`) }, { lastName: Like(`%${globalFilter}%`) }] }
+          { satelital: { name: Like(`%${globalFilter}%`) } }
         ]
       }
 

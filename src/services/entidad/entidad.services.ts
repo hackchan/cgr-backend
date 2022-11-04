@@ -28,7 +28,7 @@ class EntidadDTO {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { subsector: { sector: true }, categoria: true, municipio: { department: { responsable: true } } },
+        relations: { subsector: { sector: true }, categoria: true, municipio: { department: true } },
         where: {},
         order: {}
       }
@@ -72,8 +72,7 @@ class EntidadDTO {
           { categoria: { name: Like(`%${globalFilter}%`) } },
           { subsector: { name: Like(`%${globalFilter}%`) } },
           {
-            municipio: [{ name: Like(`%${globalFilter}%`) },
-              { department: { responsable: { name: Like(`%${globalFilter}%`) } } }]
+            municipio: [{ name: Like(`%${globalFilter}%`) }]
           }
         ]
       }

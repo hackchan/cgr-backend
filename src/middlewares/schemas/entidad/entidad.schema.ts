@@ -1,35 +1,34 @@
 import Joi from 'joi'
 
 const id = Joi.number()
-const nit = Joi.number()
+const nit = Joi.string()
 const name = Joi.string().min(3).max(255)
 const doctec = Joi.boolean()
-const sector = Joi.number()
+const active = Joi.boolean()
 const cgn = Joi.string().min(1).max(12)
 const categoria = Joi.number()
 const subsector = Joi.number()
-const user = Joi.number()
+const municipio = Joi.number()
 
 export const createEntidadSchema = Joi.object({
   nit: nit.required(),
   name: name.required(),
-  sector: sector.required(),
-  doctec: doctec,
-  cgn: cgn,
-  categoria: categoria,
+  doctec: doctec.required(),
+  active: active.required(),
+  cgn: cgn.required(),
+  categoria: categoria.required(),
   subsector: subsector.required(),
-  user: user.required()
+  municipio: municipio.required()
 })
 
 export const updateEntidadSchema = Joi.object({
-  nit: nit,
-  name: name,
-  sector: sector,
-  doctec: doctec,
-  cgn: cgn,
-  categoria: categoria,
-  subsector: subsector,
-  user: user
+  nit,
+  name,
+  doctec,
+  cgn,
+  categoria,
+  subsector,
+  municipio
 })
 
 export const getEntidadSchema = Joi.object({

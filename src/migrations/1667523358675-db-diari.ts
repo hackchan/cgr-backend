@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class dbDiari1667507915772 implements MigrationInterface {
-    name = 'dbDiari1667507915772'
+export class dbDiari1667523358675 implements MigrationInterface {
+    name = 'dbDiari1667523358675'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "user_type" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_f70648ef30041d66995a0394afc" UNIQUE ("name"), CONSTRAINT "PK_1f9c6d05869e094dee8fa7d392a" PRIMARY KEY ("id"))`);
@@ -12,7 +12,7 @@ export class dbDiari1667507915772 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "subsector" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "sector_id" int NOT NULL, CONSTRAINT "PK_4794e38ae081bb0fad21493b4ca" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "telefono" ("id" int NOT NULL IDENTITY(1,1), "numero" nvarchar(255) NOT NULL, "contacto" nvarchar(255), "cargo" nvarchar(255), "entidad_id" int NOT NULL, CONSTRAINT "UQ_3c5d11e0890dc44ab81868640eb" UNIQUE ("numero"), CONSTRAINT "PK_58f2dfd7044b4f5e50a1827c756" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "satelital" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_7788538745df0ec1c4b899c6f97" UNIQUE ("name"), CONSTRAINT "PK_e15f3aff24213f204f25ec06ea7" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "departamento" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "latitude" decimal(9,6) CONSTRAINT "DF_a5d912d11cff22d50b8d77322af" DEFAULT 0, "longitude" decimal(9,6) CONSTRAINT "DF_82d991900c7cda1012e5b8977fc" DEFAULT 0, "user_id" int NOT NULL, "satelital_id" int, CONSTRAINT "UQ_de86deb117d26d969bc0e9ba446" UNIQUE ("name"), CONSTRAINT "PK_7fd6f336280fd0c7a9318464723" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "departamento" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "latitude" decimal(9,6) CONSTRAINT "DF_a5d912d11cff22d50b8d77322af" DEFAULT 0, "longitude" decimal(9,6) CONSTRAINT "DF_82d991900c7cda1012e5b8977fc" DEFAULT 0, "satelital_id" int, CONSTRAINT "UQ_de86deb117d26d969bc0e9ba446" UNIQUE ("name"), CONSTRAINT "PK_7fd6f336280fd0c7a9318464723" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "municipio_type" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_2f66b525870ffdc45a7c9e89249" UNIQUE ("name"), CONSTRAINT "PK_e3a3f027cd8f4a172a1ccafa573" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "estado_obra" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_24af99705aa2c85df51bc93ca76" UNIQUE ("name"), CONSTRAINT "PK_f9f78b6a47ec7626e5bdb088f43" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "sector_obra" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_737ef5229e5153b5cdce670ee5d" UNIQUE ("name"), CONSTRAINT "PK_4f5dd63f78216304fa47a45a2ca" PRIMARY KEY ("id"))`);
@@ -34,7 +34,6 @@ export class dbDiari1667507915772 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "email" ADD CONSTRAINT "FK_2db6bade8788da5fd17069c36ce" FOREIGN KEY ("entidad_id") REFERENCES "entidad_control"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "subsector" ADD CONSTRAINT "FK_5938a3230836df6605ed4aef1ed" FOREIGN KEY ("sector_id") REFERENCES "sector"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "telefono" ADD CONSTRAINT "FK_3d5eac338d344c315a4928329f4" FOREIGN KEY ("entidad_id") REFERENCES "entidad_control"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "departamento" ADD CONSTRAINT "FK_1fab003d05fe578c12c2dd8806b" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "departamento" ADD CONSTRAINT "FK_7f36bdde1f71391c4e03ada694d" FOREIGN KEY ("satelital_id") REFERENCES "satelital"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "soportes" ADD CONSTRAINT "FK_ac62efa634c23b22abd87c7394e" FOREIGN KEY ("obra_id") REFERENCES "matriz_obra"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "soportes" ADD CONSTRAINT "FK_d2f8b2e91e37e0dc8c43c802374" FOREIGN KEY ("tipo_soporte_id") REFERENCES "tipo_soporte"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -80,7 +79,6 @@ export class dbDiari1667507915772 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "soportes" DROP CONSTRAINT "FK_d2f8b2e91e37e0dc8c43c802374"`);
         await queryRunner.query(`ALTER TABLE "soportes" DROP CONSTRAINT "FK_ac62efa634c23b22abd87c7394e"`);
         await queryRunner.query(`ALTER TABLE "departamento" DROP CONSTRAINT "FK_7f36bdde1f71391c4e03ada694d"`);
-        await queryRunner.query(`ALTER TABLE "departamento" DROP CONSTRAINT "FK_1fab003d05fe578c12c2dd8806b"`);
         await queryRunner.query(`ALTER TABLE "telefono" DROP CONSTRAINT "FK_3d5eac338d344c315a4928329f4"`);
         await queryRunner.query(`ALTER TABLE "subsector" DROP CONSTRAINT "FK_5938a3230836df6605ed4aef1ed"`);
         await queryRunner.query(`ALTER TABLE "email" DROP CONSTRAINT "FK_2db6bade8788da5fd17069c36ce"`);
