@@ -25,10 +25,12 @@ export const updateEntidadSchema = Joi.object({
   nit,
   name,
   doctec,
+  active,
   cgn,
   categoria,
   subsector,
   municipio
+
 })
 
 export const getEntidadSchema = Joi.object({

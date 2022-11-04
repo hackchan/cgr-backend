@@ -33,7 +33,7 @@ export class User extends Model {
   @JoinColumn({ name: 'type_id' })
     tipo: UserType
 
-  @ManyToMany(() => Role, { cascade: true, nullable: false })
+  @ManyToMany(() => Role, role => role.users, { cascade: true, nullable: false })
   @JoinTable()
     roles: Role[]
 
