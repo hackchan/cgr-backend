@@ -20,6 +20,8 @@ import Azure from '../routes/azure/azure.routes'
 import Twitter from '../routes/twitter/twitter.routes'
 import Tweets from '../routes/twitter/tweet.routers'
 
+import Ies from '../routes/matriz/ies/matriz.ies.route'
+
 const routers = (app: any): void => {
   const router = Router()
   app.use('/api/v2', router)
@@ -42,6 +44,7 @@ const routers = (app: any): void => {
   router.use('/azure', Azure)
   router.use('/twitter', Twitter)
   router.use('/tweets', Tweets)
+  router.use('/ies', Ies)
 }
 
 export default routers

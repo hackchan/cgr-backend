@@ -8,7 +8,7 @@ import { Semestre } from './Semestre'
 import { DocumentType } from './DocumentType'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 @Entity()
-@Unique('matrizObra_unique', ['idContrato', 'entidad'])
+@Unique('matrizIes_unique', ['codigo', 'entidad'])
 export class MatrizIes {
   @PrimaryGeneratedColumn()
     id: number
@@ -28,7 +28,7 @@ export class MatrizIes {
   @JoinColumn({ name: 'tipo_documento' })
     tipoDoc: DocumentType
 
-  @Column({ name: 'no_Documento', nullable: false })
+  @Column({ name: 'no_documento', nullable: false })
     numeroDoc: string
 
   @Column({ name: 'programa', nullable: false })
@@ -73,6 +73,10 @@ export class MatrizIes {
   })
     descuentos: number
 
+  @Column({ name: 'tipo_de_descuento', nullable: false, default: 'NO APLICA' })
+  @Transform(({ value }) => value.toUpperCase())
+    tipoDescuento: string
+
   @ManyToOne(() => Municipio, municipio => municipio.matriculas, { nullable: false, cascade: true })
   @JoinColumn({ name: 'residencia' })
     residencia: Municipio
@@ -84,19 +88,19 @@ export class MatrizIes {
   @IsInt()
   @Min(1)
   @Max(31)
-  @Column({ name: 'dia_corte', nullable: false })
+  @Column({ name: 'dia_corte', nullable: true })
     diaCorte: number
 
   @IsInt()
   @Min(1)
   @Max(12)
-  @Column({ name: 'mes_corte', nullable: false })
+  @Column({ name: 'mes_corte', nullable: true })
     mesCorte: number
 
   @IsInt()
   @Min(1900)
   @Min(2999)
-  @Column({ name: 'anio_corte', nullable: false })
+  @Column({ name: 'anio_corte', nullable: true })
     anioCorte: number
 
   @Column({ nullable: true })

@@ -8,11 +8,158 @@ import { UserType } from '../entity/UserManagement/UserType'
 import { User } from '../entity/UserManagement/User'
 import { Auth } from '../entity/UserManagement/Auth'
 import { Role } from '../entity/UserManagement/Role'
+import { DocumentType } from '../entity/Matriz/ies/DocumentType'
+import { Estrato } from '../entity/Matriz/ies/Estrato'
+import { Semestre } from '../entity/Matriz/ies/Semestre'
 
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class seedDeparts1658932933045 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.manager.insert(DocumentType, [
+      {
+        id: 1,
+        name: 'Cédula de Ciudadanía'
+      },
+      {
+        id: 2,
+        name: 'Tarjeta de Identidad'
+      },
+      {
+        id: 3,
+        name: 'Registro Civil'
+      },
+      {
+        id: 4,
+        name: 'Cédula de Extranjería'
+      },
+
+      {
+        id: 5,
+        name: 'NUIP'
+      },
+      {
+        id: 6,
+        name: 'Pasaporte'
+      },
+      {
+        id: 7,
+        name: 'NIT'
+      },
+
+      {
+        id: 8,
+        name: 'Carné Diplomático'
+      },
+
+      {
+        id: 9,
+        name: 'Permiso Especial de Permanencia (P.E.P)'
+      },
+
+      {
+        id: 10,
+        name: 'Certificado cabildo'
+      },
+
+      {
+        id: 11,
+        name: 'Identificación dada por la Secretaría de Educación'
+      },
+
+      {
+        id: 12,
+        name: 'Tarjeta de movilidad fronteriza (TMF)'
+      },
+
+      {
+        id: 13,
+        name: 'Visa'
+      }
+
+    ])
+
+    await queryRunner.manager.insert(Estrato, [
+      {
+        id: 1,
+        name: 'BAJO-BAJO'
+      },
+      {
+        id: 2,
+        name: 'BAJO'
+      },
+      {
+        id: 3,
+        name: 'MEDIO-BAJO'
+      },
+      {
+        id: 4,
+        name: 'MEDIO'
+      },
+
+      {
+        id: 5,
+        name: 'MEDIO-ALTO'
+      },
+      {
+        id: 6,
+        name: 'ALTO'
+      }
+
+    ])
+
+    await queryRunner.manager.insert(Semestre, [
+      {
+        id: 1,
+        name: 'PRIMER SEMESTRE'
+      },
+
+      {
+        id: 2,
+        name: 'SEGUNDO SEMESTRE'
+      },
+
+      {
+        id: 3,
+        name: 'TERCER SEMESTRE'
+      },
+
+      {
+        id: 4,
+        name: 'CUARTO SEMESTRE'
+      },
+
+      {
+        id: 5,
+        name: 'QUINTO SEMESTRE'
+      },
+
+      {
+        id: 6,
+        name: 'SEXTO SEMESTRE'
+      },
+
+      {
+        id: 7,
+        name: 'SEPTIMO SEMESTRE'
+      },
+
+      {
+        id: 8,
+        name: 'OCTAVO SEMESTRE'
+      },
+
+      {
+        id: 9,
+        name: 'NOVENO SEMESTRE'
+      },
+
+      {
+        id: 10,
+        name: 'DECIMO SEMESTRE'
+      }
+
+    ])
     await queryRunner.manager.insert(Role, [
       {
         id: 1,

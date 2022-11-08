@@ -18,13 +18,17 @@ import { EstadoObra } from './entity/Matriz/Obras/EstadoObra'
 import { OrigenRecurso } from './entity/Matriz/Obras/OrigenRecurso'
 import { SectorObra } from './entity/Matriz/Obras/SectorObra'
 import { MatrizObra } from './entity/Matriz/Obras/MatrizObra'
-import { Soportes } from './entity/Matriz/Obras/SoportesObras'
+import { SoportesObras } from './entity/Matriz/Obras/SoportesObras'
 import { TipoSoporte } from './entity/Matriz/Obras/TipoSoporte'
-import { UserEntidad } from './entity/UserManagement/UserEntidad'
-import { Member } from './entity/twitter/Member'
-import { Profile } from './entity/twitter/Profile'
-import { Tweet } from './entity/twitter/Tweet'
-import { HashTag } from './entity/twitter/HashTag'
+import { DocumentType } from './entity/Matriz/ies/DocumentType'
+import { Estrato } from './entity/Matriz/ies/Estrato'
+import { Semestre } from './entity/Matriz/ies/Semestre'
+import { MatrizIes } from './entity/Matriz/ies/MatrizIes'
+// import { UserEntidad } from './entity/UserManagement/UserEntidad'
+// import { Member } from './entity/twitter/Member'
+// import { Profile } from './entity/twitter/Profile'
+// import { Tweet } from './entity/twitter/Tweet'
+// import { HashTag } from './entity/twitter/HashTag'
 // import { User } from './entity/User'
 export const AppDataSource = new DataSource({
   type: 'mssql',
@@ -47,7 +51,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, TipoSoporte, Soportes]
+  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes]
   // entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role, RoleUser, TipoSoporte, Soportes, UserEntidad]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],
