@@ -69,7 +69,7 @@ class MatrizIESDTO {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, semestre: true },
+        relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, semestre: true, tipoDoc: true, estrato: true, residencia: { department: true } },
         where: {},
         order: {}
       }
@@ -144,7 +144,7 @@ class MatrizIESDTO {
               bus[obj.id] = Equal(obj.value)
               pushWhere.push(bus)
             } else {
-              bus[obj.id] = `${obj.value}`
+              bus[obj.id] = Like(`%${obj.value}%`)
               pushWhere.push(bus)
             }
           }

@@ -8,7 +8,7 @@ import { Semestre } from './Semestre'
 import { DocumentType } from './DocumentType'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 @Entity()
-@Unique('matrizIes_unique', ['codigo', 'entidad'])
+@Unique('matrizIes_unique', ['codigo', 'entidad', 'semestreReportado'])
 export class MatrizIes {
   @PrimaryGeneratedColumn()
     id: number

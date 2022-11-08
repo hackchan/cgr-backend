@@ -19,19 +19,19 @@ export class seedDeparts1658932933045 implements MigrationInterface {
     await queryRunner.manager.insert(DocumentType, [
       {
         id: 1,
-        name: 'Cédula de Ciudadanía'
+        name: 'CEDULA DE CIUDADANIA'
       },
       {
         id: 2,
-        name: 'Tarjeta de Identidad'
+        name: 'TARJETA DE IDENTIDAD'
       },
       {
         id: 3,
-        name: 'Registro Civil'
+        name: 'REGISTRO CIVIL'
       },
       {
         id: 4,
-        name: 'Cédula de Extranjería'
+        name: 'CEDULA DE EXTRANJERIA'
       },
 
       {
@@ -40,7 +40,7 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       },
       {
         id: 6,
-        name: 'Pasaporte'
+        name: 'PASAPORTE'
       },
       {
         id: 7,
@@ -49,32 +49,32 @@ export class seedDeparts1658932933045 implements MigrationInterface {
 
       {
         id: 8,
-        name: 'Carné Diplomático'
+        name: 'CARNE DIPLOMATICO'
       },
 
       {
         id: 9,
-        name: 'Permiso Especial de Permanencia (P.E.P)'
+        name: 'PERMISO ESPECIAL PERMANENTE (P.E.P)'
       },
 
       {
         id: 10,
-        name: 'Certificado cabildo'
+        name: 'CERTIFICADO DE CABILDO'
       },
 
       {
         id: 11,
-        name: 'Identificación dada por la Secretaría de Educación'
+        name: 'IDENTIFICACION DADA POR LA SECRETARIA DE EDUCACION'
       },
 
       {
         id: 12,
-        name: 'Tarjeta de movilidad fronteriza (TMF)'
+        name: 'TARJETA DE MOVILIDAD FRONTERIZA (TMF)'
       },
 
       {
         id: 13,
-        name: 'Visa'
+        name: 'VISA'
       }
 
     ])

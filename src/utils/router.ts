@@ -21,6 +21,9 @@ import Twitter from '../routes/twitter/twitter.routes'
 import Tweets from '../routes/twitter/tweet.routers'
 
 import Ies from '../routes/matriz/ies/matriz.ies.route'
+import Estrato from '../routes/matriz/ies/estrato.ies.routes'
+import Semestre from '../routes/matriz/ies/semestre.ies.routes'
+import TipoDoc from '../routes/matriz/ies/tipodoc.ies.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -45,6 +48,9 @@ const routers = (app: any): void => {
   router.use('/twitter', Twitter)
   router.use('/tweets', Tweets)
   router.use('/ies', Ies)
+  router.use('/estrato', Estrato)
+  router.use('/semestre', Semestre)
+  router.use('/tipodoc', TipoDoc)
 }
 
 export default routers
