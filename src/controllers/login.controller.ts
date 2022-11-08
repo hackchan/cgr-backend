@@ -15,7 +15,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   }
 }
 
-export const recovery = async (req: Request, res: Response, next: NextFunction) => {
+export const sendEmailrecovery = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email } = req.body
     await serviceAuth.sendRecovery(email)
@@ -26,10 +26,32 @@ export const recovery = async (req: Request, res: Response, next: NextFunction) 
   }
 }
 
+export const sendEmailActiveUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = req.body
+    await serviceAuth.sendActiveUser(email)
+    success(req, res, { msn: 'se envio al correo electrónico un enlace para activar su usuario. si no aparece en unos minutos, revise su carpeta de correo no deseado.' })
+    // const respose = await userService.findOne(parseInt(id, 10))
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { token, newPassword } = req.body
     const message = await serviceAuth.changePassword(token, newPassword)
+    success(req, res, message)
+    // const respose = await userService.findOne(parseInt(id, 10))
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const verifyUserActive = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { token } = req.body
+    const message = await serviceAuth.verifyUserActive(token)
     success(req, res, message)
     // const respose = await userService.findOne(parseInt(id, 10))
   } catch (error) {

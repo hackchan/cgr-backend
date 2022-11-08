@@ -3,6 +3,7 @@ import { Departamento } from './Departamento'
 import { TypeMunicipio } from './TypeMunicipio'
 import { IsLatitude, IsLongitude } from 'class-validator'
 import { MatrizObra } from '../Matriz/Obras/MatrizObra'
+import { MatrizIes } from '../Matriz/ies/MatrizIes'
 import { EntidadControl } from '../Entidad/EntidadControl'
 @Entity('municipio')
 export class Municipio {
@@ -39,6 +40,9 @@ export class Municipio {
 
   @OneToMany(() => MatrizObra, mobra => mobra.municipioObra)
     obras: MatrizObra[]
+
+  @OneToMany(() => MatrizIes, ies => ies.sede)
+    matriculas: MatrizIes[]
 
   @OneToMany(() => EntidadControl, entidad => entidad.municipio)
     entidades: EntidadControl[]

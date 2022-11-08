@@ -36,7 +36,7 @@ class UserService {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { auth: true, tipo: true, roles: true },
+        relations: { auth: true, tipo: true, roles: true, entidades: true },
         where: {},
         order: {}
       }
@@ -140,7 +140,7 @@ class UserService {
     }
   }
 
-  async findByUsernameOrEmail (nicknameOrEmail: string): Promise<User> {
+  async findByUsernameOrEmail (nicknameOrEmail: string, activeUser: boolean = true): Promise<User> {
     try {
       const user = await this.repositorioUser.findOne({
         relations: ['auth'],
@@ -168,8 +168,10 @@ class UserService {
       if (user == null) {
         throw boom.notFound('usuario o clave incorrecta')
       }
-      if (!user.active) {
-        throw boom.notFound('usuario esta inactivo')
+      if (activeUser) {
+        if (!user.active) {
+          throw boom.notFound('usuario esta inactivo')
+        }
       }
 
       return user
@@ -231,7 +233,7 @@ class UserService {
       const user = await this.findOne(id)
       // const response = this.repositorioAuth.remove(user)
       // return await response
-      // const response = await this.repositorioAuth.delete({ id: user.auth.id })
+      // await this.repositorioAuth.delete({ id: user.auth.id })
       const remove = await user.remove()
       return remove
     } catch (error) {

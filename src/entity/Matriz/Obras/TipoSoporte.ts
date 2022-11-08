@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { Soportes } from './Soportes'
+import { SoportesObras } from './SoportesObras'
 
 @Entity()
 export class TipoSoporte {
@@ -9,6 +9,6 @@ export class TipoSoporte {
   @Column({ nullable: false, unique: true })
     name: string
 
-  @OneToMany(() => Soportes, (soporte) => soporte.tipoSoporte)
-    soportes: Soportes[]
+  @OneToMany(() => SoportesObras, (soporte) => soporte.tipoSoporte)
+    soportes: SoportesObras[]
 }

@@ -25,7 +25,7 @@ export class User extends Model {
   @Column({ nullable: false, default: false })
     active: boolean
 
-  @OneToOne(() => Auth, { nullable: false, cascade: true })
+  @OneToOne(() => Auth, { nullable: false, cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'auth_id' })
     auth: Auth
 

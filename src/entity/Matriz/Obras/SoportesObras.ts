@@ -3,7 +3,7 @@ import { IsUrl } from 'class-validator'
 import { MatrizObra } from './MatrizObra'
 import { TipoSoporte } from './TipoSoporte'
 @Entity()
-export class Soportes {
+export class SoportesObras {
   @PrimaryGeneratedColumn()
     id: number
 

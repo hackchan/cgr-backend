@@ -7,7 +7,7 @@ import { EstadoObra } from '../../Matriz/Obras/EstadoObra'
 import { SectorObra } from '../../Matriz/Obras/SectorObra'
 import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
 import { User } from '../../UserManagement/User'
-import { Soportes } from '../../Matriz/Obras/Soportes'
+import { SoportesObras } from './SoportesObras'
 @Entity()
 @Unique('matrizObra_unique', ['idContrato', 'entidad'])
 export class MatrizObra {
@@ -244,8 +244,8 @@ export class MatrizObra {
   @JoinColumn({ name: 'user_operation' })
     userOper: User
 
-  @OneToMany(() => Soportes, (soporte) => soporte.obra)
-    soportes: Soportes[]
+  @OneToMany(() => SoportesObras, (soporte) => soporte.obra)
+    soportes: SoportesObras[]
 
   @CreateDateColumn()
     createdAt: Date

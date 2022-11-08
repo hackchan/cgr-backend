@@ -7,7 +7,7 @@ import boom from '@hapi/boom'
 import { PayloadDTO } from '../entityTypes/payload.dto'
 import nodemailer from 'nodemailer'
 import { UserDTO } from '../entityTypes/user.dto'
-
+import { emailActiveUser, emailResetPassword } from '../utils/plantillas'
 const service = new UserService()
 const emailService = new EmailService()
 class AuthService {
@@ -32,6 +32,31 @@ class AuthService {
     return { user, token }
   }
 
+  async sendActiveUser (email: string): Promise<object> {
+    try {
+      const user = await service.findByUsernameOrEmail(email, false)
+      if (user === null) {
+        throw boom.unauthorized()
+      }
+      const payload = { sub: user.id }
+      const token = jwt.sign(payload, config.api.jwt ?? '', { expiresIn: '15min' })
+      const link = `http://localhost:3005/active?token=${token}`
+
+      await service.update(user.id, { auth: { recoveryToken: token } })
+      const mail = {
+        from: config.mail.user, // sender address
+        to: user.email, // list of receivers
+        subject: 'Activación de usuario ✔', // Subject line
+        html: emailActiveUser(user.name + ' ' + user.lastName, link) // html body
+      }
+      const rta = await this.sendMail(mail)
+      return rta
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
   async sendRecovery (email: string): Promise<object> {
     try {
       const user = await service.findByUsernameOrEmail(email)
@@ -47,7 +72,7 @@ class AuthService {
         from: config.mail.user, // sender address
         to: user.email, // list of receivers
         subject: 'recuperacion de clave ✔', // Subject line
-        html: `<b>Ingresa a este link => ${link}</b>` // html body
+        html: emailResetPassword(user.name + ' ' + user.lastName, link) // html body
       }
       const rta = await this.sendMail(mail)
       return rta
@@ -84,6 +109,20 @@ class AuthService {
       const hash = await bcrypt.hash(newPass, 10)
       await service.update(user.id, { auth: { recoveryToken: null, password: hash } })
       return { message: 'contraseña actualizada con exito' }
+    } catch (error) {
+      throw boom.unauthorized()
+    }
+  }
+
+  async verifyUserActive (token: string): Promise<object> {
+    try {
+      const payload = jwt.verify(token, config.api.jwt ?? '')
+      const user = await service.findOne(Number(payload.sub))
+      if (user.auth.recoveryToken !== token) {
+        throw boom.unauthorized()
+      }
+      await service.update(user.id, { active: true, auth: { recoveryToken: null } })
+      return { message: 'Usuario verificado con éxito.' }
     } catch (error) {
       throw boom.unauthorized()
     }

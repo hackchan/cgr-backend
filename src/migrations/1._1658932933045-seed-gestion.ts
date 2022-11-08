@@ -583,241 +583,241 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       }
 
     ])
-    await queryRunner.manager.insert(Auth, [
-      {
-        id: 1,
-        username: 'hackchan',
-        password: 'Colombia2020,.*',
-        uuid: '618b2be8-2360-11ed-861d-0242ac120002'
+    // await queryRunner.manager.insert(Auth, [
+    //   {
+    //     id: 1,
+    //     username: 'hackchan',
+    //     password: 'Colombia2020,.*',
+    //     uuid: '618b2be8-2360-11ed-861d-0242ac120002'
 
-      },
-      {
-        id: 2,
-        username: 'hernando.montano',
-        password: '1018413547',
-        uuid: '793a8dec-2360-11ed-861d-0242ac120002'
+    //   },
+    //   {
+    //     id: 2,
+    //     username: 'hernando.montano',
+    //     password: '1018413547',
+    //     uuid: '793a8dec-2360-11ed-861d-0242ac120002'
 
-      },
-      {
-        id: 3,
-        username: 'lilia.barraza',
-        password: 'Colombia2022*',
-        uuid: 'c7cc7214-9698-45a2-82ee-7a1e00bfea6c'
+    //   },
+    //   {
+    //     id: 3,
+    //     username: 'lilia.barraza',
+    //     password: 'Colombia2022*',
+    //     uuid: 'c7cc7214-9698-45a2-82ee-7a1e00bfea6c'
 
-      },
-      {
-        id: 4,
-        username: 'roberto.delahoz',
-        password: 'Colombia2022*',
-        uuid: 'ffa2ca61-6f3e-4310-bb43-33e00ce724a7'
+    //   },
+    //   {
+    //     id: 4,
+    //     username: 'roberto.delahoz',
+    //     password: 'Colombia2022*',
+    //     uuid: 'ffa2ca61-6f3e-4310-bb43-33e00ce724a7'
 
-      },
-      {
-        id: 5,
-        username: 'williams.avila',
-        password: 'Colombia2022*',
-        uuid: 'ab090f7b-611a-4023-9239-75e5cb06d984'
+    //   },
+    //   {
+    //     id: 5,
+    //     username: 'williams.avila',
+    //     password: 'Colombia2022*',
+    //     uuid: 'ab090f7b-611a-4023-9239-75e5cb06d984'
 
-      },
-      {
-        id: 6,
-        username: 'alvaro.zambrano',
-        password: 'Colombia2022*',
-        uuid: 'a91411f0-8f14-4392-ba86-72ec240d909e'
+    //   },
+    //   {
+    //     id: 6,
+    //     username: 'alvaro.zambrano',
+    //     password: 'Colombia2022*',
+    //     uuid: 'a91411f0-8f14-4392-ba86-72ec240d909e'
 
-      },
-      {
-        id: 7,
-        username: 'juliana.lopez',
-        password: 'Colombia2022*',
-        uuid: '15da5734-6f46-4230-af09-3271b52e89c9'
+    //   },
+    //   {
+    //     id: 7,
+    //     username: 'juliana.lopez',
+    //     password: 'Colombia2022*',
+    //     uuid: '15da5734-6f46-4230-af09-3271b52e89c9'
 
-      },
-      {
-        id: 8,
-        username: 'fabian.velandia',
-        password: 'Colombia2022*',
-        uuid: '5df641d0-cc8f-42b7-a3dd-832fbae8a60d'
+    //   },
+    //   {
+    //     id: 8,
+    //     username: 'fabian.velandia',
+    //     password: 'Colombia2022*',
+    //     uuid: '5df641d0-cc8f-42b7-a3dd-832fbae8a60d'
 
-      },
-      {
-        id: 9,
-        username: 'leonardo.celis',
-        password: 'Colombia2022*',
-        uuid: '8b232109-215b-42bc-897d-7b1b41e50ea5'
+    //   },
+    //   {
+    //     id: 9,
+    //     username: 'leonardo.celis',
+    //     password: 'Colombia2022*',
+    //     uuid: '8b232109-215b-42bc-897d-7b1b41e50ea5'
 
-      },
-      {
-        id: 10,
-        username: 'luise.celis',
-        password: 'Colombia2022*',
-        uuid: '218784f8-9ada-47dd-b1f1-ff9d5c6dba8f'
+    //   },
+    //   {
+    //     id: 10,
+    //     username: 'luise.celis',
+    //     password: 'Colombia2022*',
+    //     uuid: '218784f8-9ada-47dd-b1f1-ff9d5c6dba8f'
 
-      }
-    ])
-    await queryRunner.manager.insert(User, [
-      {
-        id: 1,
-        name: 'FABIO',
-        lastName: 'ROJAS',
-        phone: '318389530',
-        email: 'fabio.rojas@contraloria.gov.co',
-        uuid: '9da70f0c-2360-11ed-861d-0242ac120002',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 1
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   }
+    // ])
+    // await queryRunner.manager.insert(User, [
+    //   {
+    //     id: 1,
+    //     name: 'FABIO',
+    //     lastName: 'ROJAS',
+    //     phone: '318389530',
+    //     email: 'fabio.rojas@contraloria.gov.co',
+    //     uuid: '9da70f0c-2360-11ed-861d-0242ac120002',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 1
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 2,
-        name: 'HERNANDO',
-        lastName: 'MONTANO',
-        phone: '3204463154',
-        email: 'hernando.montano@contraloria.gov.co',
-        uuid: 'a9ddcb3a-2360-11ed-861d-0242ac120002',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 2
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'HERNANDO',
+    //     lastName: 'MONTANO',
+    //     phone: '3204463154',
+    //     email: 'hernando.montano@contraloria.gov.co',
+    //     uuid: 'a9ddcb3a-2360-11ed-861d-0242ac120002',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 2
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 3,
-        name: 'LILIA',
-        lastName: 'BARRAZA',
-        phone: '3023432591',
-        email: 'lilia.barraza@contraloria.gov.co',
-        uuid: '261df3c3-a0ee-4fb9-85e2-39e7025ddcd9',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 3
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'LILIA',
+    //     lastName: 'BARRAZA',
+    //     phone: '3023432591',
+    //     email: 'lilia.barraza@contraloria.gov.co',
+    //     uuid: '261df3c3-a0ee-4fb9-85e2-39e7025ddcd9',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 3
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 4,
-        name: 'ROBERTO',
-        lastName: 'DE LA HOZ',
-        phone: '3017888046',
-        email: 'roberto.delahoz@contraloria.gov.co',
-        uuid: '568cb2aa-9813-48d1-bc07-18432d5b292e',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 4
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 4,
+    //     name: 'ROBERTO',
+    //     lastName: 'DE LA HOZ',
+    //     phone: '3017888046',
+    //     email: 'roberto.delahoz@contraloria.gov.co',
+    //     uuid: '568cb2aa-9813-48d1-bc07-18432d5b292e',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 4
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 5,
-        name: 'WILLIAMS',
-        lastName: 'AVILA',
-        phone: '3103859888',
-        email: 'williams.avila@contraloria.gov.co',
-        uuid: '57d76852-e68a-4ae2-9853-47fcbc17e6fb',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 5
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 5,
+    //     name: 'WILLIAMS',
+    //     lastName: 'AVILA',
+    //     phone: '3103859888',
+    //     email: 'williams.avila@contraloria.gov.co',
+    //     uuid: '57d76852-e68a-4ae2-9853-47fcbc17e6fb',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 5
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 6,
-        name: 'ALVARO',
-        lastName: 'ZAMBRANO',
-        phone: '3006143054',
-        email: 'alvaro.zambrano@contraloria.gov.co',
-        uuid: '0880691e-ed1c-4bb9-a612-d8233bf5006f',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 6
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 6,
+    //     name: 'ALVARO',
+    //     lastName: 'ZAMBRANO',
+    //     phone: '3006143054',
+    //     email: 'alvaro.zambrano@contraloria.gov.co',
+    //     uuid: '0880691e-ed1c-4bb9-a612-d8233bf5006f',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 6
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 7,
-        name: 'JULIANA',
-        lastName: 'LOPEZ',
-        phone: '3184203422',
-        email: 'juliana.lopez@contraloria.gov.co',
-        uuid: 'fd50abe7-65e5-4dba-98a3-be7147652155',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 7
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 7,
+    //     name: 'JULIANA',
+    //     lastName: 'LOPEZ',
+    //     phone: '3184203422',
+    //     email: 'juliana.lopez@contraloria.gov.co',
+    //     uuid: 'fd50abe7-65e5-4dba-98a3-be7147652155',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 7
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 8,
-        name: 'FABIAN',
-        lastName: 'VELANDIA',
-        phone: '3015775525',
-        email: 'fabian.velandia@contraloria.gov.co',
-        uuid: 'bc4e47f1-c2ef-4fbd-93b2-36b16cab8b17',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 8
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 8,
+    //     name: 'FABIAN',
+    //     lastName: 'VELANDIA',
+    //     phone: '3015775525',
+    //     email: 'fabian.velandia@contraloria.gov.co',
+    //     uuid: 'bc4e47f1-c2ef-4fbd-93b2-36b16cab8b17',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 8
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 9,
-        name: 'ANGEL',
-        lastName: 'CELIS',
-        phone: '3132012279',
-        email: 'leonardo.celis@contraloria.gov.co',
-        uuid: 'adc0d119-fdb2-477e-a54f-f4051f01e094',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 9
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 9,
+    //     name: 'ANGEL',
+    //     lastName: 'CELIS',
+    //     phone: '3132012279',
+    //     email: 'leonardo.celis@contraloria.gov.co',
+    //     uuid: 'adc0d119-fdb2-477e-a54f-f4051f01e094',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 9
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      },
-      {
-        id: 10,
-        name: 'LUIS',
-        lastName: 'CELIS',
-        phone: '3213176961',
-        email: 'luise.celis@contraloria.gov.co',
-        uuid: '06e9afa9-7045-4523-b401-faeb25120577',
-        tipo: {
-          id: 1
-        },
-        auth: {
-          id: 10
-        },
-        roles: [{ id: 1, name: 'INFORMACION' }]
+    //   },
+    //   {
+    //     id: 10,
+    //     name: 'LUIS',
+    //     lastName: 'CELIS',
+    //     phone: '3213176961',
+    //     email: 'luise.celis@contraloria.gov.co',
+    //     uuid: '06e9afa9-7045-4523-b401-faeb25120577',
+    //     tipo: {
+    //       id: 1
+    //     },
+    //     auth: {
+    //       id: 10
+    //     },
+    //     roles: [{ id: 1, name: 'INFORMACION' }]
 
-      }
+    //   }
 
-    ])
+    // ])
 
     await queryRunner.manager.insert(TypeMunicipio, [
       {
