@@ -81,6 +81,11 @@ export class MatrizIes {
   @JoinColumn({ name: 'residencia' })
     residencia: Municipio
 
+  @IsInt()
+  @Min(1)
+  @Column({ name: 'creditos_semestre', nullable: false, default: 1 })
+    creditos: number
+
   @ManyToOne(() => Estrato, municipio => municipio.matriculas, { nullable: false, cascade: true })
   @JoinColumn({ name: 'estrato' })
     estrato: Estrato
