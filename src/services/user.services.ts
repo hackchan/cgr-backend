@@ -127,7 +127,7 @@ class UserService {
       const user = await this.repositorioUser.findOne({
         where:
         { id },
-        relations: ['auth']
+        relations: ['auth', 'roles', 'entidades']
       })
       if (user == null) {
         throw boom.notFound('Usuario no encontrado')
@@ -143,7 +143,7 @@ class UserService {
   async findByUsernameOrEmail (nicknameOrEmail: string, activeUser: boolean = true): Promise<User> {
     try {
       const user = await this.repositorioUser.findOne({
-        relations: ['auth'],
+        relations: ['auth', 'roles', 'entidades'],
         where: [{ email: nicknameOrEmail }, { auth: { username: nicknameOrEmail } }]
       })
 
@@ -187,7 +187,7 @@ class UserService {
     try {
       const user = await this.repositorioUser.findOne(
         {
-          relations: ['auth'],
+          relations: ['auth', 'roles', 'entidades'],
           where: [{ email }]
         })
 

@@ -4,9 +4,9 @@ import config from '../config'
 import UserService from './user.services'
 import EmailService from './entidad/email'
 import boom from '@hapi/boom'
-import { PayloadDTO } from '../entityTypes/payload.dto'
+// import { PayloadDTO } from '../entityTypes/payload.dto'
 import nodemailer from 'nodemailer'
-import { UserDTO } from '../entityTypes/user.dto'
+// import { UserDTO } from '../entityTypes/user.dto'
 import { emailActiveUser, emailResetPassword } from '../utils/plantillas'
 const service = new UserService()
 const emailService = new EmailService()
@@ -23,10 +23,11 @@ class AuthService {
     return user
   }
 
-  signToken (user: UserDTO): object {
-    const payload: PayloadDTO = {
+  signToken (user: any): object {
+    const payload: any = {
       sub: user.id,
-      role: user.auth.role
+      role: user.roles,
+      entidad: user.entidades
     }
     const token = jwt.sign(payload, config.api.jwt ?? '')
     return { user, token }
