@@ -143,7 +143,7 @@ class UserService {
   async findByUsernameOrEmail (nicknameOrEmail: string, activeUser: boolean = true): Promise<User> {
     try {
       const user = await this.repositorioUser.findOne({
-        relations: ['auth', 'roles', 'entidades'],
+        relations: ['auth', 'roles', 'entidades', 'tipo'],
         where: [{ email: nicknameOrEmail }, { auth: { username: nicknameOrEmail } }]
       })
 

@@ -2,13 +2,15 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
-import { Repository, Like, Equal } from 'typeorm'
+import { Repository, Like, Equal, In } from 'typeorm'
 // import { DateUtils } from 'typeorm/util/DateUtils'
 import { MatrizIes } from '../../../entity/Matriz/ies/MatrizIes'
 // import { format, parse } from 'date-fns'
 
 // import { validate } from 'class-validator'
+import UserService from '../../user.services'
 
+const serviceUser = new UserService()
 class MatrizIESDTO {
   readonly repositorioMatrizIES: Repository<MatrizIes>
 
@@ -25,7 +27,7 @@ class MatrizIESDTO {
     return result
   }
 
-  async create (data: any): Promise<any> {
+  async create (data: any, userData: any): Promise<any> {
     try {
       const result = await this.repositorioMatrizIES.save(data, { chunk: 10, transaction: false })
       return result
@@ -66,8 +68,14 @@ class MatrizIESDTO {
     }
   }
 
-  async findAll (query: any): Promise<any> {
+  async findAll (query: any, userData: any): Promise<any> {
     try {
+      const user = await serviceUser.findOne(Number(userData.sub))
+      const userJson = JSON.parse(JSON.stringify(user))
+      const entidades = userJson.entidades.map((entidad: any) => {
+        return entidad.id
+      })
+
       const options: any = {
         relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, semestre: true, tipoDoc: true, estrato: true, residencia: { department: true } },
         where: {},
@@ -168,7 +176,12 @@ class MatrizIESDTO {
 
       const obrasList = await this.repositorioMatrizIES.findAndCount(options)
       // const cantidad = await this.repositorioMatrizObra.count()
-      const response = { cantidad: obrasList[1], data: obrasList[0] }
+      const responseData = JSON.parse(JSON.stringify(obrasList[0]))
+      const filterData = responseData.filter((mat: any) => {
+        return mat.entidad.id.toString().includes(entidades)
+      })
+
+      const response = { cantidad: obrasList[1], data: filterData }
       // console.log(response)
       return response
     } catch (error) {

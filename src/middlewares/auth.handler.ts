@@ -14,10 +14,17 @@ export async function checkApiKey (req: Request, _res: Response, next: any): Pro
 export function checkRoles (...roles: any) {
   return (req: Request, res: Response, next: NextFunction) => {
     const payload: any = req.user
-    if (roles.includes(payload?.role[0]) === true) {
+    const listaRolesUser = payload.role.map((rol: any) => {
+      return rol.name
+    })
+    console.log('LISTA ROLES SISTEMA:', roles)
+    console.log('LISTA ROLES USER:', listaRolesUser)
+
+    if (roles.some((value: any) => listaRolesUser.includes(value)) === true) {
       next()
     } else {
       next(boom.forbidden('se requieren permisos de administrador'))
     }
+    // return rol.name.toUpperCase()
   }
 }
