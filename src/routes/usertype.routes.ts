@@ -4,11 +4,11 @@ import passport from 'passport'
 import { checkRoles } from '../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', getUserTypes as RequestHandler)
-router.get('/:id', getUserType as RequestHandler)
-router.post('/', createUserType as RequestHandler)
-router.patch('/:id', updateUserType as RequestHandler)
-router.delete('/:id', deleteUserType as RequestHandler)
+router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), getUserTypes as RequestHandler)
+router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), getUserType as RequestHandler)
+router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), createUserType as RequestHandler)
+router.patch('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), updateUserType as RequestHandler)
+router.delete('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), deleteUserType as RequestHandler)
 // router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('admin'), getUserType as RequestHandler)
 // router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('admin'), createUserType as RequestHandler)
 // router.patch('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('admin'), updateUserType as RequestHandler)

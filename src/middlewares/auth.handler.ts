@@ -17,13 +17,10 @@ export function checkRoles (...roles: any) {
     const listaRolesUser = payload.role.map((rol: any) => {
       return rol.name
     })
-    console.log('LISTA ROLES SISTEMA:', roles)
-    console.log('LISTA ROLES USER:', listaRolesUser)
-
     if (roles.some((value: any) => listaRolesUser.includes(value)) === true) {
       next()
     } else {
-      next(boom.forbidden('se requieren permisos de administrador'))
+      next(boom.forbidden('Se requieren permisos de Administrador'))
     }
     // return rol.name.toUpperCase()
   }
