@@ -6,7 +6,7 @@ import passport from 'passport'
 import { checkRoles } from '../../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), getEntidades as RequestHandler)
+router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), getEntidades as RequestHandler)
 router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), validatorHandler(getEntidadSchema, 'params'), getEntidad as RequestHandler)
 router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('JEDI', 'ADMIN'), validatorHandler(createEntidadSchema, 'body'), createEntidad as RequestHandler)
 router.patch('/:id',

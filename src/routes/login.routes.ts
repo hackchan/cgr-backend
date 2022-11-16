@@ -1,6 +1,6 @@
 import { RequestHandler, Router } from 'express'
 import { login, sendEmailrecovery, sendEmailActiveUser, changePassword, validateEmailEntidad, verifyUserActive } from '../controllers/login.controller'
-import passport from 'passport'
+  import passport from 'passport'
 // import { checkApiKey } from '../middlewares/auth.handler'
 const router = Router()
 

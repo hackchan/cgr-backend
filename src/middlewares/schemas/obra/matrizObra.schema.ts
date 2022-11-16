@@ -291,6 +291,13 @@ const municipioObra = Joi.number().integer().min(1).options({ convert: false }).
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
+const userOper = Joi.number().integer().min(1).options({ convert: false }).messages({
+  'number.base': '{{#label}} debe ser un numero',
+  'number.integer': '{{#label}} debe ser un entero',
+  'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
+  'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
+})
+
 export const createMatrizObraSchema = Joi.array().items(Joi.object({
   idBpin,
   idContrato: idContrato.required(),
@@ -334,7 +341,8 @@ export const createMatrizObraSchema = Joi.array().items(Joi.object({
   origen: origen.required(),
   estado: estado.required(),
   entidad: entidad.required(),
-  municipioObra: municipioObra.required()
+  municipioObra: municipioObra.required(),
+  userOper
 
 }))
 
@@ -380,7 +388,8 @@ export const updateMatrizObraSchema = Joi.object({
   origen,
   estado,
   entidad,
-  municipioObra
+  municipioObra,
+  userOper
 })
 
 export const getMatrizObraSchema = Joi.object({

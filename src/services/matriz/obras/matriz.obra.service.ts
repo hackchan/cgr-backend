@@ -6,7 +6,9 @@ import { Repository, Like, Equal } from 'typeorm'
 import { DateUtils } from 'typeorm/util/DateUtils'
 import { MatrizObra } from '../../../entity/Matriz/Obras/MatrizObra'
 import { format, parse } from 'date-fns'
+import UserService from '../../user.services'
 
+const serviceUser = new UserService()
 // import { validate } from 'class-validator'
 
 class MatrizObraDTO {
@@ -117,8 +119,13 @@ class MatrizObraDTO {
     }
   }
 
-  async findAll (query: any): Promise<any> {
+  async findAll (query: any, userData: any): Promise<any> {
     try {
+      const user = await serviceUser.findOne(Number(userData.sub))
+      const userJson = JSON.parse(JSON.stringify(user))
+      const entidades = userJson.entidades.map((entidad: any) => {
+        return entidad.id
+      })
       const options: any = {
         relations: { sector: true, origen: true, estado: true, entidad: true, municipioObra: { department: true }, userOper: true, userAlert: true, soportes: true },
         where: {},
@@ -242,7 +249,11 @@ class MatrizObraDTO {
 
       const obrasList = await this.repositorioMatrizObra.findAndCount(options)
       // const cantidad = await this.repositorioMatrizObra.count()
-      const response = { cantidad: obrasList[1], data: obrasList[0] }
+      const responseData = JSON.parse(JSON.stringify(obrasList[0]))
+      const filterData = responseData.filter((mat: any) => {
+        return mat.entidad.id.toString().includes(entidades)
+      })
+      const response = { cantidad: obrasList[1], data: filterData }
       // console.log(response)
       return response
     } catch (error) {
