@@ -693,7 +693,7 @@ export const emailActiveUser = (name: string, url: string) => {
               >
                 <p style="margin: 0;">
                   Si tiene alguna pregunta, puedes formularla al correo
-                  electrónico fabio.rojas@contraloria.gov.co; Estamos encantados de ayudarlo.
+                  electrónico infoappui@contraloria.gov.co; Estamos encantados de ayudarlo.
                 </p>
               </td>
             </tr>

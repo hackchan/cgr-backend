@@ -132,10 +132,18 @@ class AuthService {
 
   async sendMail (infomail: object): Promise<object> {
     try {
-      const transporter = nodemailer.createTransport({
-        host: config.mail.host,
-        port: Number(config.mail.port),
-        secure: config.mail.secure,
+      // const transporterGmail = nodemailer.createTransport({
+      //   host: config.mail.host,
+      //   port: Number(config.mail.port),
+      //   secure: config.mail.secure,
+      //   auth: {
+      //     user: config.mail.user,
+      //     pass: config.mail.pass
+      //   }
+      // })
+
+      const transporterHotmail = nodemailer.createTransport({
+        service: 'Hotmail',
         auth: {
           user: config.mail.user,
           pass: config.mail.pass
@@ -143,7 +151,7 @@ class AuthService {
       })
 
       // send mail with defined transport object
-      await transporter.sendMail(infomail)
+      await transporterHotmail.sendMail(infomail)
       return { message: 'mail sent' }
     } catch (error) {
       console.log(error)
