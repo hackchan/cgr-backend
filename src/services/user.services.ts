@@ -170,7 +170,7 @@ class UserService {
       }
       if (activeUser) {
         if (!user.active) {
-          throw boom.notFound('usuario esta inactivo')
+          throw boom.notFound('Usuario está inactivo')
         }
       }
 

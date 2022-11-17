@@ -6,12 +6,12 @@ import passport from 'passport'
 import { checkRoles } from '../../../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), getObras as RequestHandler)
-router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), validatorHandler(getMatrizObraSchema, 'params'), getObra as RequestHandler)
-router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createObra as RequestHandler)
-router.post('/upsert', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createUpdateObra as RequestHandler)
+router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), getObras as RequestHandler)
+router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), validatorHandler(getMatrizObraSchema, 'params'), getObra as RequestHandler)
+router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createObra as RequestHandler)
+router.post('/upsert', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createUpdateObra as RequestHandler)
 router.patch('/:id',
-  passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
+  passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
   validatorHandler(getMatrizObraSchema, 'params'),
   validatorHandler(updateMatrizObraSchema, 'body'),
   updateObra as RequestHandler)
