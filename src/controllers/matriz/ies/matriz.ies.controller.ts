@@ -26,8 +26,9 @@ export const getMatricula = async (req: Request, res: Response, next: NextFuncti
 
 export const createMatricula = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const obra = req.body
-    const response = await serviceIES.create(obra, req.user)
+    const matricula = req.body
+    console.log('Matricula a registrar:', matricula)
+    const response = await serviceIES.create(matricula, req.user)
     success(req, res, response)
   } catch (error) {
     next(error)

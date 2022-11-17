@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
-import { Repository, Like, Equal, In } from 'typeorm'
+import { Repository, Like, Equal } from 'typeorm'
 // import { DateUtils } from 'typeorm/util/DateUtils'
 import { MatrizIes } from '../../../entity/Matriz/ies/MatrizIes'
 // import { format, parse } from 'date-fns'
@@ -77,7 +77,7 @@ class MatrizIESDTO {
       })
 
       const options: any = {
-        relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, semestre: true, tipoDoc: true, estrato: true, residencia: { department: true } },
+        relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, tipoDoc: true, estrato: true, residencia: { department: true } },
         where: {},
         order: {}
       }
@@ -116,6 +116,7 @@ class MatrizIESDTO {
         options.where = [
           { id: Like(`%${globalFilter}%`) },
           { semestreReportado: Like(`%${globalFilter}%`) },
+          { semestreIngreso: Like(`%${globalFilter}%`) },
           { codigo: Like(`%${globalFilter}%`) },
           { name: Like(`%${globalFilter}%`) },
           { numeroDoc: Like(`%${globalFilter}%`) },
@@ -132,7 +133,7 @@ class MatrizIESDTO {
 
           { tipoDoc: { name: Like(`%${globalFilter}%`) } },
           { sede: { name: Like(`%${globalFilter}%`) } },
-          { semestre: { name: Like(`%${globalFilter}%`) } },
+          // { semestre: { name: Like(`%${globalFilter}%`) } },
           { residencia: { name: Like(`%${globalFilter}%`) } },
           { estrato: { name: Like(`%${globalFilter}%`) } },
           { entidad: { name: Like(`%${globalFilter}%`) } }

@@ -39,9 +39,12 @@ export class MatrizIes {
   @JoinColumn({ name: 'sede' })
     sede: Municipio
 
-  @ManyToOne(() => Semestre, seme => seme.matriculas, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'semestre' })
-    semestre: Semestre
+  // @ManyToOne(() => Semestre, seme => seme.matriculas, { nullable: false, cascade: true })
+  // @JoinColumn({ name: 'semestre_ingreso' })
+  //   semestre: Semestre
+
+  @Column({ name: 'semestre_ingreso', nullable: false })
+    semestreIngreso: number
 
   @Column({
     name: 'valor_semestre_sin_descuentos',
