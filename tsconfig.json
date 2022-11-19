@@ -1,19 +1,35 @@
 {
+  // "compilerOptions": {
+  //   "lib": ["es5", "es6"],
+  //   "target": "es6",
+  //   "module": "commonjs",
+  //   "moduleResolution": "node",
+
+  //   "strictPropertyInitialization": false,
+  //   "esModuleInterop": true,
+  //   "forceConsistentCasingInFileNames": true,
+  //   "strict": true,
+  //   "outDir": "./dist",
+  //   "rootDir": "./src",
+  //   "emitDecoratorMetadata": true,
+  //   "experimentalDecorators": true,
+  //   "sourceMap": true
+
+  // }
   "compilerOptions": {
-    "lib": ["es5", "es6"],
+    "skipLibCheck": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-
-    "strictPropertyInitialization": false,
+    "allowJs": true,
+    "strict": false, 
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
-
-  }
+    "emitDecoratorMetadata": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
