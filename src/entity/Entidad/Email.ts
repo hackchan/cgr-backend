@@ -13,7 +13,7 @@ export class Email {
   @Column({ nullable: false })
     register: boolean = false
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.emails, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.emails, { nullable: false, cascade: true })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 }

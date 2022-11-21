@@ -4,7 +4,7 @@ import { Auth } from './Auth'
 import { Model } from './Model'
 import { Role } from './Role'
 import { EntidadControl } from '../Entidad/EntidadControl'
-
+import { Videos } from '../blog/Videos'
 @Entity('user')
 export class User extends Model {
   @Column({ nullable: false })
@@ -40,4 +40,8 @@ export class User extends Model {
   @ManyToMany(() => EntidadControl, entidad => entidad.users, { cascade: true, nullable: false })
   @JoinTable()
     entidades: EntidadControl[]
+
+  @ManyToMany(() => Videos, video => video.users, { cascade: true, nullable: false })
+  @JoinTable()
+    videos: Videos[]
 }

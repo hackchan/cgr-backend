@@ -16,13 +16,8 @@
     "tsc": "tsc",
     "lint": "ts-standard --fix",
     "dev": "ts-node-dev --respawn  src/index.ts",
-<<<<<<< HEAD
     "build-odl": "webpack --mode production",
     "build": "rimraf ./dist && tsc",
-=======
-    "build": "webpack --mode production",
-    "build2": "tsc --build",
->>>>>>> 96d0186288c2dbdf30fd66a2212931bf37e89d55
     "start": "node dist/index.js"
   },
   "keywords": [],

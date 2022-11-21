@@ -106,7 +106,6 @@ class EmailDTO {
   async findOne (id: number): Promise<Email> {
     try {
       const entidad = await this.repositorioEmail.findOne({
-        relations: { entidad: true },
         where:
         { id }
       })

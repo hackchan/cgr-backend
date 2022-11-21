@@ -14,7 +14,7 @@ export class Telefono {
   @Column({ nullable: true })
     cargo: string
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.telefonos, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.telefonos, { nullable: false, cascade: true })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 }

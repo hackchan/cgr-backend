@@ -7,7 +7,6 @@ const options: StrategyOptions = {
 
 const JwtStrategy = new Strategy(options, (payload, done) => {
   try {
-    console.log('payload:', payload)
     return done(null, payload)
   } catch (error) {
     console.log(error)

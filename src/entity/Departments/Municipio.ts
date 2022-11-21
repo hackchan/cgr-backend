@@ -5,6 +5,7 @@ import { IsLatitude, IsLongitude } from 'class-validator'
 import { MatrizObra } from '../Matriz/Obras/MatrizObra'
 import { MatrizIes } from '../Matriz/ies/MatrizIes'
 import { EntidadControl } from '../Entidad/EntidadControl'
+import { Vereda } from '../Departments/Vereda'
 @Entity('municipio')
 export class Municipio {
   @PrimaryGeneratedColumn()
@@ -29,6 +30,9 @@ export class Municipio {
   @Column({ nullable: true, type: 'decimal', precision: 9, scale: 6, default: 0 })
   @IsLongitude()
     longitude: number
+
+  @OneToMany(() => Vereda, (vereda) => vereda.municipio)
+    veredas: Vereda[]
 
   @ManyToOne(() => Departamento, depart => depart.municipios, { nullable: false })
   @JoinColumn({ name: 'depart_id' })

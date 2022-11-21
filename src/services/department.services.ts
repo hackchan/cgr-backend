@@ -133,8 +133,6 @@ class UserDepartment {
     try {
       const department = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
-      console.log('departamento:', department)
-      console.log('changes:', changes)
       this.repositorioDepartment.merge(department, changes)
       const result = await this.repositorioDepartment.save(department)
       return result

@@ -8,6 +8,7 @@ import { SectorObra } from '../../Matriz/Obras/SectorObra'
 import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
 import { User } from '../../UserManagement/User'
 import { SoportesObras } from './SoportesObras'
+import { MatrizHito } from './MatrizHitos'
 @Entity()
 @Unique('matrizObra_unique', ['idContrato', 'entidad'])
 export class MatrizObra {
@@ -252,4 +253,7 @@ export class MatrizObra {
 
   @UpdateDateColumn()
     updatedAt: Date
+
+  @OneToMany(() => MatrizHito, (mat) => mat.obra)
+    hitos: MatrizHito[]
 }

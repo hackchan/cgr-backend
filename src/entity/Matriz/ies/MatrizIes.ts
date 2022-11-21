@@ -4,7 +4,6 @@ import { Transform } from 'class-transformer'
 import { Municipio } from '../../Departments/Municipio'
 import { User } from '../../UserManagement/User'
 import { Estrato } from './Estrato'
-import { Semestre } from './Semestre'
 import { DocumentType } from './DocumentType'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 @Entity()

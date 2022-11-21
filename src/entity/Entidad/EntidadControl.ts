@@ -34,10 +34,10 @@ export class EntidadControl {
   @JoinColumn({ name: 'subsector_id' })
     subsector: Subsector
 
-  @OneToMany(() => Email, email => email.entidad, { cascade: true })
+  @OneToMany(() => Email, email => email.entidad)
     emails: Email[]
 
-  @OneToMany(() => Telefono, telefono => telefono.entidad, { cascade: true })
+  @OneToMany(() => Telefono, telefono => telefono.entidad)
     telefonos: Telefono[]
 
   @ManyToOne(() => Municipio, { nullable: false, cascade: true })
