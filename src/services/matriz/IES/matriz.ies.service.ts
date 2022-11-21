@@ -70,11 +70,19 @@ class MatrizIESDTO {
 
   async findAll (query: any, userData: any): Promise<any> {
     try {
-      const user = await serviceUser.findOne(Number(userData.sub))
-      const userJson = JSON.parse(JSON.stringify(user))
-      const entidades = userJson.entidades.map((entidad: any) => {
-        return entidad.id
-      })
+      // const user = await serviceUser.findOne(Number(userData.sub))
+      // const userJson = JSON.parse(JSON.stringify(user))
+      // const entidades = userJson.entidades.map((entidad: any) => {
+      //   return entidad.id
+      // })
+      // const listaRolesUser = userData?.role.map((rol: any) => {
+      //   return rol.name
+      // })
+      // const isAdmin = ['ADMIN', 'JEDI'].some((value) => listaRolesUser?.includes(value))
+
+      // console.log('userData:', userData)
+      // console.log('entidades:', entidades)
+      // console.log('isAdmin', isAdmin)
 
       const options: any = {
         relations: { entidad: true, sede: { department: true }, userOper: true, userAlert: true, tipoDoc: true, estrato: true, residencia: { department: true } },
@@ -178,11 +186,13 @@ class MatrizIESDTO {
       const obrasList = await this.repositorioMatrizIES.findAndCount(options)
       // const cantidad = await this.repositorioMatrizObra.count()
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
-      const filterData = responseData.filter((mat: any) => {
-        return mat.entidad.id.toString().includes(entidades)
-      })
 
-      const response = { cantidad: obrasList[1], data: filterData }
+      const filterData = responseData.some((mat: any) => {
+        return userData.entidadesArray.includes(mat.entidad.id.toString())
+      })
+      const dataFinish = userData.isAdmin ? responseData : filterData
+      // ['ENTIDAD'].some((value) => listaRolesUser?.includes(value))
+      const response = { cantidad: obrasList[1], data: dataFinish }
       // console.log(response)
       return response
     } catch (error) {

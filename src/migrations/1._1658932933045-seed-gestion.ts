@@ -168,6 +168,22 @@ export class seedDeparts1658932933045 implements MigrationInterface {
       {
         id: 2,
         name: 'ENTIDAD'
+      },
+      {
+        id: 3,
+        name: 'ANALISIS'
+      },
+      {
+        id: 4,
+        name: 'URI'
+      },
+      {
+        id: 5,
+        name: 'ADMIN'
+      },
+      {
+        id: 6,
+        name: 'YEDI'
       }
 
     ])

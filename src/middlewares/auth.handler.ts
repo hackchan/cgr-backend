@@ -25,3 +25,19 @@ export function checkRoles (...roles: any) {
     // return rol.name.toUpperCase()
   }
 }
+export function isAdmin () {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const user: any = req.user
+    const listaRolesUser = user?.role.map((rol: any) => {
+      return rol.name
+    })
+    const isAdmin = ['ADMIN', 'JEDI'].some((value) => listaRolesUser?.includes(value))
+    const entidadesArray = user?.entidad.map((entidad: any) => {
+      return entidad.id
+    })
+
+    req.user = { ...req.user, isAdmin, entidadesArray }
+    next()
+    // return rol.name.toUpperCase()
+  }
+}
