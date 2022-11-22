@@ -121,11 +121,11 @@ class MatrizObraDTO {
 
   async findAll (query: any, userData: any): Promise<any> {
     try {
-      const user = await serviceUser.findOne(Number(userData.sub))
-      const userJson = JSON.parse(JSON.stringify(user))
-      const entidades = userJson.entidades.map((entidad: any) => {
-        return entidad.id
-      })
+      // const user = await serviceUser.findOne(Number(userData.sub))
+      // const userJson = JSON.parse(JSON.stringify(user))
+      // const entidades = userJson.entidades.map((entidad: any) => {
+      //   return entidad.id
+      // })
       const options: any = {
         relations: { sector: true, origen: true, estado: true, entidad: true, municipioObra: { department: true }, userOper: true, userAlert: true, soportes: true },
         where: {},
@@ -230,7 +230,6 @@ class MatrizObraDTO {
             }
           }
         })
-        console.log('filter:', pushWhere)
         options.where = pushWhere
       }
 
@@ -251,9 +250,10 @@ class MatrizObraDTO {
       // const cantidad = await this.repositorioMatrizObra.count()
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
       const filterData = responseData.filter((mat: any) => {
-        return mat.entidad.id.toString().includes(entidades)
+        return userData.entidadesArray.includes(mat.entidad.id)
       })
-      const response = { cantidad: obrasList[1], data: filterData }
+      const dataFinish = userData.isAdmin ? responseData : filterData
+      const response = { cantidad: obrasList[1], data: dataFinish }
       // console.log(response)
       return response
     } catch (error) {

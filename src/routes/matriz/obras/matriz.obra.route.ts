@@ -3,10 +3,10 @@ import { createObra, getObras, getObra, deleteObra, updateObra, createUpdateObra
 import { validatorHandler } from '../../../middlewares/schemas/validator.handler'
 import { getMatrizObraSchema, createMatrizObraSchema, updateMatrizObraSchema } from '../../../middlewares/schemas/obra/matrizObra.schema'
 import passport from 'passport'
-import { checkRoles } from '../../../middlewares/auth.handler'
+import { checkRoles, isAdmin } from '../../../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), getObras as RequestHandler)
+router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), isAdmin(), getObras as RequestHandler)
 router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), validatorHandler(getMatrizObraSchema, 'params'), getObra as RequestHandler)
 router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createObra as RequestHandler)
 router.post('/upsert', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), validatorHandler(createMatrizObraSchema, 'body'), createUpdateObra as RequestHandler)

@@ -99,7 +99,6 @@ class MatrizIESDTO {
       let isFilters = false
       let filtersColumn = null
       if (filters) {
-        console.log('filters:', filters)
         filtersColumn = JSON.parse(filters) ?? null
         if (filters && filtersColumn.length > 0) {
           isFilters = true
@@ -152,7 +151,6 @@ class MatrizIESDTO {
       if (isFilters) {
         const pushWhere: any[] = []
         filtersColumn.forEach((obj: any) => {
-          console.log('obj:', obj)
           const bus: any = {}
           if (obj.id === 'tipoDoc' || obj.id === 'sede' || obj.id === 'semestre' || obj.id === 'entidad' || obj.id === 'estrato' || obj.id === 'residencia') {
             pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
@@ -166,7 +164,7 @@ class MatrizIESDTO {
             }
           }
         })
-        console.log('filter:', pushWhere)
+
         options.where = pushWhere
       }
 
@@ -184,16 +182,12 @@ class MatrizIESDTO {
       }
 
       const obrasList = await this.repositorioMatrizIES.findAndCount(options)
-      // const cantidad = await this.repositorioMatrizObra.count()
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
-
-      const filterData = responseData.some((mat: any) => {
-        return userData.entidadesArray.includes(mat.entidad.id.toString())
+      const filterData = responseData.filter((mat: any) => {
+        return userData.entidadesArray.includes(mat.entidad.id)
       })
       const dataFinish = userData.isAdmin ? responseData : filterData
-      // ['ENTIDAD'].some((value) => listaRolesUser?.includes(value))
       const response = { cantidad: obrasList[1], data: dataFinish }
-      // console.log(response)
       return response
     } catch (error) {
       console.log(error)
