@@ -35,7 +35,7 @@ export function isAdmin () {
     const entidadesArray = user?.entidad.map((entidad: any) => {
       return entidad.id
     })
-
+    console.log('entidades array:', entidadesArray)
     req.user = { ...req.user, isAdmin, entidadesArray }
     next()
     // return rol.name.toUpperCase()

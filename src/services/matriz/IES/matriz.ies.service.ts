@@ -183,9 +183,13 @@ class MatrizIESDTO {
 
       const obrasList = await this.repositorioMatrizIES.findAndCount(options)
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
+
       const filterData = responseData.filter((mat: any) => {
+        console.log('userData.entidadesArray:', userData.entidadesArray)
+        console.log('mat.entidad.id:', mat.entidad.id)
         return userData.entidadesArray.includes(mat.entidad.id)
       })
+      console.log('filter data:', filterData)
       const dataFinish = userData.isAdmin ? responseData : filterData
       const response = { cantidad: obrasList[1], data: dataFinish }
       return response
