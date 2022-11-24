@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany, ManyToMany } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany, ManyToMany, OneToOne } from 'typeorm'
 import { Categoria } from './Categoria'
 import { Email } from './Email'
 import { Subsector } from './Subsector'
@@ -6,6 +6,7 @@ import { Telefono } from './Telefono'
 import { Municipio } from '../Departments/Municipio'
 import { MatrizObra } from '../Matriz/Obras/MatrizObra'
 import { User } from '../UserManagement/User'
+import { RepLegal } from './RepLegal'
 @Entity()
 export class EntidadControl {
   @PrimaryGeneratedColumn()
@@ -39,6 +40,9 @@ export class EntidadControl {
 
   @OneToMany(() => Telefono, telefono => telefono.entidad)
     telefonos: Telefono[]
+
+  @OneToOne(() => RepLegal, rep => rep.entidad)
+    repLegal: RepLegal
 
   @ManyToOne(() => Municipio, { nullable: false, cascade: true })
   @JoinColumn({ name: 'municipio_id' })

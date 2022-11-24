@@ -2,6 +2,7 @@ import { Entity, Column, OneToMany, PrimaryGeneratedColumn, ManyToOne, JoinColum
 import { IsLatitude, IsLongitude } from 'class-validator'
 import { Municipio } from './Municipio'
 import { Satelital } from './Satelital'
+import { User } from '../UserManagement/User'
 // import { User } from '../UserManagement/User'
 @Entity('departamento')
 export class Departamento {
@@ -29,4 +30,8 @@ export class Departamento {
   @ManyToOne(() => Satelital, (sate) => sate.departaments, { nullable: true })
   @JoinColumn({ name: 'satelital_id' })
     satelital: Satelital
+
+  @ManyToOne(() => User, (user) => user.departamentos, { nullable: true, cascade: true })
+  @JoinColumn({ name: 'responsable_id' })
+    responsable: User
 }

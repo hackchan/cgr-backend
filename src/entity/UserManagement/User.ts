@@ -1,10 +1,11 @@
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm'
 import { UserType } from './UserType'
 import { Auth } from './Auth'
 import { Model } from './Model'
 import { Role } from './Role'
 import { EntidadControl } from '../Entidad/EntidadControl'
 import { Videos } from '../blog/Videos'
+import { Departamento } from '../Departments/Departamento'
 @Entity('user')
 export class User extends Model {
   @Column({ nullable: false })
@@ -25,7 +26,7 @@ export class User extends Model {
   @Column({ nullable: false, default: false })
     active: boolean
 
-  @OneToOne(() => Auth, { nullable: false, cascade: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Auth, auth => auth.user, { nullable: false, cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'auth_id' })
     auth: Auth
 
@@ -44,4 +45,7 @@ export class User extends Model {
   @ManyToMany(() => Videos, video => video.users, { cascade: true, nullable: false })
   @JoinTable()
     videos: Videos[]
+
+  @OneToMany(() => Departamento, depart => depart.responsable)
+    departamentos: Departamento[]
 }
