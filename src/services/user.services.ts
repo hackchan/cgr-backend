@@ -36,7 +36,7 @@ class UserService {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { auth: true, tipo: true, roles: true, entidades: true },
+        relations: { auth: true, tipo: true, roles: true, entidades: { municipio: { department: true } } },
         where: {},
         order: {}
       }

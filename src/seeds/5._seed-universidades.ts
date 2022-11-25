@@ -429,7 +429,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'avalenciav@pedagogica.edu.co',
         register: true,
-        entidad: { id: 113 }
+        entidad: { id: 1130 }
       },
 
       {
@@ -489,7 +489,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'ocara@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -549,7 +549,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'rectoria@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -627,7 +627,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'rectoria@pedagogica.edu.co',
         register: true,
-        entidad: { id: 113 }
+        entidad: { id: 1130 }
       },
 
       {
@@ -681,7 +681,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'secretariageneral@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -741,7 +741,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'viceadm@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -819,7 +819,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'odp@pedagogica.edu.co',
         register: true,
-        entidad: { id: 113 }
+        entidad: { id: 1130 }
       },
 
       {
@@ -873,7 +873,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'planeacion@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -933,7 +933,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'olcegonz@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -1011,7 +1011,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'secretaria.general@pedagogica.edu.co',
         register: true,
-        entidad: { id: 113 }
+        entidad: { id: 1130 }
       },
 
       {
@@ -1125,7 +1125,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'direcge1@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -1197,7 +1197,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'dfn@pedagogica.edu.co',
         register: true,
-        entidad: { id: 113 }
+        entidad: { id: 1130 }
       },
 
       {
@@ -1257,7 +1257,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'ci@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -1311,7 +1311,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'dirplan@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -1419,7 +1419,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'controlinterno@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -1461,7 +1461,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'sgeneral@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
@@ -1557,7 +1557,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'juridica@udenar.edu.co',
         register: true,
-        entidad: { id: 114 }
+        entidad: { id: 1140 }
       },
 
       {
@@ -1593,7 +1593,7 @@ export class seedDeparts1658932933082 implements MigrationInterface {
       {
         email: 'contratacion@uis.edu.co',
         register: true,
-        entidad: { id: 115 }
+        entidad: { id: 1150 }
       },
 
       {
