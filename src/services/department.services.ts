@@ -29,7 +29,7 @@ class UserDepartment {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { satelital: true, responsable: true },
+        relations: { satelital: true, responsable: true, municipios: { entidades: true } },
         where: {},
         order: {}
       }
