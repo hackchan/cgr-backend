@@ -28,7 +28,7 @@ class EntidadDTO {
   async findAll (query: any): Promise<any> {
     try {
       const options: any = {
-        relations: { subsector: { sector: true }, categoria: true, municipio: { department: true } },
+        relations: { subsector: { sector: true }, users: true, categoria: true, municipio: { department: true } },
         where: {},
         order: {}
       }
@@ -125,6 +125,7 @@ class EntidadDTO {
   async findOne (id: number): Promise<EntidadControl> {
     try {
       const entidad = await this.repositorioEntidad.findOne({
+        relations: { subsector: { sector: true }, users: { tipo: true }, categoria: true, municipio: { department: true } },
         where:
         { id }
       })

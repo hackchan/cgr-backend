@@ -127,7 +127,7 @@ class UserService {
       const user = await this.repositorioUser.findOne({
         where:
         { id },
-        relations: ['auth', 'roles', 'entidades']
+        relations: ['auth']
       })
       if (user == null) {
         throw boom.notFound('Usuario no encontrado')
