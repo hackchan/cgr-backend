@@ -210,7 +210,7 @@ export class MatrizObra {
 
   @IsInt()
   @Min(1900)
-  @Min(2999)
+  @Max(2999)
   @Column({ name: 'anio_corte', nullable: false })
     anioCorte: number
 
