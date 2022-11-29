@@ -30,7 +30,12 @@ import { DocumentType } from './entity/Matriz/ies/DocumentType'
 import { Estrato } from './entity/Matriz/ies/Estrato'
 import { Semestre } from './entity/Matriz/ies/Semestre'
 import { MatrizIes } from './entity/Matriz/ies/MatrizIes'
-
+import { MatrizProyectos } from './entity/Matriz/Presupuesto/Proyectos/MatrizProyectos'
+import { MatrizContratacion } from './entity/Matriz/Contratacion/MatrizContratacion'
+import { MatrizRelacionPagos } from './entity/Matriz/RelacionPagos/MatrizRelacionPagos'
+import { MatrizRelacionObligaciones } from './entity/Matriz/RelacionObligaciones/MatrizRelacionObligaciones'
+import { MatrizRelacionCompromisos } from './entity/Matriz/RelacionCompromisos/MatrizRelacionCompromisos'
+import { MatrizCDPs } from './entity/Matriz/RelacionCDPs/MatrizRelacionCDPs'
 // import { UserEntidad } from './entity/UserManagement/UserEntidad'
 // import { Member } from './entity/twitter/Member'
 // import { Profile } from './entity/twitter/Profile'
@@ -58,7 +63,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos]
+  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos, MatrizProyectos, MatrizContratacion, MatrizRelacionPagos, MatrizRelacionObligaciones, MatrizRelacionCompromisos, MatrizCDPs]
   // entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role, RoleUser, TipoSoporte, Soportes, UserEntidad]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],

@@ -1,0 +1,99 @@
+import { IsDate, IsInt, Min, Max } from 'class-validator'
+import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Transform } from 'class-transformer'
+import { User } from '../../UserManagement/User'
+import { EntidadControl } from '../../Entidad/EntidadControl'
+
+@Entity('auxiliarsaldos')
+@Unique('auxiliarsaldos_unique', ['idCompromiso', 'entidad'])
+export class MatrizAxiliarSaldos {
+  @IsInt()
+  @Min(2018)
+  @Max(2999)
+  @Column({ name: 'anio', nullable: false })
+    anio: number
+
+  @Column({ name: 'fecha', type: 'date', nullable: false })
+  @IsDate()
+    fecha: Date
+
+  @Column({ name: 'comprobante', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    comprobante: string
+
+  @Column({ name: 'numero', nullable: false })
+    numero: number
+
+  @Column({ name: 'cheque_transferencia', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    cheque: string
+
+  @Column({ name: 'doc_ref', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    docRef: string
+
+  @Column({ name: 'centro_costos', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    centroCosto: string
+
+  @Column({ name: 'descripcion_registro_contable', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    descRegContable: string
+
+  @Column({ name: 'tercero', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    tercero: string
+
+  @Column({ name: 'id_tercero', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    idTercero: string
+
+  @Column({ name: 'descripcion_codigo_contable', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    descCodContable: string
+
+  @Column({
+    name: 'debitos',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
+    debitos: number
+
+  @Column({
+    name: 'creditos',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
+    creditos: number
+
+  @Column({ name: 'macro_campo_nivel_agregado', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    macroCampoNA: string
+
+  @Column({ nullable: true })
+    alerta: boolean = false
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'user_alerta' })
+    userAlert: User
+
+  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @JoinColumn({ name: 'entidad_id' })
+    entidad: EntidadControl
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'user_operation' })
+    userOper: User
+
+  @CreateDateColumn()
+    createdAt: Date
+
+  @UpdateDateColumn()
+    updatedAt: Date
+}

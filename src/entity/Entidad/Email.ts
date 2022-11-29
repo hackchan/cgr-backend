@@ -1,12 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Unique } from 'typeorm'
 import { IsEmail } from 'class-validator'
 import { EntidadControl } from './EntidadControl'
 @Entity()
+@Unique('email_unique', ['email', 'entidad'])
 export class Email {
   @PrimaryGeneratedColumn()
     id: number
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   @IsEmail()
     email: string
 
