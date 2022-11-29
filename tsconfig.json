@@ -23,7 +23,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
-    "strict": false, 
+    "strict": true, 
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "outDir": "./dist",

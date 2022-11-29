@@ -27,7 +27,7 @@ class AuthService {
     const payload: any = {
       sub: user.id,
       role: user.roles,
-      entidad: user.entidades,
+      // entidad: user.entidades,
       tipo: user.tipo
     }
     const token = jwt.sign(payload, config.api.jwt ?? '')

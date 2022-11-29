@@ -3,9 +3,7 @@
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
 import { Repository, Like, Equal } from 'typeorm'
-import { DateUtils } from 'typeorm/util/DateUtils'
 import { MatrizObra } from '../../../entity/Matriz/Obras/MatrizObra'
-import { format, parse } from 'date-fns'
 import UserService from '../../user.services'
 
 const serviceUser = new UserService()
@@ -121,11 +119,6 @@ class MatrizObraDTO {
 
   async findAll (query: any, userData: any): Promise<any> {
     try {
-      // const user = await serviceUser.findOne(Number(userData.sub))
-      // const userJson = JSON.parse(JSON.stringify(user))
-      // const entidades = userJson.entidades.map((entidad: any) => {
-      //   return entidad.id
-      // })
       const options: any = {
         relations: { sector: true, origen: true, estado: true, entidad: true, municipioObra: { department: true }, userOper: true, userAlert: true, soportes: true },
         where: {},
@@ -249,12 +242,16 @@ class MatrizObraDTO {
       const obrasList = await this.repositorioMatrizObra.findAndCount(options)
       // const cantidad = await this.repositorioMatrizObra.count()
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
+      const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
+      const entidadesArray = resUser.entidades.map((entidad: any) => {
+        return entidad.id
+      })
       const filterData = responseData.filter((mat: any) => {
-        return userData.entidadesArray.includes(mat.entidad.id)
+        return entidadesArray.includes(mat.entidad.id)
       })
       const dataFinish = userData.isAdmin ? responseData : filterData
       const response = { cantidad: obrasList[1], data: dataFinish }
-      // console.log(response)
+
       return response
     } catch (error) {
       console.log(error)

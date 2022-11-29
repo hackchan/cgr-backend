@@ -126,13 +126,32 @@ class UserService {
     try {
       const user = await this.repositorioUser.findOne({
         where:
-        { id },
-        relations: ['auth']
+        { id }
+
       })
       if (user == null) {
         throw boom.notFound('Usuario no encontrado')
       }
-      console.log('user..>>>', user)
+
+      return user
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async findEntidadesByUserId (id: number): Promise<User> {
+    try {
+      const user = await this.repositorioUser.findOne({
+        relations: { auth: true, tipo: true, roles: true, entidades: { municipio: { department: true } } },
+        where:
+        { id }
+
+      })
+      if (user == null) {
+        throw boom.notFound('Usuario no encontrado')
+      }
+
       return user
     } catch (error) {
       console.log(error)

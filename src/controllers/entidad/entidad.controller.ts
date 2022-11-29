@@ -7,7 +7,7 @@ const serviceEntidad = new EntidadService()
 
 export const getEntidades = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response = await serviceEntidad.findAll(req.query)
+    const response = await serviceEntidad.findAll(req.query, req.user)
     success(req, res, response)
   } catch (error) {
     next(error)

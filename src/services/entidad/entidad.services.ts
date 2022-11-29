@@ -4,7 +4,9 @@ import boom from '@hapi/boom'
 import { AppDataSource } from '../../db'
 import { Repository, Like, In } from 'typeorm'
 import { EntidadControl } from '../../entity/Entidad/EntidadControl'
+import UserService from '../user.services'
 
+const serviceUser = new UserService()
 // import { validate } from 'class-validator'
 
 class EntidadDTO {
@@ -25,7 +27,7 @@ class EntidadDTO {
     }
   }
 
-  async findAll (query: any): Promise<any> {
+  async findAll (query: any, userData: any): Promise<any> {
     try {
       const options: any = {
         relations: { subsector: { sector: true }, users: true, categoria: true, municipio: { department: true } },
@@ -97,10 +99,19 @@ class EntidadDTO {
       //   options.order = sort
       // }
 
-      const entidadList = await this.repositorioEntidad.find(options)
-      const cantidad = await this.repositorioEntidad.count()
-      const response = { cantidad, data: entidadList }
-      // console.log(response)
+      const entidadList = await this.repositorioEntidad.findAndCount(options)
+      const responseData = JSON.parse(JSON.stringify(entidadList[0]))
+      const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
+      const entidadesArray = resUser.entidades.map((entidad: any) => {
+        return entidad.id
+      })
+      console.log('entidadesArray:', entidadesArray)
+      const filterData = responseData.filter((mat: any) => {
+        return entidadesArray.includes(mat.id)
+      })
+      const dataFinish = userData.isAdmin ? responseData : filterData
+      const response = { cantidad: entidadList[1], data: dataFinish }
+
       return response
     } catch (error) {
       console.log(error)
