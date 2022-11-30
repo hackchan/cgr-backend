@@ -6,6 +6,9 @@ import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizCDPs } from '../RelacionCDPs/MatrizRelacionCDPs'
 import { MatrizRelacionObligaciones } from '../RelacionObligaciones/MatrizRelacionObligaciones'
 import { MatrizRelacionPagos } from '../RelacionPagos/MatrizRelacionPagos'
+import { Vigencia } from './Vigencia'
+import { TipoCompromiso } from './TipoCompromiso'
+import { TipoGastos } from './TipoGasto'
 @Entity('relacioncompromisos')
 @Unique('relacioncompromisos_unique', ['idCompromiso', 'entidad'])
 export class MatrizRelacionCompromisos {
@@ -30,9 +33,9 @@ export class MatrizRelacionCompromisos {
   @Transform(({ value }) => (value).toString())
     detalleCompromiso: string
 
-  @Column({ name: 'tipo_compromiso', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    tipoCompromiso: string
+  @ManyToOne(() => TipoCompromiso, (pro) => pro.compromisos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'tipoCompromiso' })
+    tipoCompromiso: TipoCompromiso
 
   @IsInt()
   @Min(2018)
@@ -40,13 +43,13 @@ export class MatrizRelacionCompromisos {
   @Column({ name: 'anio', nullable: false })
     anio: number
 
-  @Column({ name: 'vigencia', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    vigencia: string
+  @ManyToOne(() => Vigencia, (pro) => pro.compromisos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'vigencia' })
+    vigencia: Vigencia
 
-  @Column({ name: 'tipo_gasto', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    tipoGasto: string
+  @ManyToOne(() => TipoGastos, (pro) => pro.compromisos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'tipo_gasto' })
+    tipoGastos: TipoGastos
 
   @Column({ nullable: true })
     alerta: boolean = false

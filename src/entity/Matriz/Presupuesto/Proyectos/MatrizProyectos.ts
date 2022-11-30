@@ -1,9 +1,9 @@
-import { IsDate, IsInt, Min, Max } from 'class-validator'
+import { IsDate } from 'class-validator'
 import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
-import { SectorObra } from '../../Obras/SectorObra'
+import { SectorProyecto } from './SectorProyecto'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
 @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
@@ -40,9 +40,9 @@ export class MatrizProyectos {
   @Transform(({ value }) => value.toUpperCase())
     objetivoGeneral: string
 
-  @ManyToOne(() => SectorObra, (sector) => sector.obras, { nullable: false })
+  @ManyToOne(() => SectorProyecto, (sector) => sector.proyectos, { nullable: false })
   @JoinColumn({ name: 'sector' })
-    sector: SectorObra
+    sector: SectorProyecto
 
   @Column({ name: 'programa_plan_desarrollo_municipal', nullable: false })
   @Transform(({ value }) => value.toUpperCase())

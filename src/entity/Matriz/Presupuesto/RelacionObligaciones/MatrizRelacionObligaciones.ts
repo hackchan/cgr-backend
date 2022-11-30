@@ -1,8 +1,8 @@
-import { IsDate, IsInt, Min } from 'class-validator'
+import { IsDate } from 'class-validator'
 import { Column, Entity, PrimaryColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
-import { User } from '../../UserManagement/User'
-import { EntidadControl } from '../../Entidad/EntidadControl'
+import { User } from '../../../UserManagement/User'
+import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 
 @Entity('relacionobligaciones')

@@ -1,17 +1,28 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 
 @Entity('auxiliarsaldos')
-@Unique('auxiliarsaldos_unique', ['idCompromiso', 'entidad'])
+@Unique('auxiliarsaldos_unique', ['codigoContable', 'entidad'])
 export class MatrizAxiliarSaldos {
+  @PrimaryGeneratedColumn()
+    id: number
+
   @IsInt()
   @Min(2018)
   @Max(2999)
   @Column({ name: 'anio', nullable: false })
     anio: number
+
+  @IsInt()
+  @Column({ name: 'codigo_contable', nullable: false, default: 0 })
+    codigoContable: number
+
+  @Column({ name: 'descripcion', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    descripcion: string
 
   @Column({ name: 'fecha', type: 'date', nullable: false })
   @IsDate()
@@ -47,10 +58,6 @@ export class MatrizAxiliarSaldos {
   @Column({ name: 'id_tercero', nullable: false })
   @Transform(({ value }) => (value).toString())
     idTercero: string
-
-  @Column({ name: 'descripcion_codigo_contable', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    descCodContable: string
 
   @Column({
     name: 'debitos',

@@ -1,8 +1,8 @@
 import { IsDate } from 'class-validator'
 import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
-import { User } from '../../UserManagement/User'
-import { EntidadControl } from '../../Entidad/EntidadControl'
+import { User } from '../../../UserManagement/User'
+import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('relacionpagos')
@@ -21,9 +21,9 @@ export class MatrizRelacionPagos {
   @Transform(({ value }) => (value).toString())
     detallePago: string
 
-  @Column({ name: 'situacion_fondos', nullable: false })
+  @Column({ name: 'situacion_fondos', nullable: false, default: false })
   @Transform(({ value }) => (value).toString())
-    situacionFondos: string
+    situacionFondos: boolean
 
   @Column({
     name: 'valor_pago_presupuestal',

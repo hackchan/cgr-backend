@@ -1,12 +1,14 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
 import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
-import { User } from '../../UserManagement/User'
-import { EntidadControl } from '../../Entidad/EntidadControl'
-import { EstadoObra } from '../Obras/EstadoObra'
-import { OrigenRecurso } from '../Obras/OrigenRecurso'
+import { User } from '../../../UserManagement/User'
+import { EntidadControl } from '../../../Entidad/EntidadControl'
+import { EstadoContrato } from './EstadoContrato'
+import { OrigenRecurso } from '../../Obras/OrigenRecurso'
 import { MatrizRelacionPagos } from '../RelacionPagos/MatrizRelacionPagos'
 import { MatrizProyectos } from '../Proyectos/MatrizProyectos'
+import { ClaseContrato } from './ClaseContrato'
+import { FormaContrato } from './FormaContrato'
 @Entity('contratacion')
 @Unique('contratacion_unique', ['idContrato', 'entidad'])
 export class MatrizContratacion {
@@ -17,9 +19,6 @@ export class MatrizContratacion {
     idContrato: string
 
   @Column({ name: 'id_bpin', nullable: false })
-  @Transform(value => value.toString, {
-    toPlainOnly: true
-  })
     idBpin: string
 
   @Column({ name: 'linea_estrategia_desarrollada', nullable: false })
@@ -27,16 +26,16 @@ export class MatrizContratacion {
     linea: string
 
   @ManyToOne(() => OrigenRecurso, (origen) => origen.obras, { nullable: false })
-  @JoinColumn({ name: 'origen' })
-    origen: OrigenRecurso
+  @JoinColumn({ name: 'fuente_de_recurso' })
+    fuenteRecurso: OrigenRecurso
 
   @Column({ name: 'objeto_contrato', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
     objetoContrato: string
 
-  @Column({ name: 'clase_contrato', nullable: false })
-  @Transform(({ value }) => value.toUpperCase())
-    claseContrato: string
+  @ManyToOne(() => ClaseContrato, (estado) => estado.contratos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'clase_contrato' })
+    claseContrato: ClaseContrato
 
   @Column({
     name: 'valor_contrato',
@@ -53,28 +52,25 @@ export class MatrizContratacion {
     razonSocialContratista: string
 
   @Column({ name: 'id_contratista', nullable: false })
-  @Transform(({ value }) => (value).toString())
     idContratista: string
 
   @Column({ name: 'domicilio_contratista', nullable: false })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     domicilioContratista: string
 
   @Column({ name: 'telefono_contratista', nullable: false })
-  @Transform(({ value }) => (value).toString())
     telefonoContratista: string
 
   @Column({ name: 'email_contratista', nullable: false })
-  @Transform(({ value }) => (value).toString())
     emailContratista: string
 
   @Column({ name: 'fecha_firma_contrato', type: 'date', nullable: false })
   @IsDate()
     fechaFirmaContrato: Date
 
-  @Column({ name: 'forma_contratacion', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    formaContratacion: string
+  @ManyToOne(() => FormaContrato, (estado) => estado.contratos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'forma_contratacion' })
+    formaContratacion: FormaContrato
 
   @Column({ name: 'fecha_registro_presupuestal', type: 'date', nullable: true })
   @IsDate()
@@ -91,27 +87,24 @@ export class MatrizContratacion {
     valorRP: number
 
   @Column({ name: 'cod_rubro_registro_presupuestal', nullable: false })
-  @Transform(({ value }) => (value).toString())
     codRubroRP: string
 
   @Column({ name: 'fuente_financiacion_registro_presupuestal', nullable: false })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     fuenteFinanRP: string
 
-  @Column({ name: 'asignado_supervisor_interventor', nullable: false, default: 'N' })
-  @Transform(({ value }) => (value).toString())
-    isSupervisor: string
+  @Column({ name: 'asignado_supervisor_interventor', nullable: false, default: false })
+    isSupervisor: boolean
 
   @Column({ name: 'id_supervisor_interventor', nullable: false })
-  @Transform(({ value }) => (value).toString())
     idInterventor: string
 
   @Column({ name: 'nombre_interventor', nullable: false })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     nombreInterventor: string
 
   @Column({ name: 'tipo_vinculacion', nullable: false, default: 'N/A' })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     tipoVinculacion: string
 
   @Column({ name: 'fecha_aprobacion_garantia_unica', type: 'date', nullable: true, default: '1900-01-01' })
@@ -126,12 +119,11 @@ export class MatrizContratacion {
     plazoContrato: number
 
   @Column({ name: 'unidad_ejecucion', nullable: false, default: 'N/A' })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     unidadEjecucion: string
 
-  @Column({ name: 'anticipo_contrato', nullable: false, default: 'N' })
-  @Transform(({ value }) => (value).toString())
-    anticipo: string
+  @Column({ name: 'anticipo_contrato', nullable: false, default: false })
+    anticipo: boolean
 
   @Column({
     name: 'valor_pagado_anticipo',
@@ -199,12 +191,12 @@ export class MatrizContratacion {
   @IsDate()
     fechaActaLiquidacion: Date
 
-  @ManyToOne(() => EstadoObra, (estado) => estado.obras, { nullable: false })
+  @ManyToOne(() => EstadoContrato, (estado) => estado.contratos, { nullable: false, cascade: true })
   @JoinColumn({ name: 'estado_contrato' })
-    estado: EstadoObra
+    estado: EstadoContrato
 
   @Column({ name: 'observaciones', nullable: false, default: 'N/A' })
-  @Transform(({ value }) => (value).toString())
+  @Transform(({ value }) => value.toUpperCase())
     observaciones: string
 
   @Column({ nullable: true })

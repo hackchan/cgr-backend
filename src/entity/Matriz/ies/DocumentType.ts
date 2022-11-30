@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { MinLength, IsString } from 'class-validator'
 import { MatrizIes } from './MatrizIes'
+import { MatrizFovis } from '../Fovis/MatrizFovis'
 @Entity('document_type')
 export class DocumentType {
   @PrimaryGeneratedColumn()
@@ -13,4 +14,7 @@ export class DocumentType {
 
   @OneToMany(() => MatrizIes, mobra => mobra.tipoDoc)
     matriculas: MatrizIes[]
+
+  @OneToMany(() => MatrizFovis, mfovi => mfovi.tipoDoc)
+    subsidios: MatrizFovis[]
 }

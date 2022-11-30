@@ -4,6 +4,7 @@ import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
+import { Vigencia } from '../RelacionCompromisos/Vigencia'
 @Entity('relacioncdps')
 @Unique('relacioncdps_unique', ['idCdp', 'entidad'])
 export class MatrizCDPs {
@@ -34,9 +35,9 @@ export class MatrizCDPs {
   @Column({ name: 'anio', nullable: false })
     anio: number
 
-  @Column({ name: 'vigencia', nullable: false })
-  @Transform(({ value }) => (value).toString())
-    vigencia: string
+  @ManyToOne(() => Vigencia, (pro) => pro.cdps, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'vigencia' })
+    vigencia: Vigencia
 
   @Column({ name: 'cod_cuenta', nullable: false })
   @Transform(({ value }) => (value).toString())
