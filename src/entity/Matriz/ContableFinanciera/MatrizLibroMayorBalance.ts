@@ -5,13 +5,13 @@ import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 
 @Entity('LibroMayorBalance')
-@Unique('LibroMayorBalance_unique', ['codigo_contable', 'entidad'])
-export class MatrizAxiliarSaldos {
+@Unique('LibroMayorBalance_unique', ['codigoContable', 'entidad'])
+export class MatrizLibroMayor {
   @PrimaryGeneratedColumn()
     id: number
 
   @IsInt()
-  @Min(2018)
+  @Min(2017)
   @Max(2999)
   @Column({ name: 'anio', nullable: false })
     anio: number

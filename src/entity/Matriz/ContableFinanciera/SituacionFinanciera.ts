@@ -5,13 +5,13 @@ import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 
 @Entity('EstadoFinanciera')
-@Unique('EstadoFinanciera_unique', ['codigo_contable', 'entidad'])
+@Unique('EstadoFinanciera_unique', ['codigoContable', 'entidad'])
 export class MatrizSituacionFinanciera {
   @PrimaryGeneratedColumn()
     id: number
 
   @IsInt()
-  @Min(2018)
+  @Min(2017)
   @Max(2999)
   @Column({ name: 'anio', nullable: false })
     anio: number

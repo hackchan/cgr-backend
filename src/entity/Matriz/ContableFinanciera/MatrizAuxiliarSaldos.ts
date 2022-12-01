@@ -11,7 +11,7 @@ export class MatrizAxiliarSaldos {
     id: number
 
   @IsInt()
-  @Min(2018)
+  @Min(2017)
   @Max(2999)
   @Column({ name: 'anio', nullable: false })
     anio: number

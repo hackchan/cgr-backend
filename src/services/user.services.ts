@@ -125,6 +125,7 @@ class UserService {
   async findOne (id: number): Promise<User> {
     try {
       const user = await this.repositorioUser.findOne({
+        relations: { auth: true },
         where:
         { id }
 
@@ -237,9 +238,12 @@ class UserService {
   async update (id: number, changes: any): Promise<User> {
     try {
       const user = await this.findOne(id)
+      console.log('user:', user)
+      console.log('changes:', changes)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
       this.repositorioUser.merge(user, changes)
       const result = await this.repositorioUser.save(user)
+      console.log('result:', result)
       return result
     } catch (error) {
       console.log(error)

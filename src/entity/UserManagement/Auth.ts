@@ -19,10 +19,10 @@ export class Auth extends Model {
   @OneToOne(() => User, user => user.auth)
     user: User
 
-  @BeforeInsert()
-  async hashPassword (): Promise<void> {
-    this.password = await bcrypt.hash(this.password, 10)
-  }
+  // @BeforeInsert()
+  // async hashPassword (): Promise<void> {
+  //   this.password = await bcrypt.hash(this.password, 10)
+  // }
 
   toJSON (): void {
     return { ...this, password: undefined, recoveryToken: undefined }

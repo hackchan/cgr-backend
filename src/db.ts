@@ -30,12 +30,34 @@ import { DocumentType } from './entity/Matriz/ies/DocumentType'
 import { Estrato } from './entity/Matriz/ies/Estrato'
 import { Semestre } from './entity/Matriz/ies/Semestre'
 import { MatrizIes } from './entity/Matriz/ies/MatrizIes'
+
+import { SectorProyecto } from './entity/Matriz/Presupuesto/Proyectos/SectorProyecto'
 import { MatrizProyectos } from './entity/Matriz/Presupuesto/Proyectos/MatrizProyectos'
+import { ClaseContrato } from './entity/Matriz/Presupuesto/Contratacion/ClaseContrato'
+import { EstadoContrato } from './entity/Matriz/Presupuesto/Contratacion/EstadoContrato'
+import { FormaContrato } from './entity/Matriz/Presupuesto/Contratacion/FormaContrato'
 import { MatrizContratacion } from './entity/Matriz/Presupuesto/Contratacion/MatrizContratacion'
 import { MatrizRelacionPagos } from './entity/Matriz/Presupuesto/RelacionPagos/MatrizRelacionPagos'
 import { MatrizRelacionObligaciones } from './entity/Matriz/Presupuesto/RelacionObligaciones/MatrizRelacionObligaciones'
+
+import { TipoCompromiso } from './entity/Matriz/Presupuesto/RelacionCompromisos/TipoCompromiso'
+import { TipoGastos } from './entity/Matriz/Presupuesto/RelacionCompromisos/TipoGasto'
+import { Vigencia } from './entity/Matriz/Presupuesto/RelacionCompromisos/Vigencia'
 import { MatrizRelacionCompromisos } from './entity/Matriz/Presupuesto/RelacionCompromisos/MatrizRelacionCompromisos'
 import { MatrizCDPs } from './entity/Matriz/Presupuesto/RelacionCDPs/MatrizRelacionCDPs'
+import { EstadoSolicitud } from './entity/Matriz/Fovis/EstadoSolicitud'
+import { FuenteFinanciamiento } from './entity/Matriz/Fovis/FuenteFinanciamiento'
+import { MatrizFovis } from './entity/Matriz/Fovis/MatrizFovis'
+import { Programa } from './entity/Matriz/Fovis/Programa'
+import { RangoIngresos } from './entity/Matriz/Fovis/RangoIngresos'
+import { ZonaSolicitud } from './entity/Matriz/Fovis/Zona'
+// Regalias
+import { TipoOcad } from './entity/Matriz/Regalias/TipoOcad'
+import { MatrizRegalias } from './entity/Matriz/Regalias/MatrizRegalias'
+// Contable y Financiera
+import { MatrizAxiliarSaldos } from './entity/Matriz/ContableFinanciera/MatrizAuxiliarSaldos'
+import { MatrizLibroMayor } from './entity/Matriz/ContableFinanciera/MatrizLibroMayorBalance'
+import { MatrizSituacionFinanciera } from './entity/Matriz/ContableFinanciera/SituacionFinanciera'
 // import { UserEntidad } from './entity/UserManagement/UserEntidad'
 // import { Member } from './entity/twitter/Member'
 // import { Profile } from './entity/twitter/Profile'
@@ -63,7 +85,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos, MatrizProyectos, MatrizContratacion, MatrizRelacionPagos, MatrizRelacionObligaciones, MatrizRelacionCompromisos, MatrizCDPs]
+  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos, SectorProyecto, MatrizProyectos, ClaseContrato, EstadoContrato, FormaContrato, MatrizContratacion, MatrizRelacionPagos, MatrizRelacionObligaciones, TipoCompromiso, TipoGastos, Vigencia, MatrizRelacionCompromisos, MatrizCDPs, EstadoSolicitud, FuenteFinanciamiento, Programa, RangoIngresos, ZonaSolicitud, MatrizFovis, TipoOcad, MatrizRegalias, MatrizAxiliarSaldos, MatrizLibroMayor, MatrizSituacionFinanciera]
   // entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role, RoleUser, TipoSoporte, Soportes, UserEntidad]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],

@@ -42,9 +42,12 @@ class AuthService {
       }
       const payload = { sub: user.id }
       const token = jwt.sign(payload, config.api.jwt ?? '', { expiresIn: '15min' })
+      console.log('el token:', token)
+      console.log('payload:', payload)
       const link = `http://localhost:3005/active?token=${token}`
 
-      await service.update(user.id, { auth: { recoveryToken: token } })
+      const response = await service.update(user.id, { auth: { recoveryToken: token } })
+      console.log('response:', response)
       const mail = {
         from: config.mail.user, // sender address
         to: user.email, // list of receivers
