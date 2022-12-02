@@ -8,7 +8,7 @@ export class RepLegal {
   @Column({ nullable: false, unique: true })
     name: string
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false, unique: false })
     cargo: string
 
   @Column({ nullable: true, unique: true })
