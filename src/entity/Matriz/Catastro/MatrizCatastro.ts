@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min } from 'class-validator'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -11,10 +11,7 @@ import { MatrizCatastroDetalle } from './MatrizCatastroDetalle'
 @Entity('catastro')
 @Unique('catastro_unique', ['noPredial', 'entidad'])
 export class MatrizCatastro {
-  @PrimaryGeneratedColumn()
-    id: number
-
-  @Column({ name: 'numero_predial', nullable: false, default: 0 })
+  @PrimaryColumn({ name: 'numero_predial' })
     noPredial: string
 
   @Column({ name: 'numero_predial_nacional', nullable: true, default: 0 })
@@ -112,6 +109,6 @@ export class MatrizCatastro {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.noPredial)
+  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.catastro)
     catastrosDetalle: MatrizCatastroDetalle[]
 }

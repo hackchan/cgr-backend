@@ -23,7 +23,7 @@ export class Items {
   @Column({ nullable: false, default: false })
     isSeparador: boolean
 
-  @Column({ unique: true, nullable: true })
+  @Column({ nullable: true })
   @IsString()
     path: string
 

@@ -96,10 +96,10 @@ export class MatrizContratacion {
   @Column({ name: 'asignado_supervisor_interventor', nullable: false, default: false })
     isSupervisor: boolean
 
-  @Column({ name: 'id_supervisor_interventor', nullable: false })
+  @Column({ name: 'id_supervisor_interventor', nullable: true })
     idInterventor: string
 
-  @Column({ name: 'nombre_interventor', nullable: false })
+  @Column({ name: 'nombre_interventor', nullable: true })
   @Transform(({ value }) => value.toUpperCase())
     nombreInterventor: string
 

@@ -24,7 +24,7 @@ export class SubMenu {
   @Column({ nullable: false, default: false })
     isSeparador: boolean
 
-  @Column({ unique: true, nullable: false })
+  @Column({ nullable: true })
   @IsString()
     path: string
 

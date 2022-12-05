@@ -13,7 +13,7 @@ export class MatrizCatastroDetalle {
 
   @ManyToOne(() => MatrizCatastro, matrizC => matrizC.catastrosDetalle, { nullable: false, cascade: true })
   @JoinColumn({ name: 'numero_predial', referencedColumnName: 'noPredial' })
-    noPredial: MatrizCatastro
+    catastro: MatrizCatastro
 
   @ManyToOne(() => ZonaEconomica, zonaeco => zonaeco.catastrosDetalle, { nullable: false, cascade: true })
   @JoinColumn({ name: 'zona_economica' })

@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ManyToMany } from 'typeorm'
-import { IsString, IsDate } from 'class-validator'
+import { IsString, IsInt, Min, Max } from 'class-validator'
 import { CategoriaReportes } from './CategoriaReporte'
 import { Periodicidad } from './Periodicidad'
 import { SubReportes } from './SubReporte'
@@ -21,9 +21,11 @@ export class Reportes {
   @JoinColumn({ name: 'categoria_id' })
     categoria: CategoriaReportes
 
-  @Column({ name: 'disposicion', type: 'date', nullable: false, default: '1900-01-01' })
-  @IsDate()
-    disposicion: Date
+  @IsInt()
+  @Min(1)
+  @Max(31)
+  @Column({ name: 'dia_corte', nullable: false })
+    diaEntrega: number
 
   @OneToMany(() => SubReportes, catego => catego.reportes)
     subreportes: SubReportes[]
