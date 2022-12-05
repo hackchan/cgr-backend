@@ -1,5 +1,5 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -8,9 +8,10 @@ import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('relacionpagos')
 @Unique('relacionpagos_unique', ['idPago', 'entidad'])
 export class MatrizRelacionPagos {
-  // @PrimaryGeneratedColumn()
-  //   id: number
-  @PrimaryColumn({ name: 'id_pago' })
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @Column({ name: 'id_pago', nullable: false })
     idPago: string
 
   @Column({ name: 'fecha_pago', type: 'date', nullable: false })
@@ -93,10 +94,10 @@ export class MatrizRelacionPagos {
     updatedAt: Date
 
   @ManyToOne(() => MatrizRelacionCompromisos, compro => compro.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_compromiso', referencedColumnName: 'idCompromiso' })
+  @JoinColumn({ name: 'id_compromiso' })
     compromiso: MatrizRelacionCompromisos
 
   @ManyToOne(() => MatrizContratacion, contrato => contrato.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_contrato', referencedColumnName: 'idContrato' })
+  @JoinColumn({ name: 'id_contrato' })
     contrato: MatrizContratacion
 }

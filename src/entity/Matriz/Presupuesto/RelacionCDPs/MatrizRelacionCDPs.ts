@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -8,7 +8,10 @@ import { Vigencia } from '../RelacionCompromisos/Vigencia'
 @Entity('relacioncdps')
 @Unique('relacioncdps_unique', ['idCdp', 'entidad'])
 export class MatrizCDPs {
-  @PrimaryColumn({ name: 'id_cdp' })
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @Column({ name: 'id_cdp', nullable: false })
     idCdp: string
 
   @Column({ name: 'fecha_cdp', type: 'date', nullable: false })

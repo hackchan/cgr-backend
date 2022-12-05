@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -12,7 +12,10 @@ import { TipoGastos } from './TipoGasto'
 @Entity('relacioncompromisos')
 @Unique('relacioncompromisos_unique', ['idCompromiso', 'entidad'])
 export class MatrizRelacionCompromisos {
-  @PrimaryColumn({ name: 'id_compromiso' })
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @Column({ name: 'id_compromiso', nullable: false })
     idCompromiso: string
 
   @Column({ name: 'fecha_compromiso', type: 'date', nullable: false })
@@ -73,11 +76,11 @@ export class MatrizRelacionCompromisos {
     updatedAt: Date
 
   @ManyToOne(() => MatrizCDPs, (cdp) => cdp.compromisos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_cdp', referencedColumnName: 'idCdp' })
+  @JoinColumn({ name: 'id_cdp' })
     idCdp: MatrizCDPs
 
   @OneToOne(() => MatrizRelacionObligaciones, obli => obli.compromiso, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_obligacion', referencedColumnName: 'idObligacion' })
+  @JoinColumn({ name: 'id_obligacion' })
     obligacion: MatrizRelacionObligaciones
 
   @OneToMany(() => MatrizRelacionPagos, (pago) => pago.compromiso)

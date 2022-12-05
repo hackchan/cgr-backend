@@ -1,5 +1,5 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, PrimaryColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -8,7 +8,10 @@ import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacion
 @Entity('relacionobligaciones')
 @Unique('relacionobligaciones_unique', ['idObligacion', 'entidad'])
 export class MatrizRelacionObligaciones {
-  @PrimaryColumn({ name: 'id_obligacion' })
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @Column({ name: 'id_obligacion', nullable: false })
     idObligacion: string
 
   @Column({ name: 'fecha_obligacion', type: 'date', nullable: false })

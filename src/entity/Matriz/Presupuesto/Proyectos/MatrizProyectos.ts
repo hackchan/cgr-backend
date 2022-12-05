@@ -1,5 +1,5 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, ManyToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -8,7 +8,10 @@ import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
 @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
 export class MatrizProyectos {
-  @PrimaryColumn({ name: 'id_bpin' })
+  // @PrimaryGeneratedColumn()
+  //   id: number
+
+  @Column({ primary: true, generated: false, name: 'id_bpin', nullable: false })
     idBpin: string
 
   @Column({ name: 'nombre_proyecto', nullable: false })

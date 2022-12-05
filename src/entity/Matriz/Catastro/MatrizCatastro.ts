@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min } from 'class-validator'
-import { Column, Entity, ManyToOne, PrimaryColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -7,20 +7,22 @@ import { Municipio } from '../../Departments/Municipio'
 import { EstadoCivil } from './EstadoCivil'
 import { DocumentType } from '../ies/DocumentType'
 import { DestinoEconomico } from './DestinoEconomico'
-import { MatrizCatastroDetalle } from './MatrizCatastroDetalle'
-@Entity('catastro')
+@Entity('catastros')
 @Unique('catastro_unique', ['noPredial', 'entidad'])
 export class MatrizCatastro {
-  @PrimaryColumn({ name: 'numero_predial' })
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @Column({ name: 'numero_predial', nullable: false })
     noPredial: string
 
   @Column({ name: 'numero_predial_nacional', nullable: true, default: 0 })
     numeroPredialNacional: string
 
-  @Column({ name: 'numero_predial_anterial', nullable: true, default: 0 })
+  @Column({ name: 'numero_predial_anterior', nullable: true, default: 0 })
     numeroPredialAnterio: string
 
-  @ManyToOne(() => Municipio, municipio => municipio.obras, { nullable: false, cascade: true })
+  @ManyToOne(() => Municipio, municipio => municipio.catastros, { nullable: false, cascade: true })
   @JoinColumn({ name: 'sede' })
     municipio: Municipio
 
@@ -109,6 +111,6 @@ export class MatrizCatastro {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.catastro)
-    catastrosDetalle: MatrizCatastroDetalle[]
+  // @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.catastro)
+  //   catastrosDetalle: MatrizCatastroDetalle[]
 }

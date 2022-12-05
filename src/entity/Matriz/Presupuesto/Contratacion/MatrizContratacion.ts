@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -12,14 +12,18 @@ import { FormaContrato } from './FormaContrato'
 @Entity('contratacion')
 @Unique('contratacion_unique', ['idContrato', 'entidad'])
 export class MatrizContratacion {
-  // @PrimaryGeneratedColumn()
-  //   id: number
+  @PrimaryGeneratedColumn()
+    id: number
 
-  @PrimaryColumn({ name: 'id_contrato' })
+  @Column({ name: 'id_contrato', nullable: false })
     idContrato: string
 
-  @Column({ name: 'id_bpin', nullable: false })
-    idBpin: string
+  @ManyToOne(() => MatrizProyectos, proyect => proyect.contratos, { nullable: false })
+  @JoinColumn({ name: 'id_bpin', referencedColumnName: 'idBpin' })
+    proyecto: MatrizProyectos
+
+  // @Column({ name: 'id_bpin', nullable: false })
+  //   idBpin: string
 
   @Column({ name: 'linea_estrategia_desarrollada', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
@@ -222,8 +226,4 @@ export class MatrizContratacion {
 
   @OneToMany(() => MatrizRelacionPagos, (pago) => pago.contrato)
     pagos: MatrizRelacionPagos[]
-
-  @ManyToOne(() => MatrizProyectos, proyect => proyect.contratos, { nullable: false })
-  @JoinColumn({ name: 'id_bpin', referencedColumnName: 'idBpin' })
-    proyecto: MatrizProyectos
 }
