@@ -206,7 +206,7 @@ export class MatrizContratacion {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.contratos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 
@@ -224,6 +224,6 @@ export class MatrizContratacion {
     pagos: MatrizRelacionPagos[]
 
   @ManyToOne(() => MatrizProyectos, proyect => proyect.contratos, { nullable: false })
-  @JoinColumn({ name: 'id_bpin' })
+  @JoinColumn({ name: 'id_bpin', referencedColumnName: 'idBpin' })
     proyecto: MatrizProyectos
 }

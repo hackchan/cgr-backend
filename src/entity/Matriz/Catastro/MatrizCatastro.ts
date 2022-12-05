@@ -1,5 +1,5 @@
-import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { IsDate, IsInt, Min } from 'class-validator'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -7,8 +7,9 @@ import { Municipio } from '../../Departments/Municipio'
 import { EstadoCivil } from './EstadoCivil'
 import { DocumentType } from '../ies/DocumentType'
 import { DestinoEconomico } from './DestinoEconomico'
+import { MatrizCatastroDetalle } from './MatrizCatastroDetalle'
 @Entity('catastro')
-@Unique('catastro_unique', ['codigoContable', 'entidad'])
+@Unique('catastro_unique', ['noPredial', 'entidad'])
 export class MatrizCatastro {
   @PrimaryGeneratedColumn()
     id: number
@@ -87,6 +88,9 @@ export class MatrizCatastro {
   @IsDate()
     vigencia: Date
 
+  @Column({ name: 'matricula_inmobiliaria', nullable: false, default: 0 })
+    matriculaInmobiliaria: string
+
   @Column({ nullable: true })
     alerta: boolean = false
 
@@ -94,7 +98,7 @@ export class MatrizCatastro {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.catastros, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 
@@ -107,4 +111,7 @@ export class MatrizCatastro {
 
   @UpdateDateColumn()
     updatedAt: Date
+
+  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.noPredial)
+    catastrosDetalle: MatrizCatastroDetalle[]
 }

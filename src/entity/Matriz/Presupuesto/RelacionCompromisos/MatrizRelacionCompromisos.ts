@@ -58,7 +58,7 @@ export class MatrizRelacionCompromisos {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.compromisos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 
@@ -73,11 +73,11 @@ export class MatrizRelacionCompromisos {
     updatedAt: Date
 
   @ManyToOne(() => MatrizCDPs, (cdp) => cdp.compromisos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_cdp' })
+  @JoinColumn({ name: 'id_cdp', referencedColumnName: 'idCdp' })
     idCdp: MatrizCDPs
 
   @OneToOne(() => MatrizRelacionObligaciones, obli => obli.compromiso, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_obligacion' })
+  @JoinColumn({ name: 'id_obligacion', referencedColumnName: 'idObligacion' })
     obligacion: MatrizRelacionObligaciones
 
   @OneToMany(() => MatrizRelacionPagos, (pago) => pago.compromiso)

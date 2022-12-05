@@ -1,86 +1,83 @@
-import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
-import { Transform } from 'class-transformer'
+import { IsInt, Min } from 'class-validator'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { User } from '../../UserManagement/User'
-import { EntidadControl } from '../../Entidad/EntidadControl'
-import { Municipio } from '../../Departments/Municipio'
-import { EstadoCivil } from './EstadoCivil'
-import { DocumentType } from '../ies/DocumentType'
-import { DestinoEconomico } from './DestinoEconomico'
-@Entity('catastro')
-@Unique('catastro_unique', ['codigoContable', 'entidad'])
-export class MatrizCatastro {
+import { ZonaEconomica } from './ZonaEconomica'
+import { ZonaFisica } from './ZonaFisica'
+import { Uso } from './Uso'
+import { Tipificacion } from './Tipificacion'
+import { MatrizCatastro } from './MatrizCatastro'
+@Entity('catastro_detalle')
+export class MatrizCatastroDetalle {
   @PrimaryGeneratedColumn()
     id: number
 
-  @Column({ name: 'numero_predial', nullable: false, default: 0 })
-    matriculaInmobiliaria: string
+  @ManyToOne(() => MatrizCatastro, matrizC => matrizC.catastrosDetalle, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'numero_predial', referencedColumnName: 'noPredial' })
+    noPredial: MatrizCatastro
 
-  @IsInt()
-  @Min(1)
-  @Column({ name: 'zona_fisica', nullable: false, default: 1 })
-    zonaFisica: number
+  @ManyToOne(() => ZonaEconomica, zonaeco => zonaeco.catastrosDetalle, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'zona_economica' })
+    zonaEconomica: ZonaEconomica
 
-  @IsInt()
-  @Min(1)
-  @Column({ name: 'zona_economica', nullable: false, default: 1 })
-    zonaEconomica: number
+  @ManyToOne(() => ZonaFisica, zonaeco => zonaeco.catastrosDetalle, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'zona_fisica' })
+    zonaFisica: ZonaFisica
 
-  @IsInt()
-  @Min(0)
-  @Column({ name: 'area_terreno', nullable: false, default: 1 })
+  @Column({
+    name: 'area_terreno',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
     areaTerreno: number
 
   @IsInt()
-  @Min(1)
-  @Column({ name: 'habitaciones', nullable: false, default: 1 })
+  @Min(0)
+  @Column({ name: 'habitaciones', nullable: false, default: 0 })
     habitaciones: number
 
   @IsInt()
-  @Min(1)
-  @Column({ name: 'banos', nullable: false, default: 1 })
+  @Min(0)
+  @Column({ name: 'banos', nullable: false, default: 0 })
     banos: number
 
   @IsInt()
-  @Min(1)
-  @Column({ name: 'locales', nullable: false, default: 1 })
+  @Min(0)
+  @Column({ name: 'locales', nullable: false, default: 0 })
     locales: number
 
   @IsInt()
-  @Min(1)
-  @Column({ name: 'pisos', nullable: false, default: 1 })
+  @Min(0)
+  @Column({ name: 'pisos', nullable: false, default: 0 })
     pisos: number
 
-  @IsInt()
-  @Min(1)
-  @Column({ name: 'tipificacion', nullable: false, default: 1 })
-    tipificacion: number
+  @ManyToOne(() => Tipificacion, zonaeco => zonaeco.catastrosDetalle, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'tipificacion' })
+    tipificacion: Tipificacion
+
+  @ManyToOne(() => Uso, uso => uso.catastrosDetalle, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'uso' })
+    uso: Uso
 
   @IsInt()
-  @Min(1)
-  @Column({ name: 'uso', nullable: false, default: 1 })
-    uso: number
-
-  @IsInt()
-  @Min(1)
-  @Column({ name: 'puntaje', nullable: false, default: 1 })
+  @Min(0)
+  @Column({ name: 'puntaje', nullable: false, default: 0 })
     puntaje: number
 
-  @IsInt()
-  @Min(1)
-  @Column({ name: 'puntaje', nullable: false, default: 1 })
-    area_construida: number
+  @Column({
+    name: 'area_construida',
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+    nullable: false
+  })
+    areaConstruida: number
 
   @Column({ nullable: true })
     alerta: boolean = false
-
-  @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: 'user_alerta' })
-    userAlert: User
-
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })

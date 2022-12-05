@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { IsString } from 'class-validator'
 import { MatrizCatastroDetalle } from './MatrizCatastroDetalle'
 @Entity()
-export class Uso {
+export class ZonaFisica {
   @PrimaryGeneratedColumn()
     id: number
 
@@ -10,7 +10,7 @@ export class Uso {
   @IsString()
     name: string
 
-  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.uso)
+  @OneToMany(() => MatrizCatastroDetalle, mcatastro => mcatastro.zonaFisica)
     catastrosDetalle: MatrizCatastroDetalle[]
 
   // @OneToMany(() => User)
