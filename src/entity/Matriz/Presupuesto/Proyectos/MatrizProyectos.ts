@@ -1,18 +1,21 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { SectorProyecto } from './SectorProyecto'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
-@Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
+// @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
 export class MatrizProyectos {
-  // @PrimaryGeneratedColumn()
-  //   id: number
-
-  @Column({ primary: true, generated: false, name: 'id_bpin', nullable: false })
+  // @Column({ primary: true, name: 'id_bpin', nullable: false })
+  @PrimaryColumn({ name: 'id_bpin', generated: false })
     idBpin: string
+
+  @PrimaryColumn()
+  @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
+  @JoinColumn({ name: 'entidad_id' })
+    entidad: EntidadControl
 
   @Column({ name: 'nombre_proyecto', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
@@ -73,10 +76,6 @@ export class MatrizProyectos {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
-
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })
     userOper: User
@@ -86,7 +85,4 @@ export class MatrizProyectos {
 
   @UpdateDateColumn()
     updatedAt: Date
-
-  @OneToMany(() => MatrizContratacion, (contra) => contra.proyecto)
-    contratos: MatrizContratacion[]
 }

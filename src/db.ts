@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+
 import { DataSource } from 'typeorm'
 import config from './config'
 import { Auth } from './entity/UserManagement/Auth'
