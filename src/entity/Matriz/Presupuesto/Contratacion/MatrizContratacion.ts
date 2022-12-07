@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Index, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryGeneratedColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -10,12 +10,13 @@ import { MatrizProyectos } from '../Proyectos/MatrizProyectos'
 import { ClaseContrato } from './ClaseContrato'
 import { FormaContrato } from './FormaContrato'
 @Entity('contratacion')
-@Unique('contratacion_unique', ['idContrato', 'entidad'])
+// @Unique('contratacion_unique', ['idContrato', 'entidad'])
+@Index(['idContrato', 'proyecto', 'entidad'], { unique: true })
 export class MatrizContratacion {
   @PrimaryGeneratedColumn()
     id: number
 
-  @Column({ name: 'id_contrato', unique: true, nullable: false })
+  @Column({ name: 'id_contrato', nullable: false })
     idContrato: string
 
   @ManyToOne(() => MatrizProyectos, { nullable: false })

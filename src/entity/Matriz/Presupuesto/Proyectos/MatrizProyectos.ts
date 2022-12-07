@@ -1,17 +1,19 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, PrimaryGeneratedColumn, Unique } from 'typeorm'
+import { Column, Entity, Index, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { SectorProyecto } from './SectorProyecto'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
-@Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
+// @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
+@Index(['idBpin', 'entidad'], { unique: true })
+// @Index((relation: MatrizContratacion) => [relation.idContrato, relation.entidad], { unique: true })
 export class MatrizProyectos {
   @PrimaryGeneratedColumn()
     id: number
 
-  @Column({ name: 'idBpin', unique: true, nullable: false })
+  @Column({ name: 'idBpin', nullable: false })
     idBpin: string
 
   @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })

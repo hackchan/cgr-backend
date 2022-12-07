@@ -1,12 +1,12 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, Index, PrimaryGeneratedColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 
 @Entity('relacionobligaciones')
-@Unique('relacionobligaciones_unique', ['idObligacion', 'entidad'])
+@Index(['idObligacion', 'entidad'], { unique: true })
 export class MatrizRelacionObligaciones {
   @PrimaryGeneratedColumn()
     id: number

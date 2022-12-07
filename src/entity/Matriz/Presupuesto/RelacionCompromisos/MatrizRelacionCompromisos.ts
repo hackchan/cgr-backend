@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
+import { Column, Entity, Index, OneToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -10,7 +10,8 @@ import { Vigencia } from './Vigencia'
 import { TipoCompromiso } from './TipoCompromiso'
 import { TipoGastos } from './TipoGasto'
 @Entity('relacioncompromisos')
-@Unique('relacioncompromisos_unique', ['idCompromiso', 'entidad'])
+@Index(['idCompromiso', 'idCdp', 'obligacion', 'entidad'], { unique: true })
+// @Unique('relacioncompromisos_unique', ['idCompromiso', 'entidad'])
 export class MatrizRelacionCompromisos {
   @PrimaryGeneratedColumn()
     id: number
