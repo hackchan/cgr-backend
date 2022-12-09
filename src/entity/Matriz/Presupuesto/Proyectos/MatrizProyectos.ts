@@ -11,6 +11,7 @@ import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 // @Index((relation: MatrizContratacion) => [relation.idContrato, relation.entidad], { unique: true })
 export class MatrizProyectos {
   @PrimaryColumn({
+    name: 'id_bpin',
     type: 'varchar',
     nullable: false,
     primary: true

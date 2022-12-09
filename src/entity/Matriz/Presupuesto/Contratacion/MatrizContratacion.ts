@@ -14,6 +14,7 @@ import { FormaContrato } from './FormaContrato'
 // @Index(['idContrato', 'proyecto', 'entidad'], { unique: true })
 export class MatrizContratacion {
   @PrimaryColumn({
+    name: 'id_contrato',
     type: 'varchar',
     nullable: false,
     primary: true
