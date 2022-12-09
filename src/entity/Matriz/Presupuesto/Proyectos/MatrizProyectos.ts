@@ -7,14 +7,20 @@ import { SectorProyecto } from './SectorProyecto'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
 // @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
-@Index(['idBpin', 'entidad'], { unique: true })
+// @Index(['idBpin', 'entidad'], { unique: true })
 // @Index((relation: MatrizContratacion) => [relation.idContrato, relation.entidad], { unique: true })
 export class MatrizProyectos {
-  @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryColumn({
+    type: 'varchar',
+    nullable: false,
+    primary: true
+  })
+    id: string
 
-  @Column({ name: 'idBpin', nullable: false })
-    idBpin: string
+  // @Column({ name: 'idBpin', nullable: false })
+  //   idBpin: string
+  @PrimaryColumn()
+    entidad_id: number
 
   @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })

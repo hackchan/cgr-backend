@@ -1,18 +1,30 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, Index, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 import { Vigencia } from '../RelacionCompromisos/Vigencia'
 @Entity('relacioncdps')
-@Index(['idCdp', 'entidad'], { unique: true })
+// @Index(['idCdp', 'entidad'], { unique: true })
 export class MatrizCDPs {
-  @PrimaryGeneratedColumn()
-    id: number
+  // @PrimaryGeneratedColumn()
+  //   id: number
+  // @PrimaryColumn({
+  //   name: 'id_cdp',
+  //   type: 'varchar'
+  // })
+  //   idCdp: string
+  @PrimaryColumn({
+    type: 'varchar',
+    nullable: false,
+    primary: true
 
-  @Column({ name: 'id_cdp', nullable: false })
-    idCdp: string
+  })
+
+    id: string
+  // @Column({ name: 'id_cdp', nullable: false })
+  //   idCdp: string
 
   @Column({ name: 'fecha_cdp', type: 'date', nullable: false })
   @IsDate()
@@ -64,6 +76,9 @@ export class MatrizCDPs {
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
+
+  // @PrimaryColumn()
+  //   entidad_id: number
 
   @ManyToOne(() => EntidadControl, entidad => entidad.cdps, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })

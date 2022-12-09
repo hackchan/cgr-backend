@@ -188,11 +188,12 @@ class UserService {
       if (user == null) {
         throw boom.notFound('usuario o clave incorrecta')
       }
-      if (activeUser) {
-        if (!user.active) {
-          throw boom.notFound('Usuario está inactivo')
-        }
-      }
+
+      // if (activeUser) {
+      //   if (!user.active) {
+      //     throw boom.notFound('Usuario está inactivo')
+      //   }
+      // }
 
       return user
       // const response = JSON.parse(JSON.stringify(user))

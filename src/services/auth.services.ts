@@ -20,6 +20,9 @@ class AuthService {
     if (!isMatch) {
       throw boom.unauthorized()
     }
+    if (!user.active) {
+      throw boom.notFound('Usuario está inactivo')
+    }
     return user
   }
 

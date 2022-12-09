@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Index, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Index, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
@@ -11,17 +11,17 @@ import { ClaseContrato } from './ClaseContrato'
 import { FormaContrato } from './FormaContrato'
 @Entity('contratacion')
 // @Unique('contratacion_unique', ['idContrato', 'entidad'])
-@Index(['idContrato', 'proyecto', 'entidad'], { unique: true })
+// @Index(['idContrato', 'proyecto', 'entidad'], { unique: true })
 export class MatrizContratacion {
-  @PrimaryGeneratedColumn()
-    id: number
-
-  @Column({ name: 'id_contrato', nullable: false })
-    idContrato: string
+  @PrimaryColumn({
+    type: 'varchar',
+    nullable: false,
+    primary: true
+  })
+    id: string
 
   @ManyToOne(() => MatrizProyectos, { nullable: false })
-  @JoinColumn(
-    { name: 'id_bpin' })
+  @JoinColumn()
     proyecto: MatrizProyectos
 
   @Column({ name: 'linea_estrategia_desarrollada', nullable: false })
@@ -208,6 +208,9 @@ export class MatrizContratacion {
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
+
+  @PrimaryColumn()
+    entidad_id: number
 
   @ManyToOne(() => EntidadControl, entidad => entidad.contratos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
