@@ -15,7 +15,8 @@ export class MatrizRelacionPagos {
   @PrimaryColumn({
     type: 'varchar',
     nullable: false,
-    primary: true
+    primary: true,
+    name: 'id_pago'
 
   })
     id: string
@@ -105,14 +106,12 @@ export class MatrizRelacionPagos {
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 
-  @PrimaryColumn({ type: 'varchar' })
-    id_compromiso: string
-
+  @PrimaryColumn({ type: 'varchar', name: 'id_compromiso' })
   @ManyToOne(() => MatrizRelacionCompromisos, compro => compro.pagos, { nullable: false, cascade: true })
   @JoinColumn()
     compromiso: MatrizRelacionCompromisos
 
-  @PrimaryColumn({ type: 'varchar' })
+  @PrimaryColumn({ type: 'varchar', name: 'id_contrato' })
   @ManyToOne(() => MatrizContratacion, contrato => contrato.pagos, { nullable: false, cascade: true })
   @JoinColumn()
     contrato: MatrizContratacion

@@ -1,17 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { IsDate, IsInt, Min, Max } from 'class-validator'
 import { Transform } from 'class-transformer'
 import { Hito } from './Hito'
 import { MatrizObra } from './MatrizObra'
+import { EntidadControl } from '../../Entidad/EntidadControl'
 import { User } from '../../UserManagement/User'
+
 @Entity()
 export class MatrizHito {
-  @PrimaryGeneratedColumn()
-    id: number
-
-  @ManyToOne(() => MatrizObra, matObra => matObra.hitos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'obra_id' })
+  @PrimaryColumn({ type: 'varchar', name: 'id_obra' })
+  @ManyToOne(() => MatrizObra, { nullable: false })
+  @JoinColumn()
     obra: MatrizObra
+
+  @PrimaryColumn()
+    entidad_id: number
+
+  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @JoinColumn({ name: 'entidad_id' })
+    entidad: EntidadControl
 
   @ManyToOne(() => Hito, (hito) => hito.hitos, { nullable: false })
   @JoinColumn({ name: 'hito' })
@@ -55,9 +62,16 @@ export class MatrizHito {
 
   @IsInt()
   @Min(1900)
-  @Min(2999)
+  @Max(2999)
   @Column({ name: 'anio_corte', nullable: false })
     anioCorte: number
+
+  @Column({ nullable: true })
+    alerta: boolean = false
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'user_alerta' })
+    userAlert: User
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })

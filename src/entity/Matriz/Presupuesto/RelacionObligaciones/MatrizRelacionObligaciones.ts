@@ -13,7 +13,8 @@ export class MatrizRelacionObligaciones {
   @PrimaryColumn({
     type: 'varchar',
     nullable: false,
-    primary: true
+    primary: true,
+    name: 'id_obligacion'
 
   })
 

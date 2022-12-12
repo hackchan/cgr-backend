@@ -32,6 +32,7 @@ import { Estrato } from './entity/Matriz/ies/Estrato'
 import { Semestre } from './entity/Matriz/ies/Semestre'
 import { MatrizIes } from './entity/Matriz/ies/MatrizIes'
 
+import { SoportesContrato } from './entity/Matriz/Presupuesto/Contratacion/SoporteContrato'
 import { SectorProyecto } from './entity/Matriz/Presupuesto/Proyectos/SectorProyecto'
 import { MatrizProyectos } from './entity/Matriz/Presupuesto/Proyectos/MatrizProyectos'
 import { ClaseContrato } from './entity/Matriz/Presupuesto/Contratacion/ClaseContrato'
@@ -67,6 +68,7 @@ import { Uso } from './entity/Matriz/Catastro/Uso'
 import { ZonaEconomica } from './entity/Matriz/Catastro/ZonaEconomica'
 import { ZonaFisica } from './entity/Matriz/Catastro/ZonaFisica'
 import { MatrizCatastro } from './entity/Matriz/Catastro/MatrizCatastro'
+import { MatrizCatastroDetalle } from './entity/Matriz/Catastro/MatrizCatastroDetalle'
 // reportes
 import { Modelo } from './entity/Reportes/Modelo'
 import { CategoriaReportes } from './entity/Reportes/CategoriaReporte'
@@ -104,7 +106,7 @@ export const AppDataSource = new DataSource({
   // migrations: ['src/migrations/*.{ts,js}'],
   // entities: ['src/entity/**/*.{ts,js}']
   migrations: ['src/migrations/*.{ts,js}'],
-  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos, SectorProyecto, MatrizProyectos, ClaseContrato, EstadoContrato, FormaContrato, MatrizContratacion, MatrizRelacionPagos, MatrizRelacionObligaciones, TipoCompromiso, TipoGastos, Vigencia, MatrizRelacionCompromisos, MatrizCDPs, EstadoSolicitud, FuenteFinanciamiento, Programa, RangoIngresos, ZonaSolicitud, MatrizFovis, TipoOcad, MatrizRegalias, MatrizAxiliarSaldos, MatrizLibroMayor, MatrizSituacionFinanciera, EstadoCivil, DestinoEconomico, MatrizCatastro, Modelo, CategoriaReportes, Periodicidad, Reportes, SubReportes, Menu, SubMenu, Items]
+  entities: [Auth, User, UserType, Role, Satelital, Departamento, Municipio, Vereda, TypeMunicipio, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, RepLegal, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Hito, MatrizHito, MatrizGeo, TipoSoporte, SoportesObras, DocumentType, Estrato, Semestre, MatrizIes, Videos, SectorProyecto, MatrizProyectos, ClaseContrato, EstadoContrato, FormaContrato, MatrizContratacion, SoportesContrato, MatrizRelacionPagos, MatrizRelacionObligaciones, TipoCompromiso, TipoGastos, Vigencia, MatrizRelacionCompromisos, MatrizCDPs, EstadoSolicitud, FuenteFinanciamiento, Programa, RangoIngresos, ZonaSolicitud, MatrizFovis, TipoOcad, MatrizRegalias, MatrizAxiliarSaldos, MatrizLibroMayor, MatrizSituacionFinanciera, EstadoCivil, DestinoEconomico, MatrizCatastro, Tipificacion, Uso, ZonaEconomica, ZonaFisica, MatrizCatastroDetalle, Modelo, CategoriaReportes, Periodicidad, Reportes, SubReportes, Menu, SubMenu, Items]
   // entities: [Satelital, Departamento, Municipio, TypeMunicipio, Auth, User, UserType, Categoria, Sector, Subsector, EntidadControl, Email, Telefono, EstadoObra, OrigenRecurso, SectorObra, MatrizObra, Role, RoleUser, TipoSoporte, Soportes, UserEntidad]
   // migrationsTableName: 'migrations',
   // migrations: ['dist/migration/*.js'],

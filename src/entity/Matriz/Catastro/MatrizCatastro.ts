@@ -1,5 +1,5 @@
 import { IsDate, IsInt, Min } from 'class-validator'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../UserManagement/User'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -8,13 +8,14 @@ import { EstadoCivil } from './EstadoCivil'
 import { DocumentType } from '../ies/DocumentType'
 import { DestinoEconomico } from './DestinoEconomico'
 @Entity('catastros')
-@Unique('catastro_unique', ['noPredial', 'entidad'])
 export class MatrizCatastro {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn({
+    type: 'numeric',
+    name: 'numero_predial',
+    nullable: false,
+    primary: true
+  })
     id: number
-
-  @Column({ name: 'numero_predial', nullable: false })
-    noPredial: string
 
   @Column({ name: 'numero_predial_nacional', nullable: true, default: 0 })
     numeroPredialNacional: string
@@ -97,7 +98,10 @@ export class MatrizCatastro {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.catastros, { nullable: false })
+  @PrimaryColumn()
+    entidad_id: number
+
+  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 

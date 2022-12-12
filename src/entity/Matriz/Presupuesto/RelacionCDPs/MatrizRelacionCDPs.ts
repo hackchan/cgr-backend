@@ -16,6 +16,7 @@ export class MatrizCDPs {
   // })
   //   idCdp: string
   @PrimaryColumn({
+    name: 'id_cdp',
     type: 'varchar',
     nullable: false,
     primary: true
@@ -77,8 +78,8 @@ export class MatrizCDPs {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  // @PrimaryColumn()
-  //   entidad_id: number
+  @PrimaryColumn()
+    entidad_id: number
 
   @ManyToOne(() => EntidadControl, entidad => entidad.cdps, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })

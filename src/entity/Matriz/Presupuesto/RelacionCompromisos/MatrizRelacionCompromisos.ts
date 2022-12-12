@@ -18,7 +18,8 @@ export class MatrizRelacionCompromisos {
   @PrimaryColumn({
     type: 'varchar',
     nullable: false,
-    primary: true
+    primary: true,
+    name: 'id_compromiso'
 
   })
     id: string
@@ -93,16 +94,12 @@ export class MatrizRelacionCompromisos {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @PrimaryColumn({
-    type: 'varchar'
-  })
-    id_cdp: string
-
+  @PrimaryColumn({ type: 'varchar', name: 'id_cdp' })
   @ManyToOne(() => MatrizCDPs, (cdp) => cdp.compromisos, { nullable: true, cascade: true })
-  @JoinColumn({ name: 'id_cdp' })
+  @JoinColumn()
     idCdp: MatrizCDPs
 
-  @PrimaryColumn({ type: 'varchar' })
+  @PrimaryColumn({ type: 'varchar', name: 'id_obligacion' })
   @OneToOne(() => MatrizRelacionObligaciones, obli => obli.compromiso, { nullable: false, cascade: true })
   @JoinColumn()
     obligacion: MatrizRelacionObligaciones

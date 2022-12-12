@@ -7,7 +7,7 @@ import { SectorProyecto } from './SectorProyecto'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('programasproyectos')
 // @Unique('matrizProgramproyect_unique', ['idBpin', 'entidad'])
-// @Index(['idBpin', 'entidad'], { unique: true })
+// @Index(['id', 'entidad'], { unique: true })
 // @Index((relation: MatrizContratacion) => [relation.idContrato, relation.entidad], { unique: true })
 export class MatrizProyectos {
   @PrimaryColumn({

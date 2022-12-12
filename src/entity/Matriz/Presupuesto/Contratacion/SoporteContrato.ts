@@ -1,17 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { IsUrl } from 'class-validator'
-import { MatrizObra } from './MatrizObra'
-import { TipoSoporte } from './TipoSoporte'
-import { EntidadControl } from '../../Entidad/EntidadControl'
+import { MatrizContratacion } from './MatrizContratacion'
+import { TipoSoporte } from '../../Obras/TipoSoporte'
+import { EntidadControl } from '../../../Entidad/EntidadControl'
 @Entity()
-export class SoportesObras {
+export class SoportesContrato {
   @PrimaryGeneratedColumn()
     id: number
 
-  @PrimaryColumn({ type: 'varchar', name: 'id_obra' })
-  @ManyToOne(() => MatrizObra, { nullable: false })
+  @PrimaryColumn({ type: 'varchar', name: 'id_contrato' })
+  @ManyToOne(() => MatrizContratacion, { nullable: false })
   @JoinColumn()
-    obra: MatrizObra
+    contrato: MatrizContratacion
 
   @PrimaryColumn()
     entidad_id: number
@@ -26,7 +26,7 @@ export class SoportesObras {
   @IsUrl()
     ruta: string
 
-  @ManyToOne(() => TipoSoporte, tipo => tipo.soportes, { nullable: false })
+  @ManyToOne(() => TipoSoporte, tipo => tipo.soportesContratos, { nullable: false })
   @JoinColumn({ name: 'tipo_soporte_id' })
     tipoSoporte: TipoSoporte
 }
