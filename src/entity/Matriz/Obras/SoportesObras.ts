@@ -1,13 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { IsUrl } from 'class-validator'
 import { MatrizObra } from './MatrizObra'
 import { TipoSoporte } from './TipoSoporte'
 import { EntidadControl } from '../../Entidad/EntidadControl'
 @Entity()
 export class SoportesObras {
-  @PrimaryGeneratedColumn()
-    id: number
-
   @PrimaryColumn({ type: 'varchar', name: 'id_obra' })
   @ManyToOne(() => MatrizObra, { nullable: false })
   @JoinColumn()

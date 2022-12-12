@@ -1,28 +1,22 @@
-import { Column, Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { IsLatitude, IsLongitude, IsInt, Min, Max } from 'class-validator'
 import { Transform } from 'class-transformer'
 import { Vereda } from '../../Departments/Vereda'
 import { User } from '../../UserManagement/User'
 import { MatrizObra } from './MatrizObra'
-import { EntidadControl } from '../../Entidad/EntidadControl'
 @Entity()
 export class MatrizGeo {
-  @PrimaryColumn({ type: 'varchar', name: 'id_obra' })
-  @ManyToOne(() => MatrizObra, { nullable: false })
-  @JoinColumn()
+  @PrimaryGeneratedColumn()
+    id: number
+
+  @ManyToOne(() => MatrizObra, matObra => matObra.hitos, { nullable: false, cascade: true })
+  @JoinColumn({ name: 'obra_id' })
     obra: MatrizObra
 
-  @PrimaryColumn()
-    entidad_id: number
-
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
-
   @IsInt()
-  @Min(1)
+  @Min(0)
   @Max(1000)
-  @Column({ name: 'nro_vertice', nullable: true, default: 0 })
+  @Column({ name: 'nro_vertice', nullable: false, default: 0 })
     vertice: number
 
   @ManyToOne(() => Vereda, (vereda) => vereda.coordenadas, { nullable: false, cascade: true })
@@ -43,27 +37,20 @@ export class MatrizGeo {
   @IsInt()
   @Min(1)
   @Max(31)
-  @Column({ name: 'dia_corte', nullable: true })
+  @Column({ name: 'dia_corte', nullable: false })
     diaCorte: number
 
   @IsInt()
   @Min(1)
   @Max(12)
-  @Column({ name: 'mes_corte', nullable: true })
+  @Column({ name: 'mes_corte', nullable: false })
     mesCorte: number
 
   @IsInt()
   @Min(1900)
   @Max(2999)
-  @Column({ name: 'anio_corte', nullable: true })
+  @Column({ name: 'anio_corte', nullable: false })
     anioCorte: number
-
-  @Column({ nullable: true })
-    alerta: boolean = false
-
-  @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: 'user_alerta' })
-    userAlert: User
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })

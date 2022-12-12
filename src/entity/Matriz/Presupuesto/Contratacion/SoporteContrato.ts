@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { IsUrl } from 'class-validator'
 import { MatrizContratacion } from './MatrizContratacion'
 import { TipoSoporte } from '../../Obras/TipoSoporte'
@@ -8,15 +8,11 @@ export class SoportesContrato {
   @PrimaryGeneratedColumn()
     id: number
 
-  @PrimaryColumn({ type: 'varchar', name: 'id_contrato' })
   @ManyToOne(() => MatrizContratacion, { nullable: false })
-  @JoinColumn()
-    contrato: MatrizContratacion
+  @JoinColumn({ name: 'id_contrato' })
+    idContrato: MatrizContratacion
 
-  @PrimaryColumn()
-    entidad_id: number
-
-  @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.contratos, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 

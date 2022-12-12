@@ -26,6 +26,8 @@ import Estrato from '../routes/matriz/ies/estrato.ies.routes'
 import Semestre from '../routes/matriz/ies/semestre.ies.routes'
 import TipoDoc from '../routes/matriz/ies/tipodoc.ies.routes'
 
+import Proyecto from '../routes/matriz/presupuesto/matriz.proyecto.route'
+
 const routers = (app: any): void => {
   const router = Router()
   app.use('/api/v2', router)
@@ -53,6 +55,8 @@ const routers = (app: any): void => {
   router.use('/estrato', Estrato)
   router.use('/semestre', Semestre)
   router.use('/tipodoc', TipoDoc)
+
+  router.use('/proyecto', Proyecto)
 }
 
 export default routers

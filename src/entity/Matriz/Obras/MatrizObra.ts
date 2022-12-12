@@ -1,5 +1,5 @@
 import { IsUrl, IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique, OneToMany } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { Municipio } from '../../Departments/Municipio'
 import { EntidadControl } from '../../Entidad/EntidadControl'
@@ -9,35 +9,21 @@ import { OrigenRecurso } from '../../Matriz/Obras/OrigenRecurso'
 import { User } from '../../UserManagement/User'
 import { SoportesObras } from './SoportesObras'
 import { MatrizHito } from './MatrizHitos'
-import { MatrizProyectos } from '../Presupuesto/Proyectos/MatrizProyectos'
 @Entity()
-// @Unique('matrizObra_unique', ['idContrato', 'entidad'])
+@Unique('matrizObra_unique', ['idContrato', 'entidad'])
 export class MatrizObra {
-  // @PrimaryGeneratedColumn()
-  //   id: number
+  @PrimaryGeneratedColumn()
+    id: number
 
-  @PrimaryColumn({
-    name: 'id_obra',
-    type: 'varchar',
-    nullable: false,
-    primary: true
+  @Column({ name: 'id_bpin', nullable: false })
+  @Transform(value => value.toString, {
+    toPlainOnly: true
   })
-    id: string
+    idBpin: string
 
-  @PrimaryColumn({ type: 'varchar', name: 'id_bpin' })
-  @ManyToOne(() => MatrizProyectos, { nullable: false })
-  @JoinColumn()
-    proyecto: MatrizProyectos
-
-  // @Column({ name: 'id_contrato', nullable: false })
-  // @Transform(({ value }) => (value).toString())
-  //   idContrato: string
-
-  // @Column({ name: 'id_bpin', nullable: false })
-  // @Transform(value => value.toString, {
-  //   toPlainOnly: true
-  // })
-  //   idBpin: string
+  @Column({ name: 'id_contrato', nullable: false })
+  @Transform(({ value }) => (value).toString())
+    idContrato: string
 
   @Column({ name: 'nombre_proyecto', nullable: false })
   @Transform(({ value }) => value.toUpperCase())
@@ -246,9 +232,6 @@ export class MatrizObra {
   @ManyToOne(() => EstadoObra, (estado) => estado.obras, { nullable: false })
   @JoinColumn({ name: 'estado' })
     estado: EstadoObra
-
-  @PrimaryColumn()
-    entidad_id: number
 
   @ManyToOne(() => EntidadControl, entidad => entidad.obras, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
