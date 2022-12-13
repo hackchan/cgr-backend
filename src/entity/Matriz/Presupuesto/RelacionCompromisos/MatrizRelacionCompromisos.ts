@@ -1,8 +1,7 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Entity, Unique, OneToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, OneToMany, ManyToOne, OneToOne, PrimaryColumn, JoinColumn, CreateDateColumn, UpdateDateColumn, Unique } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
-import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizCDPs } from '../RelacionCDPs/MatrizRelacionCDPs'
 import { MatrizRelacionObligaciones } from '../RelacionObligaciones/MatrizRelacionObligaciones'
 import { MatrizRelacionPagos } from '../RelacionPagos/MatrizRelacionPagos'
@@ -10,30 +9,15 @@ import { Vigencia } from './Vigencia'
 import { TipoCompromiso } from './TipoCompromiso'
 import { TipoGastos } from './TipoGasto'
 @Entity('relacioncompromisos')
-// @Index(['idCompromiso', 'idCdp', 'obligacion', 'entidad'], { unique: true })
-@Unique('relacioncompromisos_unique_indx', ['idCompromiso', 'idCdp', 'obligacion', 'entidad'])
 export class MatrizRelacionCompromisos {
-  @PrimaryGeneratedColumn()
-    id: number
-
-  // @PrimaryColumn({
-  //   type: 'varchar',
-  //   nullable: false,
-  //   primary: true,
-  //   name: 'id_compromiso'
-
-  // })
-  //   id: string
-
-  // @PrimaryColumn({
-  //   name: 'id_compromiso',
-  //   type: 'varchar',
-  //   length: 128
-  // })
-  //   idCompromiso: string
-
-  @Column({ name: 'id_compromiso', nullable: false })
+  @PrimaryColumn({ name: 'id_compromiso' })
     idCompromiso: string
+
+  @ManyToOne(() => MatrizCDPs, cdp => cdp.compromisos, { nullable: false })
+  @JoinColumn([
+    { name: 'id_cdp', referencedColumnName: 'idCdp' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }])
+    cdp: MatrizCDPs
 
   @Column({ name: 'fecha_compromiso', type: 'date', nullable: false })
   @IsDate()
@@ -78,10 +62,6 @@ export class MatrizRelacionCompromisos {
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.compromisos, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
-
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })
     userOper: User
@@ -92,12 +72,13 @@ export class MatrizRelacionCompromisos {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @ManyToOne(() => MatrizCDPs, (cdp) => cdp.compromisos, { nullable: true, cascade: true })
-  @JoinColumn({ name: 'id_cdp' })
-    idCdp: MatrizCDPs
+  // @ManyToOne(() => MatrizCDPs, (cdp) => cdp.compromisos, { nullable: true, cascade: true })
+  // @JoinColumn({ name: 'id_cdp' })
+  //   idCdp: MatrizCDPs
 
   @OneToOne(() => MatrizRelacionObligaciones, obli => obli.compromiso, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_obligacion' })
+  @JoinColumn([{ name: 'id_obligacion', referencedColumnName: 'idObligacion' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }])
     obligacion: MatrizRelacionObligaciones
 
   @OneToMany(() => MatrizRelacionPagos, (pago) => pago.compromiso)

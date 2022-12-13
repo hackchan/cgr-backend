@@ -1,34 +1,22 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, Unique, PrimaryGeneratedColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, OneToOne, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 
 @Entity('relacionobligaciones')
-@Unique('relacionobligaciones_unique_indx', ['idObligacion', 'entidad'])
+
 export class MatrizRelacionObligaciones {
-  @PrimaryGeneratedColumn()
-    id: number
-  // @PrimaryColumn({
-  //   type: 'varchar',
-  //   nullable: false,
-  //   primary: true,
-  //   name: 'id_obligacion'
-
-  // })
-
-  // id: string
-  // @PrimaryColumn({
-  //   name: 'idObligacion',
-  //   type: 'varchar',
-  //   length: 128
-
-  // })
-  //   idObligacion: string
-
-  @Column({ name: 'id_obligacion', nullable: false })
+  @PrimaryColumn({ name: 'id_obligacion' })
     idObligacion: string
+
+  @PrimaryColumn()
+    entidad_id: number
+
+  @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
+  @JoinColumn({ name: 'entidad_id' })
+    entidad: EntidadControl
 
   @Column({ name: 'fecha_obligacion', type: 'date', nullable: false })
   @IsDate()
@@ -58,10 +46,6 @@ export class MatrizRelacionObligaciones {
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
-
-  @ManyToOne(() => EntidadControl, entidad => entidad.obligaciones, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })

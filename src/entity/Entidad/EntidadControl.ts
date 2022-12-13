@@ -11,13 +11,14 @@ import { MatrizFovis } from '../Matriz/Fovis/MatrizFovis'
 import { MatrizCatastro } from '../Matriz/Catastro/MatrizCatastro'
 import { MatrizContratacion } from '../Matriz/Presupuesto/Contratacion/MatrizContratacion'
 import { MatrizRelacionPagos } from '../Matriz/Presupuesto/RelacionPagos/MatrizRelacionPagos'
-import { MatrizRelacionCompromisos } from '../Matriz/Presupuesto/RelacionCompromisos/MatrizRelacionCompromisos'
+import { SoportesContrato } from '../Matriz/Presupuesto/Contratacion/SoporteContrato'
 import { MatrizRelacionObligaciones } from '../Matriz/Presupuesto/RelacionObligaciones/MatrizRelacionObligaciones'
 import { MatrizCDPs } from '../Matriz/Presupuesto/RelacionCDPs/MatrizRelacionCDPs'
 import { MatrizRegalias } from '../Matriz/Regalias/MatrizRegalias'
 import { MatrizAxiliarSaldos } from '../Matriz/ContableFinanciera/MatrizAuxiliarSaldos'
 import { MatrizLibroMayor } from '../Matriz/ContableFinanciera/MatrizLibroMayorBalance'
 import { MatrizSituacionFinanciera } from '../Matriz/ContableFinanciera/SituacionFinanciera'
+import { Maestro } from '../Prueba/Maestro'
 
 import { User } from '../UserManagement/User'
 import { Reportes } from '../Reportes/Reportes'
@@ -85,14 +86,14 @@ export class EntidadControl {
   @OneToMany(() => MatrizProyectos, proyecto => proyecto.entidad)
     proyectos: MatrizProyectos[]
 
-  @OneToMany(() => MatrizContratacion, proyecto => proyecto.entidad)
-    contratos: MatrizContratacion[]
+  @OneToMany(() => SoportesContrato, soporte => soporte.entidad)
+    soportes: SoportesContrato[]
 
   @OneToMany(() => MatrizRelacionPagos, proyecto => proyecto.entidad)
     pagos: MatrizRelacionPagos[]
 
-  @OneToMany(() => MatrizRelacionCompromisos, proyecto => proyecto.entidad)
-    compromisos: MatrizRelacionCompromisos[]
+  // @OneToMany(() => MatrizRelacionCompromisos, proyecto => proyecto.entidad)
+  //   compromisos: MatrizRelacionCompromisos[]
 
   @OneToMany(() => MatrizRelacionObligaciones, proyecto => proyecto.entidad)
     obligaciones: MatrizRelacionObligaciones[]
@@ -111,4 +112,7 @@ export class EntidadControl {
 
   @OneToMany(() => MatrizSituacionFinanciera, proyecto => proyecto.entidad)
     situacion: MatrizSituacionFinanciera[]
+
+  @OneToMany(() => Maestro, proyecto => proyecto.entidad)
+    maestros: Maestro[]
 }

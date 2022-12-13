@@ -12,7 +12,7 @@ export class SoportesContrato {
   @JoinColumn({ name: 'id_contrato' })
     idContrato: MatrizContratacion
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.contratos, { nullable: false })
+  @ManyToOne(() => EntidadControl, entidad => entidad.soportes, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })
     entidad: EntidadControl
 

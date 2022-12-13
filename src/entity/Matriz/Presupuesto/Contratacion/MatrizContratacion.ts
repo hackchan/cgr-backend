@@ -1,8 +1,7 @@
 import { IsDate, IsInt, Min, Max } from 'class-validator'
-import { Column, Unique, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
-import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { EstadoContrato } from './EstadoContrato'
 import { OrigenRecurso } from '../../Obras/OrigenRecurso'
 import { MatrizRelacionPagos } from '../RelacionPagos/MatrizRelacionPagos'
@@ -10,26 +9,15 @@ import { MatrizProyectos } from '../Proyectos/MatrizProyectos'
 import { ClaseContrato } from './ClaseContrato'
 import { FormaContrato } from './FormaContrato'
 @Entity('contratacion')
-// @Unique('contratacion_unique', ['idContrato', 'entidad'])
-@Unique('contratacion_unique', ['id', 'proyecto', 'entidad'])
+
 export class MatrizContratacion {
-  @PrimaryGeneratedColumn()
-    id: number
-  // @PrimaryColumn({
-  //   type: 'varchar',
-  //   nullable: false,
-  //   primary: true,
-  //   name: 'id_contrato'
-
-  // })
-  //   id: string
-
-  @Column({ name: 'id_contrato', nullable: false })
-  @Transform(({ value }) => value.toUpperCase())
+  @PrimaryColumn({ name: 'id_contrato' })
     idContrato: string
 
-  @ManyToOne(() => MatrizProyectos, { nullable: false })
-  @JoinColumn({ name: 'id_bpin' })
+  @ManyToOne(() => MatrizProyectos, proyecto => proyecto.contratos, { nullable: false })
+  @JoinColumn([
+    { name: 'id_bpin', referencedColumnName: 'idBpin' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }])
     proyecto: MatrizProyectos
 
   @Column({ name: 'linea_estrategia_desarrollada', nullable: false })
@@ -216,10 +204,6 @@ export class MatrizContratacion {
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_alerta' })
     userAlert: User
-
-  @ManyToOne(() => EntidadControl, entidad => entidad.contratos, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_operation' })

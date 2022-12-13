@@ -1,28 +1,23 @@
 import { IsDate } from 'class-validator'
-import { Column, Entity, Unique, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
 import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('relacionpagos')
-@Unique('relacionpagos_unique_indx', ['idPago', 'compromiso', 'contrato', 'entidad'])
+// @Unique('relacionpagos_unique_indx', ['idPago', 'compromiso', 'contrato', 'entidad'])
 // @Index(['idPago', 'contrato', 'compromiso', 'entidad'], { unique: true })
 export class MatrizRelacionPagos {
-  @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryColumn({ name: 'id_pago' })
+    idCdp: string
 
-  // @PrimaryColumn({
-  //   type: 'varchar',
-  //   nullable: false,
-  //   primary: true,
-  //   name: 'id_pago'
+  @PrimaryColumn()
+    entidad_id: number
 
-  // })
-  //   id: string
-
-  @Column({ name: 'id_pago', nullable: false })
-    idPago: string
+  @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
+  @JoinColumn({ name: 'entidad_id' })
+    entidad: EntidadControl
 
   @Column({ name: 'fecha_pago', type: 'date', nullable: false })
   @IsDate()
@@ -99,15 +94,11 @@ export class MatrizRelacionPagos {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.pagos, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
-
   @ManyToOne(() => MatrizRelacionCompromisos, compro => compro.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_compromiso' })
+  @JoinColumn({ name: 'id_compromiso', referencedColumnName: 'idCompromiso' })
     compromiso: MatrizRelacionCompromisos
 
   @ManyToOne(() => MatrizContratacion, contrato => contrato.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_contrato' })
+  @JoinColumn({ name: 'id_contrato', referencedColumnName: 'idContrato' })
     contrato: MatrizContratacion
 }
