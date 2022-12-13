@@ -9,7 +9,6 @@ import { MatrizProyectos } from '../Matriz/Presupuesto/Proyectos/MatrizProyectos
 import { MatrizIes } from '../Matriz/ies/MatrizIes'
 import { MatrizFovis } from '../Matriz/Fovis/MatrizFovis'
 import { MatrizCatastro } from '../Matriz/Catastro/MatrizCatastro'
-import { MatrizContratacion } from '../Matriz/Presupuesto/Contratacion/MatrizContratacion'
 import { MatrizRelacionPagos } from '../Matriz/Presupuesto/RelacionPagos/MatrizRelacionPagos'
 import { SoportesContrato } from '../Matriz/Presupuesto/Contratacion/SoporteContrato'
 import { MatrizRelacionObligaciones } from '../Matriz/Presupuesto/RelacionObligaciones/MatrizRelacionObligaciones'
@@ -18,7 +17,6 @@ import { MatrizRegalias } from '../Matriz/Regalias/MatrizRegalias'
 import { MatrizAxiliarSaldos } from '../Matriz/ContableFinanciera/MatrizAuxiliarSaldos'
 import { MatrizLibroMayor } from '../Matriz/ContableFinanciera/MatrizLibroMayorBalance'
 import { MatrizSituacionFinanciera } from '../Matriz/ContableFinanciera/SituacionFinanciera'
-import { Maestro } from '../Prueba/Maestro'
 
 import { User } from '../UserManagement/User'
 import { Reportes } from '../Reportes/Reportes'
@@ -112,7 +110,4 @@ export class EntidadControl {
 
   @OneToMany(() => MatrizSituacionFinanciera, proyecto => proyecto.entidad)
     situacion: MatrizSituacionFinanciera[]
-
-  @OneToMany(() => Maestro, proyecto => proyecto.entidad)
-    maestros: Maestro[]
 }

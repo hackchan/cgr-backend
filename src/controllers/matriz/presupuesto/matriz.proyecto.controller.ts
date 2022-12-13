@@ -17,7 +17,7 @@ export const getProyectos = async (req: Request, res: Response, next: NextFuncti
 export const getProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
-    const response = await serviceProyecto.findOne(parseInt(id, 10))
+    const response = await serviceProyecto.findOne(id)
     success(req, res, response)
   } catch (error) {
     next(error)
@@ -48,7 +48,7 @@ export const updateProyecto = async (req: Request, res: Response, next: NextFunc
   try {
     const { id } = req.params
     const changes = req.body
-    const respose = await serviceProyecto.update(parseInt(id, 10), changes)
+    const respose = await serviceProyecto.update(id, changes)
     success(req, res, respose)
   } catch (error) {
     next(error)
@@ -58,7 +58,7 @@ export const updateProyecto = async (req: Request, res: Response, next: NextFunc
 export const deleteProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
-    const response = await serviceProyecto.delete(parseInt(id, 10))
+    const response = await serviceProyecto.delete(id)
     success(req, res, response)
   } catch (error) {
     next(error)

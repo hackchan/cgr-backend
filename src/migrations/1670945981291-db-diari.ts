@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class dbDiari1670912911743 implements MigrationInterface {
-    name = 'dbDiari1670912911743'
+export class dbDiari1670945981291 implements MigrationInterface {
+    name = 'dbDiari1670945981291'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "user_type" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_f70648ef30041d66995a0394afc" UNIQUE ("name"), CONSTRAINT "PK_1f9c6d05869e094dee8fa7d392a" PRIMARY KEY ("id"))`);
@@ -57,7 +57,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "auxiliarsaldos" ("id" int NOT NULL IDENTITY(1,1), "anio" int NOT NULL, "codigo_contable" int NOT NULL CONSTRAINT "DF_2fd34a58d38e998b72cda288abb" DEFAULT 0, "descripcion" nvarchar(255) NOT NULL, "fecha" date NOT NULL, "comprobante" nvarchar(255) NOT NULL, "numero" int NOT NULL, "cheque_transferencia" nvarchar(255) NOT NULL, "doc_ref" nvarchar(255) NOT NULL, "centro_costos" nvarchar(255) NOT NULL, "descripcion_registro_contable" nvarchar(255) NOT NULL, "tercero" nvarchar(255) NOT NULL, "id_tercero" nvarchar(255) NOT NULL, "debitos" decimal(19,2) NOT NULL CONSTRAINT "DF_672ff065e2ab26209bdc58a92a5" DEFAULT 0, "creditos" decimal(19,2) NOT NULL CONSTRAINT "DF_c6007d0281e7d00b7eda27f94cb" DEFAULT 0, "macro_campo_nivel_agregado" nvarchar(255) NOT NULL, "alerta" bit, "createdAt" datetime2 NOT NULL CONSTRAINT "DF_387d581b1a163359cdf9bee5113" DEFAULT getdate(), "updatedAt" datetime2 NOT NULL CONSTRAINT "DF_667cf4f12823a045e0774e5615d" DEFAULT getdate(), "user_alerta" int, "entidad_id" int NOT NULL, "user_operation" int, CONSTRAINT "auxiliarsaldos_unique" UNIQUE ("codigo_contable", "entidad_id"), CONSTRAINT "PK_0810e3c7e782b555f477729a9aa" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "LibroMayorBalance" ("id" int NOT NULL IDENTITY(1,1), "anio" int NOT NULL, "codigo_contable" int NOT NULL CONSTRAINT "DF_7e2da7c4ccc7119acdc57f8cea5" DEFAULT 0, "descripcion" nvarchar(255) NOT NULL, "saldo_db_anterior" decimal(19,2) NOT NULL CONSTRAINT "DF_599c914c8a0851765cd2c815ffe" DEFAULT 0, "movimiento_db_periodo" decimal(19,2) NOT NULL CONSTRAINT "DF_60ff108d41b485656982c8abce2" DEFAULT 0, "saldo_final_db" decimal(19,2) NOT NULL CONSTRAINT "DF_f0591ae8763b49b3d95c365f5aa" DEFAULT 0, "saldo_cr_anterior" decimal(19,2) NOT NULL CONSTRAINT "DF_dbf4da980a670daab7d3c936433" DEFAULT 0, "movimiento_cr_periodo" decimal(19,2) NOT NULL CONSTRAINT "DF_c264b5f61c6439a5803dedabc7d" DEFAULT 0, "saldo_final_cr" decimal(19,2) NOT NULL CONSTRAINT "DF_24a8ed629f874fe937c17ef9ffa" DEFAULT 0, "createdAt" datetime2 NOT NULL CONSTRAINT "DF_a59d0330be7f0038a92bd8477de" DEFAULT getdate(), "updatedAt" datetime2 NOT NULL CONSTRAINT "DF_4dccbd09325c7a8b1aca31ce1c3" DEFAULT getdate(), "user_alerta" int, "entidad_id" int NOT NULL, "user_operation" int, CONSTRAINT "LibroMayorBalance_unique" UNIQUE ("codigo_contable", "entidad_id"), CONSTRAINT "PK_b0ef08128f00a1552f064a950ea" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "EstadoFinanciera" ("id" int NOT NULL IDENTITY(1,1), "anio" int NOT NULL, "codigo_contable" int NOT NULL CONSTRAINT "DF_c3be2c63bf9929ca58b603e6217" DEFAULT 0, "descripcion" nvarchar(255) NOT NULL, "saldo" decimal(19,2) NOT NULL CONSTRAINT "DF_525a0742f2e9d679935c261ee3a" DEFAULT 0, "createdAt" datetime2 NOT NULL CONSTRAINT "DF_3ee833a14b2a528eade35b3b74b" DEFAULT getdate(), "updatedAt" datetime2 NOT NULL CONSTRAINT "DF_251b9eb64884c56ffcffc03c5ed" DEFAULT getdate(), "user_alerta" int, "entidad_id" int NOT NULL, "user_operation" int, CONSTRAINT "EstadoFinanciera_unique" UNIQUE ("codigo_contable", "entidad_id"), CONSTRAINT "PK_b78600fcc7ddf936c3449d34fa9" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "maestro" ("id_bpin" nvarchar(255) NOT NULL, "entidad_id" int NOT NULL, "nombre_proyecto" nvarchar(255) NOT NULL, CONSTRAINT "PK_680f79273b619add348a5168263" PRIMARY KEY ("id_bpin", "entidad_id"))`);
         await queryRunner.query(`CREATE TABLE "modelo" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_0565e8bd88e334a89d41538b4d8" UNIQUE ("name"), CONSTRAINT "PK_4d5d3a7d7efe7e5f03944aa15d5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "categoria_reportes" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "modelo_id" int NOT NULL, CONSTRAINT "UQ_8daf40236bb98637910183bb2e6" UNIQUE ("name"), CONSTRAINT "PK_4a6a96b6069f57b26114e974f0e" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "periodicidad" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, CONSTRAINT "UQ_c1923611d5eac194df1cf7c5111" UNIQUE ("name"), CONSTRAINT "PK_14952cb3d432e6b534ac06a0b62" PRIMARY KEY ("id"))`);
@@ -79,8 +78,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "items" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "icono" nvarchar(255), "active" bit NOT NULL CONSTRAINT "DF_bffc2d5bf8eee408fc2f6511381" DEFAULT 0, "subitems" bit NOT NULL CONSTRAINT "DF_93e499019a146266b0a75a71f63" DEFAULT 0, "isSeparador" bit NOT NULL CONSTRAINT "DF_67759b031be173921173730507f" DEFAULT 0, "path" nvarchar(255), "roles" ntext, "submenu_id" int, CONSTRAINT "UQ_213736582899b3599acaade2cd1" UNIQUE ("name"), CONSTRAINT "PK_ba5885359424c15ca6b9e79bcf6" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "sub_menu" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "icono" nvarchar(255), "active" bit NOT NULL CONSTRAINT "DF_2a2d73845c9aee1ab834e356090" DEFAULT 0, "isItem" bit NOT NULL CONSTRAINT "DF_063e171b53b50754e8b5d2eb254" DEFAULT 0, "isSeparador" bit NOT NULL CONSTRAINT "DF_195338abb4d44cc77f907489642" DEFAULT 0, "path" nvarchar(255), "roles" ntext, "menu_id" int, CONSTRAINT "UQ_e0e1f6148d2b3516a5d50bfba0b" UNIQUE ("name"), CONSTRAINT "PK_75827b9747adef4af58cd488ff2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "menu" ("id" int NOT NULL IDENTITY(1,1), "name" nvarchar(255) NOT NULL, "icono" nvarchar(255), "active" bit NOT NULL CONSTRAINT "DF_fd0301729cb648baa4182648f0d" DEFAULT 0, "roles" ntext, CONSTRAINT "UQ_51b63874cdce0d6898a0b2150f2" UNIQUE ("name"), CONSTRAINT "PK_35b2a8f47d153ff7a41860cceeb" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "detalle" ("id_detalle" nvarchar(255) NOT NULL, "nombre_proyecto" nvarchar(255) NOT NULL, "id_bpin" nvarchar(255) NOT NULL, "entidad_id" int NOT NULL, CONSTRAINT "PK_f7555f2357e390bb35f67840219" PRIMARY KEY ("id_detalle"))`);
-        await queryRunner.query(`CREATE TABLE "subdetalle" ("id_subdetalle" nvarchar(255) NOT NULL, "nombre_subdetalle" nvarchar(255) NOT NULL, "detalleIdDetalle" nvarchar(255) NOT NULL, CONSTRAINT "PK_12f8137e9b788343bfa47d14d2b" PRIMARY KEY ("id_subdetalle"))`);
         await queryRunner.query(`CREATE TABLE "entidad_control_reportes_reportes" ("entidadControlId" int NOT NULL, "reportesId" int NOT NULL, CONSTRAINT "PK_0d933cc82dd1f81e0e1cd7002ac" PRIMARY KEY ("entidadControlId", "reportesId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_73adf31d3cf0acc0c6c6655ac8" ON "entidad_control_reportes_reportes" ("entidadControlId") `);
         await queryRunner.query(`CREATE INDEX "IDX_913e3cc4cc6bdf4bfc56773f81" ON "entidad_control_reportes_reportes" ("reportesId") `);
@@ -188,7 +185,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" ADD CONSTRAINT "FK_2c4e677bc52b1c05237bea968b4" FOREIGN KEY ("user_alerta") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" ADD CONSTRAINT "FK_1720cf717cd92adc1ceb5f07046" FOREIGN KEY ("entidad_id") REFERENCES "entidad_control"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" ADD CONSTRAINT "FK_9101fe24ed968b62ac038e3fc7f" FOREIGN KEY ("user_operation") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "maestro" ADD CONSTRAINT "FK_d9953ae9dedb0365b2125bab3b8" FOREIGN KEY ("entidad_id") REFERENCES "entidad_control"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "categoria_reportes" ADD CONSTRAINT "FK_5e48f394fa2a9cb59322bbf52a2" FOREIGN KEY ("modelo_id") REFERENCES "modelo"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "sub_reportes" ADD CONSTRAINT "FK_7313dbae6f4f8ef1560147154dd" FOREIGN KEY ("reporte_id") REFERENCES "reportes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "reportes" ADD CONSTRAINT "FK_1f8c957fad8156a32aec4c84173" FOREIGN KEY ("periodicidad_id") REFERENCES "periodicidad"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -208,8 +204,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "catastro_detalle" ADD CONSTRAINT "FK_ea7df314120ef6d852fc40a6ecf" FOREIGN KEY ("user_operation") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "items" ADD CONSTRAINT "FK_c14044992dfa6c743a33aa8ed10" FOREIGN KEY ("submenu_id") REFERENCES "sub_menu"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "sub_menu" ADD CONSTRAINT "FK_54e408e4c10419ae96d5ef4e914" FOREIGN KEY ("menu_id") REFERENCES "menu"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "detalle" ADD CONSTRAINT "FK_8cd42a6ef749d8bd7c7d810f728" FOREIGN KEY ("id_bpin", "entidad_id") REFERENCES "maestro"("id_bpin","entidad_id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "subdetalle" ADD CONSTRAINT "FK_59643cdbfec52ddadedf03b5634" FOREIGN KEY ("detalleIdDetalle") REFERENCES "detalle"("id_detalle") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "entidad_control_reportes_reportes" ADD CONSTRAINT "FK_73adf31d3cf0acc0c6c6655ac8f" FOREIGN KEY ("entidadControlId") REFERENCES "entidad_control"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "entidad_control_reportes_reportes" ADD CONSTRAINT "FK_913e3cc4cc6bdf4bfc56773f819" FOREIGN KEY ("reportesId") REFERENCES "reportes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user_roles_role" ADD CONSTRAINT "FK_5f9286e6c25594c6b88c108db77" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
@@ -229,8 +223,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user_roles_role" DROP CONSTRAINT "FK_5f9286e6c25594c6b88c108db77"`);
         await queryRunner.query(`ALTER TABLE "entidad_control_reportes_reportes" DROP CONSTRAINT "FK_913e3cc4cc6bdf4bfc56773f819"`);
         await queryRunner.query(`ALTER TABLE "entidad_control_reportes_reportes" DROP CONSTRAINT "FK_73adf31d3cf0acc0c6c6655ac8f"`);
-        await queryRunner.query(`ALTER TABLE "subdetalle" DROP CONSTRAINT "FK_59643cdbfec52ddadedf03b5634"`);
-        await queryRunner.query(`ALTER TABLE "detalle" DROP CONSTRAINT "FK_8cd42a6ef749d8bd7c7d810f728"`);
         await queryRunner.query(`ALTER TABLE "sub_menu" DROP CONSTRAINT "FK_54e408e4c10419ae96d5ef4e914"`);
         await queryRunner.query(`ALTER TABLE "items" DROP CONSTRAINT "FK_c14044992dfa6c743a33aa8ed10"`);
         await queryRunner.query(`ALTER TABLE "catastro_detalle" DROP CONSTRAINT "FK_ea7df314120ef6d852fc40a6ecf"`);
@@ -250,7 +242,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "reportes" DROP CONSTRAINT "FK_1f8c957fad8156a32aec4c84173"`);
         await queryRunner.query(`ALTER TABLE "sub_reportes" DROP CONSTRAINT "FK_7313dbae6f4f8ef1560147154dd"`);
         await queryRunner.query(`ALTER TABLE "categoria_reportes" DROP CONSTRAINT "FK_5e48f394fa2a9cb59322bbf52a2"`);
-        await queryRunner.query(`ALTER TABLE "maestro" DROP CONSTRAINT "FK_d9953ae9dedb0365b2125bab3b8"`);
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" DROP CONSTRAINT "FK_9101fe24ed968b62ac038e3fc7f"`);
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" DROP CONSTRAINT "FK_1720cf717cd92adc1ceb5f07046"`);
         await queryRunner.query(`ALTER TABLE "EstadoFinanciera" DROP CONSTRAINT "FK_2c4e677bc52b1c05237bea968b4"`);
@@ -358,8 +349,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`DROP INDEX "IDX_913e3cc4cc6bdf4bfc56773f81" ON "entidad_control_reportes_reportes"`);
         await queryRunner.query(`DROP INDEX "IDX_73adf31d3cf0acc0c6c6655ac8" ON "entidad_control_reportes_reportes"`);
         await queryRunner.query(`DROP TABLE "entidad_control_reportes_reportes"`);
-        await queryRunner.query(`DROP TABLE "subdetalle"`);
-        await queryRunner.query(`DROP TABLE "detalle"`);
         await queryRunner.query(`DROP TABLE "menu"`);
         await queryRunner.query(`DROP TABLE "sub_menu"`);
         await queryRunner.query(`DROP TABLE "items"`);
@@ -381,7 +370,6 @@ export class dbDiari1670912911743 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "periodicidad"`);
         await queryRunner.query(`DROP TABLE "categoria_reportes"`);
         await queryRunner.query(`DROP TABLE "modelo"`);
-        await queryRunner.query(`DROP TABLE "maestro"`);
         await queryRunner.query(`DROP TABLE "EstadoFinanciera"`);
         await queryRunner.query(`DROP TABLE "LibroMayorBalance"`);
         await queryRunner.query(`DROP TABLE "auxiliarsaldos"`);

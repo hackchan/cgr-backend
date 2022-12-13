@@ -69,7 +69,7 @@ class MatrizProyectoDTO {
   async findAll (query: any, userData: any): Promise<any> {
     try {
       const options: any = {
-        relations: { sector: true, entidad: true, userOper: true, userAlert: true },
+        // relations: { sector: true, entidad: true, userOper: true, userAlert: true },
         where: {},
         order: {}
       }
@@ -157,16 +157,18 @@ class MatrizProyectoDTO {
       }
 
       const obrasList = await this.repositorioMatrizProyecto.findAndCount(options)
-      // const cantidad = await this.repositorioMatrizObra.count()
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
-      const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
-      const entidadesArray = resUser.entidades.map((entidad: any) => {
-        return entidad.id
-      })
-      const filterData = responseData.filter((mat: any) => {
-        return entidadesArray.includes(mat.entidad.id)
-      })
-      const dataFinish = userData.isAdmin ? responseData : filterData
+      let dataFinish = responseData
+      if (userData) {
+        const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
+        const entidadesArray = resUser.entidades.map((entidad: any) => {
+          return entidad.id
+        })
+        const filterData = responseData.filter((mat: any) => {
+          return entidadesArray.includes(mat.entidad.id)
+        })
+        dataFinish = userData.isAdmin ? responseData : filterData
+      }
       const response = { cantidad: obrasList[1], data: dataFinish }
 
       return response
@@ -176,11 +178,11 @@ class MatrizProyectoDTO {
     }
   }
 
-  async findOne (id: number): Promise<MatrizProyectos> {
+  async findOne (id: string): Promise<MatrizProyectos> {
     try {
       const obra = await this.repositorioMatrizProyecto.findOne({
         where:
-        { id }
+        { idBpin: id }
       })
       if (obra == null) {
         throw boom.notFound('Proyecto no encontrado')
@@ -193,7 +195,7 @@ class MatrizProyectoDTO {
     }
   }
 
-  async update (id: number, changes: any): Promise<MatrizProyectos> {
+  async update (id: string, changes: any): Promise<MatrizProyectos> {
     try {
       const obra = await this.findOne(id)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
@@ -206,7 +208,7 @@ class MatrizProyectoDTO {
     }
   }
 
-  async delete (id: number): Promise<MatrizProyectos> {
+  async delete (id: string): Promise<MatrizProyectos> {
     try {
       const obra = await this.findOne(id)
       const response = this.repositorioMatrizProyecto.remove(obra)

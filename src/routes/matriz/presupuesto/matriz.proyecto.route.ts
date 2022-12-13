@@ -6,12 +6,11 @@ import passport from 'passport'
 import { checkRoles, isAdmin } from '../../../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), isAdmin(), getProyectos as RequestHandler)
-router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), getProyecto as RequestHandler)
-router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createProyecto as RequestHandler)
-router.post('/upsert', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createUpdateProyecto as RequestHandler)
-router.patch('/:id',
-  passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
+router.get('/', getProyectos as RequestHandler)
+router.get('/:id', getProyecto as RequestHandler)
+router.post('/', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createProyecto as RequestHandler)
+router.post('/upsert', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createUpdateProyecto as RequestHandler)
+router.patch('/:id', checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
   updateProyecto as RequestHandler)
-router.delete('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI'), deleteProyecto as RequestHandler)
+router.delete('/:id', checkRoles('ADMIN', 'JEDI'), deleteProyecto as RequestHandler)
 export default router
