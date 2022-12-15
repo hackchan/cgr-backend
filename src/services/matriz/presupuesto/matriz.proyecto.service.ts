@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
-import { Repository, Like, Equal } from 'typeorm'
+import { Repository, Like, Equal, MoreThanOrEqual, Between } from 'typeorm'
 import { MatrizProyectos } from '../../../entity/Matriz/Presupuesto/Proyectos/MatrizProyectos'
 import UserService from '../../user.services'
 
@@ -131,9 +131,16 @@ class MatrizProyectoDTO {
           if (obj.id === 'sector' || obj.id === 'entidad') {
             pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
           } else {
-            if (obj.id === 'fechaInicioEjecucion' || obj.id === 'fechaCierreEjecucion') {
-              bus[obj.id] = Equal(obj.value)
-              pushWhere.push(bus)
+            if (obj.id === 'fechaInicioEjecucion' || obj.id === 'fechaCierreEjecucion' || obj.id === 'updatedAt') {
+              console.log(obj?.value[0])
+              if (obj?.value[0] !== null) {
+                console.log('NO DEBE ENTRAR')
+                bus[obj.id] = Between(obj.value[0], obj.value[1])
+                pushWhere.push(bus)
+              }
+              // if (obj.value[0] !== null && obj.value[1] !== null) {
+
+              // }
             } else {
               bus[obj.id] = Like(`%${obj.value}%`)
               pushWhere.push(bus)
