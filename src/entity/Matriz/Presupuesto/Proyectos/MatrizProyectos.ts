@@ -70,7 +70,7 @@ export class MatrizProyectos {
   @Column({ nullable: true, default: false })
     reactivacionEconomica: boolean = false
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
     alerta: boolean = false
 
   @ManyToOne(() => User, { nullable: true })

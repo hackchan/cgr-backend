@@ -27,6 +27,7 @@ import Semestre from '../routes/matriz/ies/semestre.ies.routes'
 import TipoDoc from '../routes/matriz/ies/tipodoc.ies.routes'
 
 import Proyecto from '../routes/matriz/presupuesto/matriz.proyecto.route'
+import sectorProyecto from '../routes/matriz/presupuesto/sector.proyecto.routes'
 
 const routers = (app: any): void => {
   const router = Router()
@@ -57,6 +58,7 @@ const routers = (app: any): void => {
   router.use('/tipodoc', TipoDoc)
 
   router.use('/proyecto', Proyecto)
+  router.use('/sector-proyecto', sectorProyecto)
 }
 
 export default routers

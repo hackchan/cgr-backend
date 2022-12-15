@@ -3,6 +3,7 @@
 import boom from '@hapi/boom'
 import { AppDataSource } from '../../../db'
 import { Repository, Like, Equal, MoreThanOrEqual, Between } from 'typeorm'
+import { format } from 'date-fns'
 import { MatrizProyectos } from '../../../entity/Matriz/Presupuesto/Proyectos/MatrizProyectos'
 import UserService from '../../user.services'
 
@@ -130,24 +131,32 @@ class MatrizProyectoDTO {
           const bus: any = {}
           if (obj.id === 'sector' || obj.id === 'entidad') {
             pushWhere.push({ [obj.id]: { name: Like(`%${obj.value}%`) } })
+          } else if (obj.id === 'alerta') {
+            console.log('alerta:', obj.value)
+            pushWhere.push({ [obj.id]: Equal(obj.value === 'SI') })
           } else {
             if (obj.id === 'fechaInicioEjecucion' || obj.id === 'fechaCierreEjecucion' || obj.id === 'updatedAt') {
-              console.log(obj?.value[0])
-              if (obj?.value[0] !== null) {
-                console.log('NO DEBE ENTRAR')
-                bus[obj.id] = Between(obj.value[0], obj.value[1])
+              if (obj?.value[0] !== null && obj?.value[0] !== null && obj?.value[0]?.length > 0 && obj?.value[1]?.length > 0) {
+                if (obj.value[0] === obj.value[1]) {
+                  bus[obj.id] = Like(`%${obj.value[0].split('T')[0]}%`)
+                } else {
+                  bus[obj.id] = Between(obj.value[0].split('T')[0], obj.value[1].split('T')[0])
+                }
+                pushWhere.push(bus)
+              } else if (obj?.value[0] !== null) {
+                bus[obj.id] = Like(`%${obj.value[0].split('T')[0]}%`)
                 pushWhere.push(bus)
               }
-              // if (obj.value[0] !== null && obj.value[1] !== null) {
-
-              // }
             } else {
               bus[obj.id] = Like(`%${obj.value}%`)
               pushWhere.push(bus)
             }
           }
         })
-        options.where = pushWhere
+
+        if (pushWhere.length > 0) {
+          options.where = pushWhere
+        }
       }
 
       if (isSorting) {
