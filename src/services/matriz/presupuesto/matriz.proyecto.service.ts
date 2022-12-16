@@ -28,6 +28,7 @@ class MatrizProyectoDTO {
 
   async create (data: any): Promise<any> {
     try {
+      console.log('la datilla:', data)
       const result = await this.repositorioMatrizProyecto.save(data, { chunk: 10, transaction: false })
       return result
     } catch (error) {
@@ -35,7 +36,7 @@ class MatrizProyectoDTO {
         const chunksArray = this.getArrayAsChunks(data, 10)
         for (const obraChunk of chunksArray) {
           for (const obra of obraChunk) {
-            const obraItem = await this.repositorioMatrizProyecto.findOne({ where: { idBpin: obra.idContrato, entidad: { id: obra.entidad } } })
+            const obraItem = await this.repositorioMatrizProyecto.findOne({ where: { idBpin: obra.idBpin, entidad: { id: obra.entidad } } })
             if (obraItem == null) {
               const newObra = this.repositorioMatrizProyecto.create(obra)
               await this.repositorioMatrizProyecto.save(newObra)

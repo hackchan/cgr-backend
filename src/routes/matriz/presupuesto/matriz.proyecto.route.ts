@@ -8,7 +8,7 @@ const router = Router()
 
 router.get('/', getProyectos as RequestHandler)
 router.get('/:id', getProyecto as RequestHandler)
-router.post('/', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createProyecto as RequestHandler)
+router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createProyecto as RequestHandler)
 router.post('/upsert', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createUpdateProyecto as RequestHandler)
 router.patch('/:id', checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
   updateProyecto as RequestHandler)

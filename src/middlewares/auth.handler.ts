@@ -15,6 +15,7 @@ export async function checkApiKey (req: Request, _res: Response, next: any): Pro
 
 export function checkRoles (...roles: any) {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log('user:??', req.user)
     const payload: any = req.user
     const listaRolesUser = payload.role.map((rol: any) => {
       return rol.name
