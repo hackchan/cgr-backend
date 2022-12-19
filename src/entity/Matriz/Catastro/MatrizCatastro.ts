@@ -37,7 +37,7 @@ export class MatrizCatastro {
     nombre: string
 
   @ManyToOne(() => EstadoCivil, entidad => entidad.catastros, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'estado_civil_id' })
+  @JoinColumn({ name: 'estado_civil' })
     estadoCivil: EstadoCivil
 
   @ManyToOne(() => DocumentType, doctype => doctype.catastros, { nullable: false, cascade: true })

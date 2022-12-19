@@ -10,7 +10,7 @@ router.get('/', getProyectos as RequestHandler)
 router.get('/:id', getProyecto as RequestHandler)
 router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createProyecto as RequestHandler)
 router.post('/upsert', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createUpdateProyecto as RequestHandler)
-router.patch('/:id', checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
+router.patch('/update', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),
   updateProyecto as RequestHandler)
-router.delete('/:id', checkRoles('ADMIN', 'JEDI'), deleteProyecto as RequestHandler)
+router.delete('/delete', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI'), deleteProyecto as RequestHandler)
 export default router

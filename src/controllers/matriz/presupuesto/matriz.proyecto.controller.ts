@@ -16,8 +16,8 @@ export const getProyectos = async (req: Request, res: Response, next: NextFuncti
 
 export const getProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params
-    const response = await serviceProyecto.findOne(id)
+    const { id, entidadId } = req.params
+    const response = await serviceProyecto.findOne(id, parseInt(entidadId, 10))
     success(req, res, response)
   } catch (error) {
     next(error)
@@ -46,9 +46,10 @@ export const createUpdateProyecto = async (req: Request, res: Response, next: Ne
 
 export const updateProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params
+    const { id, entidadId } = req.query
+    // const id = req.query?.id
     const changes = req.body
-    const respose = await serviceProyecto.update(id, changes)
+    const respose = await serviceProyecto.update(id, entidadId, changes)
     success(req, res, respose)
   } catch (error) {
     next(error)
@@ -57,8 +58,9 @@ export const updateProyecto = async (req: Request, res: Response, next: NextFunc
 
 export const deleteProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params
-    const response = await serviceProyecto.delete(id)
+    console.log('delete:', req.query)
+    const { id, entidadId } = req.query
+    const response = await serviceProyecto.delete(id, entidadId)
     success(req, res, response)
   } catch (error) {
     next(error)

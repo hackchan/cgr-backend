@@ -195,11 +195,11 @@ class MatrizProyectoDTO {
     }
   }
 
-  async findOne (id: string): Promise<MatrizProyectos> {
+  async findOne (id: string, entidadId: number): Promise<MatrizProyectos> {
     try {
       const obra = await this.repositorioMatrizProyecto.findOne({
         where:
-        { idBpin: id }
+        { idBpin: id, entidad: { id: entidadId } }
       })
       if (obra == null) {
         throw boom.notFound('Proyecto no encontrado')
@@ -212,9 +212,9 @@ class MatrizProyectoDTO {
     }
   }
 
-  async update (id: string, changes: any): Promise<MatrizProyectos> {
+  async update (id: any, entidadId: any, changes: any): Promise<MatrizProyectos> {
     try {
-      const obra = await this.findOne(id)
+      const obra = await this.findOne(id, entidadId)
       // const result = await this.repositorio.update({ id: tipoUser.id }, changes)
       this.repositorioMatrizProyecto.merge(obra, changes)
       const result = await this.repositorioMatrizProyecto.save(obra)
@@ -225,9 +225,9 @@ class MatrizProyectoDTO {
     }
   }
 
-  async delete (id: string): Promise<MatrizProyectos> {
+  async delete (id: any, entidadId: any): Promise<MatrizProyectos> {
     try {
-      const obra = await this.findOne(id)
+      const obra = await this.findOne(id, entidadId)
       const response = this.repositorioMatrizProyecto.remove(obra)
       return await response
     } catch (error) {
