@@ -30,7 +30,7 @@ class SectorObraDTO {
       const options: any = {
 
         where: {},
-        order: {}
+        order: { id: 'ASC' }
       }
       const { take, skip, globalFilter, filters, sorting } = query
 

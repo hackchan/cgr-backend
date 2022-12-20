@@ -36,11 +36,15 @@ class MatrizProyectoDTO {
         const chunksArray = this.getArrayAsChunks(data, 10)
         for (const obraChunk of chunksArray) {
           for (const obra of obraChunk) {
-            const obraItem = await this.repositorioMatrizProyecto.findOne({ where: { idBpin: obra.idBpin, entidad: { id: obra.entidad } } })
-            if (obraItem == null) {
+            // const obraItem = await this.repositorioMatrizProyecto.findOne({ where: { idBpin: obra.idBpin, entidad: obra.entidad } })
+            const obraItem = await this.findOne(obra.idBpin, obra.entidad)
+            if (obraItem === null) {
               const newObra = this.repositorioMatrizProyecto.create(obra)
               await this.repositorioMatrizProyecto.save(newObra)
             } else {
+              delete obra.entidad
+              delete obra.entidad_id
+              delete obra.idBpin
               this.repositorioMatrizProyecto.merge(obraItem, obra)
               await this.repositorioMatrizProyecto.save(obraItem)
             }
@@ -73,7 +77,7 @@ class MatrizProyectoDTO {
       const options: any = {
         relations: { sector: true, entidad: true, userOper: true, userAlert: true },
         where: {},
-        order: {}
+        order: { updatedAt: 'DESC' }
       }
       const { take, skip, globalFilter, filters, sorting } = query
 
