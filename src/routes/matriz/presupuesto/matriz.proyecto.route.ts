@@ -6,8 +6,8 @@ import passport from 'passport'
 import { checkRoles, isAdmin } from '../../../middlewares/auth.handler'
 const router = Router()
 
-router.get('/', getProyectos as RequestHandler)
-router.get('/:id', getProyecto as RequestHandler)
+router.get('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), isAdmin(), getProyectos as RequestHandler)
+router.get('/:id', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'), validatorHandler(getMatrizProyectoSchema, 'params'), getProyecto as RequestHandler)
 router.post('/', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), validatorHandler(createMatrizProyecto, 'body'), createProyecto as RequestHandler)
 router.post('/upsert', checkRoles('ADMIN', 'JEDI', 'ENTIDAD'), createUpdateProyecto as RequestHandler)
 router.patch('/update', passport.authenticate('jwt', { session: false, failWithError: true }), checkRoles('ADMIN', 'JEDI', 'ENTIDAD', 'INFORMACION', 'ANALISIS', 'URI'),

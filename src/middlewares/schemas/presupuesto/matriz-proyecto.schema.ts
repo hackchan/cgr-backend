@@ -23,6 +23,13 @@ const entidad = Joi.number().integer().min(1).options({ convert: false }).messag
   'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
 })
 
+const entidad_id = Joi.number().integer().min(1).options({ convert: false }).messages({
+  'number.base': '{{#label}} debe ser un numero',
+  'number.integer': '{{#label}} debe ser un entero',
+  'number.max': 'el valor de {{#label}} debe ser menor o igual a {{#limit}}',
+  'number.min': 'el valor de {{#label}} debe ser mayor o igual a {{#limit}}'
+})
+
 const sector = Joi.number().integer().min(1).options({ convert: false }).messages({
   'number.base': '{{#label}} debe ser un numero',
   'number.integer': '{{#label}} debe ser un entero',
@@ -63,7 +70,7 @@ const dependenciaProyecto = Joi.string().trim().min(3).max(64).regex(/(^[a-zA-Z�
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
 
-const descripcion = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ. ]*[a-zA-Z-_Ññ. ]*[a-zA-ZÑñ. ]$)/).messages({
+const descripcion = Joi.string().trim().min(3).max(300).regex(/(^[0-9a-zA-ZÀ-ÿÑñ.%,\r\n ]*[0-9a-zA-ZÀ-ÿ-_Ññ.%$,\r\n ]*[0-9a-zA-ZÀ-ÿÑñ.%$,\r\n ]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -73,7 +80,7 @@ const descripcion = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ. ]*
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
 
-const objetivoGeneral = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ. ]*[a-zA-Z-_Ññ. ]*[a-zA-ZÑñ. ]$)/).messages({
+const objetivoGeneral = Joi.string().trim().min(3).max(300).regex(/(^[0-9a-zA-ZÀ-ÿÑñ.%,\r\n ]*[0-9a-zA-ZÀ-ÿ-_Ññ.%$,\r\n ]*[0-9a-zA-ZÀ-ÿÑñ.%$,\r\n ]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -83,7 +90,7 @@ const objetivoGeneral = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ
   'string.min': 'La longitud de {{#label}} debe tener al menos {{#limit}} caracteres'
 })
 
-const programaPlanDesarrollo = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ. ]*[a-zA-Z-_Ññ. ]*[a-zA-ZÑñ. ]$)/).messages({
+const programaPlanDesarrollo = Joi.string().trim().min(3).max(300).regex(/(^[0-9a-zA-ZÀ-ÿÑñ.%,\r\n ]*[0-9a-zA-ZÀ-ÿ-_Ññ.%$,\r\n ]*[0-9a-zA-ZÀ-ÿÑñ.%$,\r\n ]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -100,7 +107,7 @@ const fechaInicioEjecucion = Joi.date().format('YYYY-MM-DD').messages({
 const fechaCierreEjecucion = Joi.date().format('YYYY-MM-DD').messages({
   'date.format': '{{#label}} debe ser un fecha valida con formato YYYY-MM-DD'
 })
-const observaciones = Joi.string().trim().min(3).max(300).regex(/(^[a-zA-ZÑñ. ]*[a-zA-Z-_Ññ. ]*[a-zA-ZÑñ. ]$)/).messages({
+const observaciones = Joi.string().trim().min(3).max(300).regex(/(^[0-9a-zA-ZÀ-ÿÑñ.%,\r\n ]*[0-9a-zA-ZÀ-ÿ-_Ññ.%$,\r\n ]*[0-9a-zA-ZÀ-ÿÑñ.%$,\r\n ]$)/).messages({
   'string.alphanum': '{{#label}} solo debe contener caracteres alfanuméricos',
   'string.base': '{{#label}} debe ser un cadena',
   'string.empty': '{{#label}} No se permite estar vacía',
@@ -131,7 +138,8 @@ export const createMatrizProyecto = Joi.array().items(Joi.object({
   fechaInicioEjecucion: fechaInicioEjecucion.required(),
   fechaCierreEjecucion: fechaCierreEjecucion.required(),
   observaciones: observaciones.required(),
-  userOper
+  userOper,
+  entidad_id
 
 }))
 
@@ -149,7 +157,8 @@ export const updateMatrizProyecto = Joi.object({
   fechaInicioEjecucion,
   fechaCierreEjecucion,
   observaciones,
-  userOper
+  userOper,
+  entidad_id
 })
 
 export const getMatrizProyectoSchema = Joi.object({

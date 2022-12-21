@@ -37,7 +37,10 @@ class MatrizProyectoDTO {
         for (const obraChunk of chunksArray) {
           for (const obra of obraChunk) {
             // const obraItem = await this.repositorioMatrizProyecto.findOne({ where: { idBpin: obra.idBpin, entidad: obra.entidad } })
-            const obraItem = await this.findOne(obra.idBpin, obra.entidad)
+            // const obraItem = await this.findOne(obra.idBpin, obra.entidad)
+            const obraItem = await this.repositorioMatrizProyecto.findOne({
+              where: { idBpin: obra.idBpin, entidad: { id: obra.entidad } }
+            })
             if (obraItem === null) {
               const newObra = this.repositorioMatrizProyecto.create(obra)
               await this.repositorioMatrizProyecto.save(newObra)
