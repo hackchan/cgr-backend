@@ -14,6 +14,12 @@ export class MatrizContratacion {
   @PrimaryColumn({ name: 'id_contrato' })
     idContrato: string
 
+  @PrimaryColumn()
+    id_bpin: string
+
+  @PrimaryColumn()
+    entidad_id: number
+
   @ManyToOne(() => MatrizProyectos, proyecto => proyecto.contratos, { nullable: false })
   @JoinColumn([
     { name: 'id_bpin', referencedColumnName: 'idBpin' },

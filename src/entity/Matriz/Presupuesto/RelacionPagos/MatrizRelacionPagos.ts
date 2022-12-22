@@ -2,7 +2,6 @@ import { IsDate } from 'class-validator'
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Transform } from 'class-transformer'
 import { User } from '../../../UserManagement/User'
-import { EntidadControl } from '../../../Entidad/EntidadControl'
 import { MatrizRelacionCompromisos } from '../RelacionCompromisos/MatrizRelacionCompromisos'
 import { MatrizContratacion } from '../Contratacion/MatrizContratacion'
 @Entity('relacionpagos')
@@ -12,12 +11,12 @@ export class MatrizRelacionPagos {
   @PrimaryColumn({ name: 'id_pago' })
     idCdp: string
 
-  @PrimaryColumn()
-    entidad_id: number
+  // @PrimaryColumn()
+  //   entidad_id: number
 
-  @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
-  @JoinColumn({ name: 'entidad_id' })
-    entidad: EntidadControl
+  // @ManyToOne(() => EntidadControl, entidad => entidad.proyectos, { nullable: false })
+  // @JoinColumn({ name: 'entidad_id' })
+  //   entidad: EntidadControl
 
   @Column({ name: 'fecha_pago', type: 'date', nullable: false })
   @IsDate()
@@ -94,11 +93,31 @@ export class MatrizRelacionPagos {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @ManyToOne(() => MatrizRelacionCompromisos, compro => compro.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_compromiso', referencedColumnName: 'idCompromiso' })
-    compromiso: MatrizRelacionCompromisos
+  @PrimaryColumn()
+    id_contrato: string
+
+  @PrimaryColumn()
+    id_bpin: string
+
+  @PrimaryColumn()
+    entidad_id: number
 
   @ManyToOne(() => MatrizContratacion, contrato => contrato.pagos, { nullable: false, cascade: true })
-  @JoinColumn({ name: 'id_contrato', referencedColumnName: 'idContrato' })
+  @JoinColumn([
+    { name: 'id_contrato', referencedColumnName: 'idContrato' },
+    { name: 'id_bpin', referencedColumnName: 'id_bpin' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }])
     contrato: MatrizContratacion
+
+  @ManyToOne(() => MatrizRelacionCompromisos, compro => compro.pagos, { nullable: false, cascade: true })
+  @JoinColumn([
+    { name: 'id_compromiso', referencedColumnName: 'idCompromiso' },
+    { name: 'id_cdp', referencedColumnName: 'id_cdp' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }
+  ])
+    compromiso: MatrizRelacionCompromisos
+
+  // @ManyToOne(() => MatrizContratacion, contrato => contrato.pagos, { nullable: false, cascade: true })
+  // @JoinColumn({ name: 'id_contrato', referencedColumnName: 'idContrato' })
+  //   contrato: MatrizContratacion
 }

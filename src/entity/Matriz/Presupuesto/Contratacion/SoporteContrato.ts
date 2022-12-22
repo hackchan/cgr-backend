@@ -9,8 +9,14 @@ export class SoportesContrato {
     id: number
 
   @ManyToOne(() => MatrizContratacion, { nullable: false })
-  @JoinColumn({ name: 'id_contrato' })
-    idContrato: MatrizContratacion
+  @JoinColumn([
+    { name: 'id_contrato', referencedColumnName: 'idContrato' },
+    { name: 'id_bpin', referencedColumnName: 'id_bpin' },
+    { name: 'entidad_id', referencedColumnName: 'entidad_id' }])
+    contrato: MatrizContratacion
+  // @ManyToOne(() => MatrizContratacion, { nullable: false })
+  // @JoinColumn({ name: 'id_contrato' })
+  //   idContrato: MatrizContratacion
 
   @ManyToOne(() => EntidadControl, entidad => entidad.soportes, { nullable: false })
   @JoinColumn({ name: 'entidad_id' })

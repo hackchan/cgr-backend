@@ -87,8 +87,8 @@ export class EntidadControl {
   @OneToMany(() => SoportesContrato, soporte => soporte.entidad)
     soportes: SoportesContrato[]
 
-  @OneToMany(() => MatrizRelacionPagos, proyecto => proyecto.entidad)
-    pagos: MatrizRelacionPagos[]
+  // @OneToMany(() => MatrizRelacionPagos, proyecto => proyecto.entidad)
+  //   pagos: MatrizRelacionPagos[]
 
   // @OneToMany(() => MatrizRelacionCompromisos, proyecto => proyecto.entidad)
   //   compromisos: MatrizRelacionCompromisos[]

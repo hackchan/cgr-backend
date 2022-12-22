@@ -13,6 +13,12 @@ export class MatrizRelacionCompromisos {
   @PrimaryColumn({ name: 'id_compromiso' })
     idCompromiso: string
 
+  @PrimaryColumn()
+    id_cdp: string
+
+  @PrimaryColumn()
+    entidad_id: number
+
   @ManyToOne(() => MatrizCDPs, cdp => cdp.compromisos, { nullable: false })
   @JoinColumn([
     { name: 'id_cdp', referencedColumnName: 'idCdp' },
