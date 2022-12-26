@@ -11,6 +11,6 @@ export const updateFormaContratoSchema = Joi.object({
   name
 })
 
-export const getClaseFormatoSchema = Joi.object({
+export const getFormaContratoSchema = Joi.object({
   id: id.required()
 })

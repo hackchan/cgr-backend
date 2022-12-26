@@ -7,7 +7,7 @@ const serviceSatelital = new SatelitalService()
 
 export const getSatelitales = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response = await serviceSatelital.findAll()
+    const response = await serviceSatelital.findAll(req.query)
     success(req, res, response)
   } catch (error) {
     next(error)

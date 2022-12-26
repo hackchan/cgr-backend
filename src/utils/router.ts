@@ -29,6 +29,11 @@ import TipoDoc from '../routes/matriz/ies/tipodoc.ies.routes'
 import Proyecto from '../routes/matriz/presupuesto/matriz.proyecto.route'
 import sectorProyecto from '../routes/matriz/presupuesto/sector.proyecto.routes'
 
+import ClaseContrato from '../routes/matriz/presupuesto/clase.contrato.routes'
+import EstadoContrato from '../routes/matriz/presupuesto/estado.contrato.routes'
+import FormaContrato from '../routes/matriz/presupuesto/forma.contrato.routes'
+import MatrizContratacion from '../routes/matriz/presupuesto/matriz.contratacion.route'
+
 const routers = (app: any): void => {
   const router = Router()
   app.use('/api/v2', router)
@@ -59,6 +64,11 @@ const routers = (app: any): void => {
 
   router.use('/proyecto', Proyecto)
   router.use('/sector-proyecto', sectorProyecto)
+
+  router.use('/clase-contrato', ClaseContrato)
+  router.use('/estado-contrato', EstadoContrato)
+  router.use('/forma-contrato', FormaContrato)
+  router.use('/contratacion', MatrizContratacion)
 }
 
 export default routers

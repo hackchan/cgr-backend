@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import boom from '@hapi/boom'
 import { AppDataSource } from '../db'
-import { Repository } from 'typeorm'
+import { Repository, Like } from 'typeorm'
 import { Satelital } from '../entity/Departments/Satelital'
 import { CreateUserDTO } from '../entityTypes/user.dto'
 
@@ -24,10 +26,75 @@ class UserSatelital {
     }
   }
 
-  async findAll (): Promise<Satelital[]> {
+  async findAll (query: any): Promise<any> {
     try {
-      const sateList = await this.repositorioSatelital.find()
-      return sateList
+      const options: any = {
+
+        where: {},
+        order: { id: 'ASC' }
+      }
+      const { take, skip, globalFilter, filters, sorting } = query
+
+      let isGlobalFilter = false
+      if (globalFilter && globalFilter.length > 0) {
+        isGlobalFilter = true
+      }
+
+      let isFilters = false
+      let filtersColumn = null
+      if (filters) {
+        filtersColumn = JSON.parse(filters) ?? null
+        if (filters && filtersColumn.length > 0) {
+          isFilters = true
+        }
+      }
+
+      let isSorting = false
+      let sortingColumn = null
+      if (sorting) {
+        sortingColumn = JSON.parse(sorting) ?? null
+        if (sorting && sortingColumn.length > 0) {
+          isSorting = true
+        }
+      }
+
+      if (take !== null && skip !== null && !isGlobalFilter && !isFilters && !isSorting) {
+        options.take = take
+        options.skip = skip
+        options.cache = true
+      }
+      if (isGlobalFilter) {
+        options.where = [
+          { id: Like(`%${globalFilter}%`) },
+          { name: Like(`%${globalFilter}%`) }
+        ]
+      }
+
+      if (isFilters) {
+        const pushWhere: any[] = []
+        filtersColumn.forEach((obj: any) => {
+          const bus: any = {}
+          bus[obj.id] = Like(`%${obj.value}%`)
+          pushWhere.push(bus)
+        })
+
+        options.where = pushWhere
+      }
+
+      if (isSorting) {
+        const sort: any = {}
+        sortingColumn.forEach((obj: any) => {
+          sort[obj.id] = obj.desc === true ? 'DESC' : 'ASC'
+        })
+
+        options.order = sort
+      }
+
+      const estadoClaseList = await this.repositorioSatelital.find(options)
+      const cantidad = await this.repositorioSatelital.count()
+      const response = { cantidad, data: estadoClaseList }
+      // console.log(response)
+      return response
     } catch (error) {
       console.log(error)
       throw error
