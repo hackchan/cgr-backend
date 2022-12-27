@@ -77,7 +77,7 @@ class MatrizContratacionDTO {
   async findAll (query: any, userData: any): Promise<any> {
     try {
       const options: any = {
-        relations: { sector: true, entidad: true, userOper: true, userAlert: true },
+        relations: { proyecto: { entidad: true }, fuenteRecurso: true, formaContratacion: true, claseContrato: true, estado: true, userOper: true, userAlert: true },
         where: {},
         order: { updatedAt: 'DESC' }
       }
@@ -200,17 +200,17 @@ class MatrizContratacionDTO {
 
       const obrasList = await this.repositorioMatrizContratacion.findAndCount(options)
       const responseData = JSON.parse(JSON.stringify(obrasList[0]))
-      let dataFinish = responseData
-      if (userData) {
-        const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
-        const entidadesArray = resUser.entidades.map((entidad: any) => {
-          return entidad.id
-        })
-        const filterData = responseData.filter((mat: any) => {
-          return entidadesArray.includes(mat.entidad.id)
-        })
-        dataFinish = userData.isAdmin ? responseData : filterData
-      }
+      const dataFinish = responseData
+      // if (userData) {
+      //   const resUser = await serviceUser.findEntidadesByUserId(userData.sub)
+      //   const entidadesArray = resUser.entidades.map((entidad: any) => {
+      //     return entidad.id
+      //   })
+      //   const filterData = responseData.filter((mat: any) => {
+      //     return entidadesArray.includes(mat.entidad.id)
+      //   })
+      //   dataFinish = userData.isAdmin ? responseData : filterData
+      // }
       const response = { cantidad: obrasList[1], data: dataFinish }
 
       return response

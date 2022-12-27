@@ -204,7 +204,7 @@ export class MatrizContratacion {
   @Transform(({ value }) => value.toUpperCase())
     observaciones: string
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
     alerta: boolean = false
 
   @ManyToOne(() => User, { nullable: true })
