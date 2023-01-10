@@ -93,7 +93,6 @@ class UserSatelital {
       const estadoClaseList = await this.repositorioSatelital.find(options)
       const cantidad = await this.repositorioSatelital.count()
       const response = { cantidad, data: estadoClaseList }
-      // console.log(response)
       return response
     } catch (error) {
       console.log(error)

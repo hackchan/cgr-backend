@@ -24,6 +24,20 @@ export const getProyecto = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
+export const getProyectoByEntidad = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log('entro a obtener proyectos de una entidad')
+    console.log('reg.params:', req.params)
+    console.log('reg.users:', req.user)
+    console.log('reg.query:', req.query)
+    const { id } = req.params
+    const response = await serviceProyecto.findProyectsByEntidadId(parseInt(id, 10))
+    success(req, res, response)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const createProyecto = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const obra = req.body

@@ -5,8 +5,10 @@ import { AppDataSource } from '../../../db'
 import { Repository, Like, Equal, Between } from 'typeorm'
 import { MatrizContratacion } from '../../../entity/Matriz/Presupuesto/Contratacion/MatrizContratacion'
 import UserService from '../../user.services'
+import ProyectoService from '../../matriz/presupuesto/matriz.proyecto.service'
 
 const serviceUser = new UserService()
+const serviceProyecto = new ProyectoService()
 // import { validate } from 'class-validator'
 
 class MatrizContratacionDTO {

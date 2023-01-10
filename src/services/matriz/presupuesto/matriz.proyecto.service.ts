@@ -219,6 +219,26 @@ class MatrizProyectoDTO {
     }
   }
 
+  async findProyectsByEntidadId (entidadId: any): Promise<any> {
+    try {
+      const options: any = {
+        relations: { entidad: true },
+        where: { entidad: { id: `${entidadId}` } },
+        order: {}
+      }
+
+      const proyectos = await this.repositorioMatrizProyecto.find(options)
+      if (proyectos == null) {
+        throw boom.notFound('Proyectos no encontrado')
+      }
+      // console.log(response)
+      return proyectos
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
   async update (id: any, entidadId: any, changes: any): Promise<MatrizProyectos> {
     try {
       const obra = await this.findOne(id, entidadId)
